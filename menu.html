@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menú | Rosti Costa Rica</title>
+    <meta name="description" content="Conocé el menú completo de Rosti Costa Rica: pollo asado, casados, sopas, ensaladas, postres y mucho más.">
+    <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header class="site-header">
+        <div class="top-bar">
+            <div class="container">
+                <div class="top-bar-info">
+                    <span class="always"><i class="fas fa-phone"></i> +506 2217-8787</span>
+                    <span><i class="fas fa-envelope"></i> servicioalcliente@rosti.cr</span>
+                    <span><i class="fas fa-clock"></i> Lun-Sáb 11:00-21:00 · Dom 11:00-20:00</span>
+                </div>
+                <div class="top-bar-social">
+                    <a href="https://www.facebook.com/Rosticr/" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.instagram.com/rosti_cr/" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <nav class="navbar" aria-label="Navegación principal">
+                <a href="index.html" class="logo">
+                    <span class="logo-mark">R</span>
+                    <span>ROSTI<span class="logo-tagline">Costa Rica</span></span>
+                </a>
+                <button class="menu-toggle" aria-label="Abrir menú" aria-expanded="false"><i class="fas fa-bars"></i></button>
+                <ul class="nav-menu">
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="menu.html">Menú</a></li>
+                    <li><a href="promociones.html">Promociones</a></li>
+                    <li><a href="locales.html">Locales</a></li>
+                    <li><a href="nosotros.html">Nosotros</a></li>
+                    <li><a href="empleos.html">Empleos</a></li>
+                    <li><a href="contacto.html">Contacto</a></li>
+                    <li><a href="locales.html" class="nav-cta"><i class="fas fa-map-marker-alt"></i> Encontrá tu Rosti</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- PAGE HEADER -->
+    <section class="page-header">
+        <div class="container">
+            <h1>Nuestro Menú</h1>
+            <p>Recetas hechas a mano con ingredientes frescos y locales. Descubrí los sabores que nos hacen únicos.</p>
+            <div class="breadcrumbs"><a href="index.html">Inicio</a> &raquo; Menú</div>
+        </div>
+    </section>
+
+    <!-- MENÚ COMPLETO -->
+    <section class="menu-section">
+        <div class="container">
+            <div class="categories-bar">
+                <button class="category-btn active" data-category="todos">Todos</button>
+                <button class="category-btn" data-category="clasicos">Clásicos de Rosti</button>
+                <button class="category-btn" data-category="dia-a-dia">Rosti Día a Día</button>
+                <button class="category-btn" data-category="sopas">Sopas</button>
+                <button class="category-btn" data-category="ensaladas">Ensaladas</button>
+                <button class="category-btn" data-category="familiares">Familiares</button>
+                <button class="category-btn" data-category="bebidas">Bebidas</button>
+                <button class="category-btn" data-category="postres">Postres</button>
+            </div>
+
+            <div class="menu-grid">
+
+                <!-- Clásicos -->
+                <article class="menu-card" data-category="clasicos">
+                    <div class="menu-card-image" style="background-image:url('images/dish-placeholder.svg')">
+                        <span class="menu-card-badge">Más vendido</span>
+                    </div>
+                    <div class="menu-card-body">
+                        <h3>Pollo Asado Entero</h3>
+                        <p>Pollo asado lentamente, tortilla a mano, ensalada de repollo y dos guarniciones a elección.</p>
+                        <div class="menu-card-footer">
+                            <span class="menu-price">¢12.500</span>
+                            <span class="menu-tag">1.2 kg</span>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="menu-card" data-category="clasicos">
+                    <div class="menu-card-image" style="background-image:url('images/dish-placeholder.svg')"></div>
+                    <div class="menu-card-body">
+                        <h3>Medio Pollo Asado</h3>
+                        <p>Medio pollo asado, tortilla a mano, repollo y dos guarniciones a elección.</p>
+                        <div class="menu-card-footer">
+                            <span class="menu-price">¢7.200</span>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="menu-card" data-category="clasicos">
+                    <div class="menu-card-image" style="background-image:url('images/dish-placeholder.svg')"></div>
+                    <div class="menu-card-body">
+                        <h3>Cuarto de Pollo</h3>
+                        <p>Cuarto de pollo (pierna o pechuga), tortilla, ensalada y una guarnición.</p>
+                        <div class="menu-card-footer">
+                            <span class="menu-price">¢4.500</span>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="menu-card" data-category="clasicos">
+                    <div class="menu-card-image" style="background-image:url('images/dish-placeholder.svg')">
+                        <span class="menu-card-badge">Tradicional</span>
+                    </div>
+                    <div class="menu-card-body">
+                        <h3>Patacones con Frijoles</h3>
+                        <p>Patacones crocantes con frijoles molidos y piquitos de queso fresco.</p>
+                        <div class="menu-card-footer">
+                            <span class="menu-price">¢3.900</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Día a día -->
+                <article class="menu-card" data-category="dia-a-dia">
+                    <div class="menu-card-image" style="background-image:url('images/dish-placeholder.svg')"></div>
+                    <div class="menu-card-body">
+                        <h3>Casado Rosti</h3>
+                        <p>Arroz, frijoles, plátano maduro, ensalada y pollo asado de la casa.</p>
+                        <div class="menu-card-footer">
+                            <span class="menu-price">¢5.900</span>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="menu-card" data-category="dia-a-dia">
+                    <div class="menu-card-image" style="background-image:url('images/dish-placeholder.svg')">
+                        <span class="menu-card-badge">Nuevo</span>
+                    </div>
+                    <div class="menu-card-body">
+                        <h3>Arroz con Pollo Fulleado</h3>
+                        <p>Nuestro clásico arroz con pollo, lleno de sabor y con todas las guarniciones.</p>
+                        <div class="menu-card-footer">
+                            <span class="menu-price">¢6.500</span>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="menu-card" data-category="dia-a-dia">
+                    <div class="menu-card-image" style="background-image:url('images/dish-placeholder.svg')"></div>
+                    <div class="menu-card-body">
+                        <h3>Fajitas de Pollo</h3>
+                        <p>Tiras de pollo asado con vegetales salteados, tortillas y aderezos.</p>
+                        <div class="menu-card-footer">
+                            <span class="menu-price">¢6.900</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Sopas -->
+                <article class="menu-card" data-category="sopas">
+                    <div class="menu-card-image" style="background-image:url('images/dish-placeholder.svg')"></div>
+                    <div class="menu-card-body">
+                        <h3>Sopa de Pollo</h3>
+                        <p>Caldo casero con pollo, vegetales frescos y arroz blanco.</p>
+                        <div class="menu-card-footer">
+                            <span class="menu-price">¢3.500</span>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="menu-card" data-category="sopas">
+                    <div class="menu-card-image" style="background-image:url('images/dish-placeholder.svg')"></div>
+                    <div class="menu-card-body">
+                        <h3>Olla de Carne</h3>
+                        <p>Tradicional olla de carne costarricense con vegetales y elote.</p>
+                        <div class="menu-card-footer">
+                            <span class="menu-price">¢5.200</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Ensaladas -->
+                <article class="menu-card" data-category="ensaladas">
+                    <div class="menu-card-image" style="background-image:url('images/dish-placeholder.svg')">
+                        <span class="menu-card-badge">Saludable</span>
+                    </div>
+                    <div class="menu-card-body">
+                        <h3>Ensalada César con Pollo</h3>
+                        <p>Lechugas frescas, pollo asado, queso parmesano y crutones.</p>
+                        <div class="menu-card-footer">
+                            <span class="menu-price">¢5.500</span>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="menu-card" data-category="ensaladas">
+                    <div class="menu-card-image" style="background-image:url('images/dish-placeholder.svg')"></div>
+                    <div class="menu-card-body">
+                        <h3>Ensalada de la Huerta</h3>
+                        <p>Mezcla de hojas verdes, vegetales frescos, queso fresco y aderezo de la casa.</p>
+                        <div class="menu-card-footer">
+                            <span class="menu-price">¢4.800</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Familiares -->
+                <article class="menu-card" data-category="familiares">
+                    <div class="menu-card-image" style="background-image:url('images/dish-placeholder.svg')">
+                        <span class="menu-card-badge">Para compartir</span>
+                    </div>
+                    <div class="menu-card-body">
+                        <h3>Combo Familiar</h3>
+                        <p>Pollo entero + 4 tortillas + arroz + frijoles + ensalada de repollo. Para 4 personas.</p>
+                        <div class="menu-card-footer">
+                            <span class="menu-price">¢18.900</span>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="menu-card" data-category="familiares">
+                    <div class="menu-card-image" style="background-image:url('images/dish-placeholder.svg')"></div>
+                    <div class="menu-card-body">
+                        <h3>Familiar Doble</h3>
+                        <p>2 pollos enteros + 8 tortillas + 4 guarniciones + 4 bebidas. Para 6-8 personas.</p>
+                        <div class="menu-card-footer">
+                            <span class="menu-price">¢32.500</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Bebidas -->
+                <article class="menu-card" data-category="bebidas">
+                    <div class="menu-card-image" style="background-image:url('images/dish-placeholder.svg')"></div>
+                    <div class="menu-card-body">
+                        <h3>Refrescos Naturales</h3>
+                        <p>Cas, mora, fresa, maracuyá. Hechos con frutas frescas y agua o leche.</p>
+                        <div class="menu-card-footer">
+                            <span class="menu-price">¢1.500</span>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="menu-card" data-category="bebidas">
+                    <div class="menu-card-image" style="background-image:url('images/dish-placeholder.svg')"></div>
+                    <div class="menu-card-body">
+                        <h3>Bebidas Embotelladas</h3>
+                        <p>Coca-Cola, Sprite, Fanta, Tropical y agua mineral.</p>
+                        <div class="menu-card-footer">
+                            <span class="menu-price">¢1.200</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Postres -->
+                <article class="menu-card" data-category="postres">
+                    <div class="menu-card-image" style="background-image:url('images/dish-placeholder.svg')"></div>
+                    <div class="menu-card-body">
+                        <h3>Tres Leches</h3>
+                        <p>Esponjoso bizcocho bañado en tres tipos de leche. Postre tradicional.</p>
+                        <div class="menu-card-footer">
+                            <span class="menu-price">¢2.500</span>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="menu-card" data-category="postres">
+                    <div class="menu-card-image" style="background-image:url('images/dish-placeholder.svg')"></div>
+                    <div class="menu-card-body">
+                        <h3>Flan de Coco</h3>
+                        <p>Flan casero con sabor a coco y caramelo dorado.</p>
+                        <div class="menu-card-footer">
+                            <span class="menu-price">¢2.300</span>
+                        </div>
+                    </div>
+                </article>
+
+            </div>
+
+            <div style="text-align:center; margin-top:50px; background:var(--rosti-cream); padding:30px; border-radius:14px;">
+                <p style="font-size:1.1rem; margin-bottom:12px;"><i class="fas fa-info-circle" style="color:var(--rosti-red);"></i> Los precios pueden variar según la sucursal. Llamá para más información.</p>
+                <a href="locales.html" class="btn btn-primary" style="background:var(--rosti-red); color:#fff;">Encontrá tu Rosti más cercano <i class="fas fa-map-marker-alt"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="logo" style="margin-bottom:18px;">
+                        <span class="logo-mark">R</span>
+                        <span style="color:#fff;">ROSTI<br><span class="logo-tagline" style="color:#bbb;">Costa Rica</span></span>
+                    </div>
+                    <p>Más de 40 años llevando el mejor pollo asado a las mesas costarricenses.</p>
+                    <div class="footer-social">
+                        <a href="https://www.facebook.com/Rosticr/"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://www.instagram.com/rosti_cr/"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-tiktok"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Explorar</h4>
+                    <ul>
+                        <li><a href="index.html">Inicio</a></li>
+                        <li><a href="menu.html">Menú</a></li>
+                        <li><a href="promociones.html">Promociones</a></li>
+                        <li><a href="locales.html">Locales</a></li>
+                        <li><a href="nosotros.html">Nosotros</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Información</h4>
+                    <ul>
+                        <li><a href="empleos.html">Empleos</a></li>
+                        <li><a href="reglamentos.html">Reglamentos</a></li>
+                        <li><a href="contacto.html">Contacto</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contacto</h4>
+                    <ul>
+                        <li><i class="fas fa-phone"></i> +506 2217-8787</li>
+                        <li><i class="fas fa-mobile-alt"></i> +506 7051-8405</li>
+                        <li><i class="fas fa-envelope"></i> servicioalcliente@rosti.cr</li>
+                        <li><i class="fas fa-map-marker-alt"></i> San José, Costa Rica</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; <span id="current-year">2026</span> Corporación Rosti, Costa Rica. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

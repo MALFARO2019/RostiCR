@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacto | Rosti Costa Rica</title>
+    <meta name="description" content="Contactanos para reservaciones, comentarios o consultas. Estamos aquí para servirte.">
+    <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+    <header class="site-header">
+        <div class="top-bar">
+            <div class="container">
+                <div class="top-bar-info">
+                    <span class="always"><i class="fas fa-phone"></i> +506 2217-8787</span>
+                    <span><i class="fas fa-envelope"></i> servicioalcliente@rosti.cr</span>
+                    <span><i class="fas fa-clock"></i> Lun-Sáb 11:00-21:00 · Dom 11:00-20:00</span>
+                </div>
+                <div class="top-bar-social">
+                    <a href="https://www.facebook.com/Rosticr/"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.instagram.com/rosti_cr/"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-tiktok"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <nav class="navbar">
+                <a href="index.html" class="logo">
+                    <span class="logo-mark">R</span>
+                    <span>ROSTI<span class="logo-tagline">Costa Rica</span></span>
+                </a>
+                <button class="menu-toggle" aria-label="Abrir menú"><i class="fas fa-bars"></i></button>
+                <ul class="nav-menu">
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="menu.html">Menú</a></li>
+                    <li><a href="promociones.html">Promociones</a></li>
+                    <li><a href="locales.html">Locales</a></li>
+                    <li><a href="nosotros.html">Nosotros</a></li>
+                    <li><a href="empleos.html">Empleos</a></li>
+                    <li><a href="contacto.html">Contacto</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="page-header">
+        <div class="container">
+            <h1>Contactanos</h1>
+            <p>Tu opinión y tus consultas son muy importantes para nosotros.</p>
+            <div class="breadcrumbs"><a href="index.html">Inicio</a> &raquo; Contacto</div>
+        </div>
+    </section>
+
+    <section class="form-section">
+        <div class="container">
+            <div id="form-success" style="display:none; max-width:800px; margin:0 auto 30px; padding:20px; background:#E8F5E9; border-left:5px solid #2E7D32; border-radius:8px;">
+                <strong><i class="fas fa-check-circle" style="color:#2E7D32;"></i> ¡Mensaje enviado!</strong>
+                <p style="margin-top:8px;">Gracias por contactarnos. Te responderemos lo antes posible.</p>
+            </div>
+
+            <div class="contact-grid">
+                <div class="contact-info-block">
+                    <h3>Información de contacto</h3>
+                    <p style="margin-bottom:25px;">Estamos disponibles de lunes a domingo para atender tus consultas.</p>
+
+                    <div class="contact-info-item">
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <h4>Teléfono</h4>
+                            <a href="tel:+50622178787">+506 2217-8787</a>
+                        </div>
+                    </div>
+                    <div class="contact-info-item">
+                        <i class="fas fa-mobile-alt"></i>
+                        <div>
+                            <h4>WhatsApp</h4>
+                            <a href="https://wa.me/50670518405">+506 7051-8405</a>
+                        </div>
+                    </div>
+                    <div class="contact-info-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <h4>Correo</h4>
+                            <a href="mailto:servicioalcliente@rosti.cr">servicioalcliente@rosti.cr</a>
+                        </div>
+                    </div>
+                    <div class="contact-info-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <h4>Oficinas centrales</h4>
+                            <p>San José, Costa Rica</p>
+                        </div>
+                    </div>
+                    <div class="contact-info-item">
+                        <i class="fas fa-clock"></i>
+                        <div>
+                            <h4>Horario de atención</h4>
+                            <p>Lun-Sáb 11:00 a.m. - 9:00 p.m.<br>Dom 11:00 a.m. - 8:00 p.m.</p>
+                        </div>
+                    </div>
+
+                    <div style="margin-top:30px;">
+                        <h4 style="color:var(--rosti-red-dark); margin-bottom:12px;">Seguinos en redes</h4>
+                        <div class="footer-social" style="margin:0;">
+                            <a href="https://www.facebook.com/Rosticr/" style="background:var(--rosti-red); color:#fff;"><i class="fab fa-facebook-f"></i></a>
+                            <a href="https://www.instagram.com/rosti_cr/" style="background:var(--rosti-red); color:#fff;"><i class="fab fa-instagram"></i></a>
+                            <a href="#" style="background:var(--rosti-red); color:#fff;"><i class="fab fa-tiktok"></i></a>
+                            <a href="#" style="background:var(--rosti-red); color:#fff;"><i class="fab fa-youtube"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 style="color:var(--rosti-red-dark); margin-bottom:25px;">Escribinos</h3>
+                    <form id="contact-form">
+                        <div class="form-group">
+                            <label for="name">Nombre completo *</label>
+                            <input type="text" id="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Correo electrónico *</label>
+                            <input type="email" id="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Teléfono</label>
+                            <input type="tel" id="phone">
+                        </div>
+                        <div class="form-group">
+                            <label for="subject">Asunto *</label>
+                            <select id="subject" required>
+                                <option value="">Seleccione un asunto</option>
+                                <option>Consulta general</option>
+                                <option>Reservación</option>
+                                <option>Comentario o sugerencia</option>
+                                <option>Reclamo</option>
+                                <option>Eventos corporativos</option>
+                                <option>Prensa y medios</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Mensaje *</label>
+                            <textarea id="message" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="background:var(--rosti-red); color:#fff;">Enviar mensaje <i class="fas fa-paper-plane"></i></button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="logo" style="margin-bottom:18px;">
+                        <span class="logo-mark">R</span>
+                        <span style="color:#fff;">ROSTI<br><span class="logo-tagline" style="color:#bbb;">Costa Rica</span></span>
+                    </div>
+                    <p>Más de 40 años llevando el mejor pollo asado a las mesas costarricenses.</p>
+                    <div class="footer-social">
+                        <a href="https://www.facebook.com/Rosticr/"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://www.instagram.com/rosti_cr/"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-tiktok"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Explorar</h4>
+                    <ul>
+                        <li><a href="index.html">Inicio</a></li>
+                        <li><a href="menu.html">Menú</a></li>
+                        <li><a href="promociones.html">Promociones</a></li>
+                        <li><a href="locales.html">Locales</a></li>
+                        <li><a href="nosotros.html">Nosotros</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Información</h4>
+                    <ul>
+                        <li><a href="empleos.html">Empleos</a></li>
+                        <li><a href="reglamentos.html">Reglamentos</a></li>
+                        <li><a href="contacto.html">Contacto</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contacto</h4>
+                    <ul>
+                        <li><i class="fas fa-phone"></i> +506 2217-8787</li>
+                        <li><i class="fas fa-envelope"></i> servicioalcliente@rosti.cr</li>
+                        <li><i class="fas fa-map-marker-alt"></i> San José, Costa Rica</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; <span id="current-year">2026</span> Corporación Rosti, Costa Rica. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

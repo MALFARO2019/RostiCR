@@ -1,0 +1,22 @@
+# Sistemas operativos
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+.idea/
+.vscode/
+
+# Node (por si se agrega un build futuro)
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Azure
+.azure/
+*.PublishSettings
+
+# Temporales
+*.log
+*.tmp
+.cache/
+dist/

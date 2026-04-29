@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Encontrá tu Rosti | Locales en Costa Rica</title>
+    <meta name="description" content="Encontrá el restaurante o ventanita Rosti más cercano. Tenemos locales en San José, Heredia, Alajuela y Cartago.">
+    <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+    <header class="site-header">
+        <div class="top-bar">
+            <div class="container">
+                <div class="top-bar-info">
+                    <span class="always"><i class="fas fa-phone"></i> +506 2217-8787</span>
+                    <span><i class="fas fa-envelope"></i> servicioalcliente@rosti.cr</span>
+                    <span><i class="fas fa-clock"></i> Lun-Sáb 11:00-21:00 · Dom 11:00-20:00</span>
+                </div>
+                <div class="top-bar-social">
+                    <a href="https://www.facebook.com/Rosticr/"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.instagram.com/rosti_cr/"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-tiktok"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <nav class="navbar">
+                <a href="index.html" class="logo">
+                    <span class="logo-mark">R</span>
+                    <span>ROSTI<span class="logo-tagline">Costa Rica</span></span>
+                </a>
+                <button class="menu-toggle" aria-label="Abrir menú"><i class="fas fa-bars"></i></button>
+                <ul class="nav-menu">
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="menu.html">Menú</a></li>
+                    <li><a href="promociones.html">Promociones</a></li>
+                    <li><a href="locales.html">Locales</a></li>
+                    <li><a href="nosotros.html">Nosotros</a></li>
+                    <li><a href="empleos.html">Empleos</a></li>
+                    <li><a href="contacto.html">Contacto</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="page-header">
+        <div class="container">
+            <h1>Encontrá tu Rosti</h1>
+            <p>Tenemos restaurantes y ventanitas en todo el Gran Área Metropolitana. ¡Buscá tu favorito!</p>
+            <div class="breadcrumbs"><a href="index.html">Inicio</a> &raquo; Locales</div>
+        </div>
+    </section>
+
+    <section class="locales-section">
+        <div class="container">
+            <div class="locales-search">
+                <input type="text" id="local-search" placeholder="🔍 Buscar por nombre o dirección...">
+                <select id="province-filter">
+                    <option value="todas">Todas las provincias</option>
+                    <option value="san-jose">San José</option>
+                    <option value="heredia">Heredia</option>
+                    <option value="alajuela">Alajuela</option>
+                    <option value="cartago">Cartago</option>
+                </select>
+                <select id="type-filter">
+                    <option value="todos">Todos los formatos</option>
+                    <option value="restaurante">Restaurantes</option>
+                    <option value="ventanita">Ventanitas</option>
+                </select>
+            </div>
+
+            <div id="empty-locales" style="display:none; text-align:center; padding:40px; background:#fff; border-radius:14px;">
+                <i class="fas fa-search" style="font-size:3rem; color:var(--rosti-gray);"></i>
+                <p style="margin-top:15px;">No se encontraron locales con esos criterios.</p>
+            </div>
+
+            <div class="locales-grid">
+
+                <!-- San José -->
+                <div class="local-card" data-province="san-jose">
+                    <h3>Rosti Sabana</h3>
+                    <div class="local-info"><i class="fas fa-map-marker-alt"></i> Sabana Sur, frente a Plaza Real Cariari, San José</div>
+                    <div class="local-info"><i class="fas fa-phone"></i> 2217-8787</div>
+                    <div class="local-info"><i class="fas fa-clock"></i> Lun-Dom 11:00 a.m. - 9:00 p.m.</div>
+                    <div class="local-actions">
+                        <a href="https://maps.google.com/?q=Rosti+Sabana" target="_blank"><i class="fas fa-directions"></i> Cómo llegar</a>
+                        <a href="tel:+50622178787"><i class="fas fa-phone"></i> Llamar</a>
+                    </div>
+                </div>
+
+                <div class="local-card" data-province="san-jose">
+                    <h3>Rosti Guadalupe</h3>
+                    <div class="local-info"><i class="fas fa-map-marker-alt"></i> Guadalupe centro, San José</div>
+                    <div class="local-info"><i class="fas fa-phone"></i> 2217-8787</div>
+                    <div class="local-info"><i class="fas fa-clock"></i> Lun-Dom 11:00 a.m. - 8:45 p.m.</div>
+                    <div class="local-actions">
+                        <a href="https://maps.google.com/?q=Rosti+Guadalupe" target="_blank"><i class="fas fa-directions"></i> Cómo llegar</a>
+                        <a href="tel:+50622178787"><i class="fas fa-phone"></i> Llamar</a>
+                    </div>
+                </div>
+
+                <div class="local-card" data-province="san-jose">
+                    <h3>Rosti Escazú</h3>
+                    <div class="local-info"><i class="fas fa-map-marker-alt"></i> San Rafael de Escazú, San José</div>
+                    <div class="local-info"><i class="fas fa-phone"></i> 2217-8787</div>
+                    <div class="local-info"><i class="fas fa-clock"></i> Lun 11:00-20:30 · Mar-Dom 11:00-20:45</div>
+                    <div class="local-actions">
+                        <a href="https://maps.google.com/?q=Rosti+Escazu" target="_blank"><i class="fas fa-directions"></i> Cómo llegar</a>
+                        <a href="tel:+50622178787"><i class="fas fa-phone"></i> Llamar</a>
+                    </div>
+                </div>
+
+                <div class="local-card" data-province="san-jose">
+                    <h3>Rosti San Pedro</h3>
+                    <div class="local-info"><i class="fas fa-map-marker-alt"></i> San Pedro, frente a la UCR, San José</div>
+                    <div class="local-info"><i class="fas fa-phone"></i> 2217-8787</div>
+                    <div class="local-info"><i class="fas fa-clock"></i> Lun-Dom 11:00 a.m. - 9:00 p.m.</div>
+                    <div class="local-actions">
+                        <a href="https://maps.google.com/?q=Rosti+San+Pedro" target="_blank"><i class="fas fa-directions"></i> Cómo llegar</a>
+                        <a href="tel:+50622178787"><i class="fas fa-phone"></i> Llamar</a>
+                    </div>
+                </div>
+
+                <div class="local-card" data-province="san-jose">
+                    <h3>Rosti Desamparados</h3>
+                    <div class="local-info"><i class="fas fa-map-marker-alt"></i> Desamparados centro, San José</div>
+                    <div class="local-info"><i class="fas fa-phone"></i> 2217-8787</div>
+                    <div class="local-info"><i class="fas fa-clock"></i> Lun-Dom 11:00 a.m. - 8:45 p.m.</div>
+                    <div class="local-actions">
+                        <a href="https://maps.google.com/?q=Rosti+Desamparados" target="_blank"><i class="fas fa-directions"></i> Cómo llegar</a>
+                        <a href="tel:+50622178787"><i class="fas fa-phone"></i> Llamar</a>
+                    </div>
+                </div>
+
+                <div class="local-card" data-province="san-jose">
+                    <h3>Rosti San Isidro</h3>
+                    <div class="local-info"><i class="fas fa-map-marker-alt"></i> San Isidro de Pérez Zeledón, San José</div>
+                    <div class="local-info"><i class="fas fa-phone"></i> 2217-8787</div>
+                    <div class="local-info"><i class="fas fa-clock"></i> Lun-Dom 11:00 a.m. - 8:45 p.m.</div>
+                    <div class="local-actions">
+                        <a href="https://maps.google.com/?q=Rosti+San+Isidro" target="_blank"><i class="fas fa-directions"></i> Cómo llegar</a>
+                        <a href="tel:+50622178787"><i class="fas fa-phone"></i> Llamar</a>
+                    </div>
+                </div>
+
+                <div class="local-card" data-province="san-jose">
+                    <h3>Ventanita Sabanilla</h3>
+                    <div class="local-info"><i class="fas fa-map-marker-alt"></i> Sabanilla de Montes de Oca, San José</div>
+                    <div class="local-info"><i class="fas fa-phone"></i> 2217-8787</div>
+                    <div class="local-info"><i class="fas fa-clock"></i> Lun-Dom 11:00 a.m. - 9:00 p.m.</div>
+                    <div class="local-actions">
+                        <a href="https://maps.google.com/?q=Ventanita+Sabanilla" target="_blank"><i class="fas fa-directions"></i> Cómo llegar</a>
+                        <a href="tel:+50622178787"><i class="fas fa-phone"></i> Llamar</a>
+                    </div>
+                </div>
+
+                <div class="local-card" data-province="san-jose">
+                    <h3>Ventanita Rohrmoser</h3>
+                    <div class="local-info"><i class="fas fa-map-marker-alt"></i> Rohrmoser, San José</div>
+                    <div class="local-info"><i class="fas fa-phone"></i> 2217-8787</div>
+                    <div class="local-info"><i class="fas fa-clock"></i> Lun-Dom 11:00 a.m. - 9:00 p.m.</div>
+                    <div class="local-actions">
+                        <a href="https://maps.google.com/?q=Ventanita+Rohrmoser" target="_blank"><i class="fas fa-directions"></i> Cómo llegar</a>
+                        <a href="tel:+50622178787"><i class="fas fa-phone"></i> Llamar</a>
+                    </div>
+                </div>
+
+                <div class="local-card" data-province="san-jose">
+                    <h3>Ventanita Los Yoses</h3>
+                    <div class="local-info"><i class="fas fa-map-marker-alt"></i> Los Yoses, San José</div>
+                    <div class="local-info"><i class="fas fa-phone"></i> 2217-8787</div>
+                    <div class="local-info"><i class="fas fa-clock"></i> Lun-Dom 11:00 a.m. - 9:00 p.m.</div>
+                    <div class="local-actions">
+                        <a href="https://maps.google.com/?q=Ventanita+Los+Yoses" target="_blank"><i class="fas fa-directions"></i> Cómo llegar</a>
+                        <a href="tel:+50622178787"><i class="fas fa-phone"></i> Llamar</a>
+                    </div>
+                </div>
+
+                <div class="local-card" data-province="san-jose">
+                    <h3>Ventanita Pozos de Santa Ana</h3>
+                    <div class="local-info"><i class="fas fa-map-marker-alt"></i> Pozos, Santa Ana, San José</div>
+                    <div class="local-info"><i class="fas fa-phone"></i> 2217-8787</div>
+                    <div class="local-info"><i class="fas fa-clock"></i> Lun-Dom 11:00 a.m. - 9:00 p.m.</div>
+                    <div class="local-actions">
+                        <a href="https://maps.google.com/?q=Ventanita+Pozos+Santa+Ana" target="_blank"><i class="fas fa-directions"></i> Cómo llegar</a>
+                        <a href="tel:+50622178787"><i class="fas fa-phone"></i> Llamar</a>
+                    </div>
+                </div>
+
+                <div class="local-card" data-province="san-jose">
+                    <h3>Ventanita Guachipelín</h3>
+                    <div class="local-info"><i class="fas fa-map-marker-alt"></i> Guachipelín, Escazú, San José</div>
+                    <div class="local-info"><i class="fas fa-phone"></i> 2217-8787</div>
+                    <div class="local-info"><i class="fas fa-clock"></i> Lun-Dom 11:00 a.m. - 9:00 p.m.</div>
+                    <div class="local-actions">
+                        <a href="https://maps.google.com/?q=Ventanita+Guachipelin" target="_blank"><i class="fas fa-directions"></i> Cómo llegar</a>
+                        <a href="tel:+50622178787"><i class="fas fa-phone"></i> Llamar</a>
+                    </div>
+                </div>
+
+                <!-- Heredia -->
+                <div class="local-card" data-province="heredia">
+                    <h3>Rosti Heredia</h3>
+                    <div class="local-info"><i class="fas fa-map-marker-alt"></i> Heredia centro</div>
+                    <div class="local-info"><i class="fas fa-phone"></i> 2217-8787</div>
+                    <div class="local-info"><i class="fas fa-clock"></i> Lun-Dom 11:00 a.m. - 7:45 p.m.</div>
+                    <div class="local-actions">
+                        <a href="https://maps.google.com/?q=Rosti+Heredia" target="_blank"><i class="fas fa-directions"></i> Cómo llegar</a>
+                        <a href="tel:+50622178787"><i class="fas fa-phone"></i> Llamar</a>
+                    </div>
+                </div>
+
+                <div class="local-card" data-province="heredia">
+                    <h3>Ventanita San Pablo</h3>
+                    <div class="local-info"><i class="fas fa-map-marker-alt"></i> San Pablo de Heredia</div>
+                    <div class="local-info"><i class="fas fa-phone"></i> 2217-8787</div>
+                    <div class="local-info"><i class="fas fa-clock"></i> Lun-Dom 11:00 a.m. - 9:00 p.m.</div>
+                    <div class="local-actions">
+                        <a href="https://maps.google.com/?q=Ventanita+San+Pablo+Heredia" target="_blank"><i class="fas fa-directions"></i> Cómo llegar</a>
+                        <a href="tel:+50622178787"><i class="fas fa-phone"></i> Llamar</a>
+                    </div>
+                </div>
+
+                <div class="local-card" data-province="heredia">
+                    <h3>Ventanita Santo Domingo</h3>
+                    <div class="local-info"><i class="fas fa-map-marker-alt"></i> Santo Domingo, Heredia</div>
+                    <div class="local-info"><i class="fas fa-phone"></i> 2217-8787</div>
+                    <div class="local-info"><i class="fas fa-clock"></i> Lun-Dom 11:00 a.m. - 9:00 p.m.</div>
+                    <div class="local-actions">
+                        <a href="https://maps.google.com/?q=Ventanita+Santo+Domingo" target="_blank"><i class="fas fa-directions"></i> Cómo llegar</a>
+                        <a href="tel:+50622178787"><i class="fas fa-phone"></i> Llamar</a>
+                    </div>
+                </div>
+
+                <!-- Alajuela -->
+                <div class="local-card" data-province="alajuela">
+                    <h3>Rosti Alajuela - Plaza Real</h3>
+                    <div class="local-info"><i class="fas fa-map-marker-alt"></i> Plaza Real Alajuela</div>
+                    <div class="local-info"><i class="fas fa-phone"></i> 2277-0945</div>
+                    <div class="local-info"><i class="fas fa-clock"></i> Lun-Dom 11:00 a.m. - 9:00 p.m.</div>
+                    <div class="local-actions">
+                        <a href="https://maps.google.com/?q=Rosti+Plaza+Real+Alajuela" target="_blank"><i class="fas fa-directions"></i> Cómo llegar</a>
+                        <a href="tel:+50622770945"><i class="fas fa-phone"></i> Llamar</a>
+                    </div>
+                </div>
+
+                <div class="local-card" data-province="alajuela">
+                    <h3>Rosti San Carlos</h3>
+                    <div class="local-info"><i class="fas fa-map-marker-alt"></i> Ciudad Quesada, San Carlos</div>
+                    <div class="local-info"><i class="fas fa-phone"></i> 2217-8787</div>
+                    <div class="local-info"><i class="fas fa-clock"></i> Lun-Dom 11:00 a.m. - 8:45 p.m.</div>
+                    <div class="local-actions">
+                        <a href="https://maps.google.com/?q=Rosti+San+Carlos" target="_blank"><i class="fas fa-directions"></i> Cómo llegar</a>
+                        <a href="tel:+50622178787"><i class="fas fa-phone"></i> Llamar</a>
+                    </div>
+                </div>
+
+                <!-- Cartago -->
+                <div class="local-card" data-province="cartago">
+                    <h3>Rosti Cartago</h3>
+                    <div class="local-info"><i class="fas fa-map-marker-alt"></i> Cartago centro</div>
+                    <div class="local-info"><i class="fas fa-phone"></i> 2217-8787</div>
+                    <div class="local-info"><i class="fas fa-clock"></i> Lun-Dom 11:00 a.m. - 8:30 p.m.</div>
+                    <div class="local-actions">
+                        <a href="https://maps.google.com/?q=Rosti+Cartago" target="_blank"><i class="fas fa-directions"></i> Cómo llegar</a>
+                        <a href="tel:+50622178787"><i class="fas fa-phone"></i> Llamar</a>
+                    </div>
+                </div>
+
+                <div class="local-card" data-province="cartago">
+                    <h3>Ventanita Cartago</h3>
+                    <div class="local-info"><i class="fas fa-map-marker-alt"></i> Centro de Cartago</div>
+                    <div class="local-info"><i class="fas fa-phone"></i> 2217-8787</div>
+                    <div class="local-info"><i class="fas fa-clock"></i> Lun-Dom 11:00 a.m. - 9:00 p.m.</div>
+                    <div class="local-actions">
+                        <a href="https://maps.google.com/?q=Ventanita+Cartago" target="_blank"><i class="fas fa-directions"></i> Cómo llegar</a>
+                        <a href="tel:+50622178787"><i class="fas fa-phone"></i> Llamar</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="logo" style="margin-bottom:18px;">
+                        <span class="logo-mark">R</span>
+                        <span style="color:#fff;">ROSTI<br><span class="logo-tagline" style="color:#bbb;">Costa Rica</span></span>
+                    </div>
+                    <p>Más de 40 años llevando el mejor pollo asado a las mesas costarricenses.</p>
+                    <div class="footer-social">
+                        <a href="https://www.facebook.com/Rosticr/"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://www.instagram.com/rosti_cr/"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-tiktok"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Explorar</h4>
+                    <ul>
+                        <li><a href="index.html">Inicio</a></li>
+                        <li><a href="menu.html">Menú</a></li>
+                        <li><a href="promociones.html">Promociones</a></li>
+                        <li><a href="locales.html">Locales</a></li>
+                        <li><a href="nosotros.html">Nosotros</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Información</h4>
+                    <ul>
+                        <li><a href="empleos.html">Empleos</a></li>
+                        <li><a href="reglamentos.html">Reglamentos</a></li>
+                        <li><a href="contacto.html">Contacto</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contacto</h4>
+                    <ul>
+                        <li><i class="fas fa-phone"></i> +506 2217-8787</li>
+                        <li><i class="fas fa-mobile-alt"></i> +506 7051-8405</li>
+                        <li><i class="fas fa-envelope"></i> servicioalcliente@rosti.cr</li>
+                        <li><i class="fas fa-map-marker-alt"></i> San José, Costa Rica</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; <span id="current-year">2026</span> Corporación Rosti, Costa Rica. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
