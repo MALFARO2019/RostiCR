@@ -4,287 +4,187 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rosti Costa Rica | Descubrí el Menú de Rosti</title>
-    <meta name="description" content="Rosti Costa Rica: el sabor del mejor pollo asado, con recetas hechas a mano y más de 40 años de tradición costarricense.">
-    <meta name="keywords" content="Rosti, pollo asado, restaurante, Costa Rica, comida costarricense">
-    <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
+    <meta name="description" content="Rosti Costa Rica - ¡Comé como te gusta! Descubrí el menú, promociones y locales del mejor pollo asado de Costa Rica.">
+    <link rel="icon" type="image/webp" href="images/favicon.webp">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
 
-    <!-- HEADER -->
     <header class="site-header">
-        <div class="top-bar">
-            <div class="container">
-                <div class="top-bar-info">
-                    <span class="always"><i class="fas fa-phone"></i> +506 2217-8787</span>
-                    <span><i class="fas fa-envelope"></i> servicioalcliente@rosti.cr</span>
-                    <span><i class="fas fa-clock"></i> Lun-Sáb 11:00-21:00 · Dom 11:00-20:00</span>
-                </div>
-                <div class="top-bar-social">
-                    <a href="https://www.facebook.com/Rosticr/" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-                    <a href="https://www.instagram.com/rosti_cr/" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                    <a href="#" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
-                </div>
-            </div>
-        </div>
         <div class="container">
             <nav class="navbar" aria-label="Navegación principal">
-                <a href="index.html" class="logo">
-                    <span class="logo-mark">R</span>
-                    <span>
-                        ROSTI
-                        <span class="logo-tagline">Costa Rica</span>
-                    </span>
+                <a href="index.html" class="logo" aria-label="Rosti Costa Rica">
+                    <img src="images/logo.webp" alt="Rosti">
                 </a>
                 <button class="menu-toggle" aria-label="Abrir menú" aria-expanded="false">
                     <i class="fas fa-bars"></i>
                 </button>
                 <ul class="nav-menu">
-                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="index.html" class="active">Inicio</a></li>
                     <li><a href="menu.html">Menú</a></li>
-                    <li><a href="promociones.html">Promociones</a></li>
-                    <li><a href="locales.html">Locales</a></li>
-                    <li><a href="nosotros.html">Nosotros</a></li>
-                    <li><a href="empleos.html">Empleos</a></li>
-                    <li><a href="contacto.html">Contacto</a></li>
-                    <li><a href="locales.html" class="nav-cta"><i class="fas fa-map-marker-alt"></i> Encontrá tu Rosti</a></li>
+                    <li><a href="reglamentos.html">Reglamentos</a></li>
+                    <li><a href="menu-restaurante.html">Menú Restaurante</a></li>
+                    <li><a href="locales.html">Encontrá tu Rosti</a></li>
+                    <li><a href="promoviajera.html">Promo Viajera</a></li>
                 </ul>
+                <a href="https://www.rosti.cr/pedir" class="nav-account" aria-label="Iniciar sesión / Pedir">
+                    <i class="fas fa-arrow-right-to-bracket"></i>
+                </a>
             </nav>
         </div>
     </header>
 
-    <!-- HERO -->
     <section class="hero">
-        <div class="container hero-content">
-            <h1>El sabor del mejor <span>Pollo Asado</span></h1>
-            <p>Recetas hechas a mano, ingredientes frescos y más de 40 años llevando tradición costarricense a tu mesa.</p>
-            <div>
-                <a href="menu.html" class="btn btn-primary"><i class="fas fa-utensils"></i> Ver el Menú</a>
-                <a href="locales.html" class="btn btn-secondary"><i class="fas fa-map-marker-alt"></i> Encontrá tu Rosti</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- NOSOTROS -->
-    <section class="about-section">
         <div class="container">
-            <div class="about-grid">
-                <div class="about-text">
-                    <div class="section-divider" style="margin-left:0"></div>
-                    <h3>Más de 40 años de tradición costarricense</h3>
-                    <p>Desde 1983 servimos el mejor pollo asado del país, hecho con recetas tradicionales y los ingredientes más frescos. Cada plato celebra el sabor y la cultura de Costa Rica.</p>
-                    <p>Trabajamos con productores locales: pollo, queso y vegetales nacionales que llegan diariamente a nuestras cocinas para garantizarte calidad y frescura en cada bocado.</p>
-                    <div class="about-features">
-                        <div class="feature-item">
-                            <h4><i class="fas fa-fire"></i> Asado a la leña</h4>
-                            <p>Cocinado lentamente para conservar el sabor.</p>
-                        </div>
-                        <div class="feature-item">
-                            <h4><i class="fas fa-leaf"></i> Bandera Azul</h4>
-                            <p>23 restaurantes con galardón ecológico.</p>
-                        </div>
-                        <div class="feature-item">
-                            <h4><i class="fas fa-handshake"></i> Esencial Costa Rica</h4>
-                            <p>Marca país que distingue lo nuestro.</p>
-                        </div>
-                        <div class="feature-item">
-                            <h4><i class="fas fa-users"></i> +510 colaboradores</h4>
-                            <p>71% mujeres, muchas jefas de hogar.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="about-image" role="img" aria-label="40 años de tradición Rosti"></div>
+            <h1>¡COMÉ COMO TE GUSTA!</h1>
+            <p>Descubrí el menú de Rosti: pollo asado, casados, boquitas y combos hechos como a vos te gustan.</p>
+            <div class="hero-actions">
+                <a href="menu.html" class="btn btn-orange"><i class="fas fa-utensils"></i> Ver el menú</a>
+                <a href="locales.html" class="btn btn-ghost"><i class="fas fa-map-marker-alt"></i> Encontrá tu Rosti</a>
             </div>
         </div>
     </section>
 
-    <!-- MENÚ DESTACADO -->
-    <section class="menu-section">
+    <section class="categories">
         <div class="container">
             <div class="section-title">
-                <h2>Lo más pedido</h2>
-                <div class="section-divider"></div>
-                <p>Una selección de los platillos favoritos de nuestros clientes, hechos a mano con ingredientes frescos.</p>
+                <div class="section-rule"></div>
+                <h2>Explorá nuestro menú</h2>
+                <p>Todas las categorías que tenemos para vos. Tocá una para conocer los platillos.</p>
             </div>
-            <div class="menu-grid">
-                <article class="menu-card">
-                    <div class="menu-card-image" style="background-image:url('images/dish-placeholder.svg')">
-                        <span class="menu-card-badge">Más vendido</span>
-                    </div>
-                    <div class="menu-card-body">
-                        <h3>Pollo Asado Entero</h3>
-                        <p>Acompañado de tortilla hecha a mano, ensalada de repollo y dos guarniciones a elección.</p>
-                        <div class="menu-card-footer">
-                            <span class="menu-price">¢12.500</span>
-                            <a href="menu.html" class="btn btn-outline">Ver</a>
-                        </div>
-                    </div>
-                </article>
-                <article class="menu-card">
-                    <div class="menu-card-image" style="background-image:url('images/dish-placeholder.svg')"></div>
-                    <div class="menu-card-body">
-                        <h3>Casado Rosti</h3>
-                        <p>Arroz, frijoles, plátano maduro, ensalada y pollo asado al estilo de la casa.</p>
-                        <div class="menu-card-footer">
-                            <span class="menu-price">¢5.900</span>
-                            <a href="menu.html" class="btn btn-outline">Ver</a>
-                        </div>
-                    </div>
-                </article>
-                <article class="menu-card">
-                    <div class="menu-card-image" style="background-image:url('images/dish-placeholder.svg')">
-                        <span class="menu-card-badge">Nuevo</span>
-                    </div>
-                    <div class="menu-card-body">
-                        <h3>Arroz con Pollo Fulleado</h3>
-                        <p>Nuestro clásico arroz con pollo, lleno de sabor con todas las guarniciones.</p>
-                        <div class="menu-card-footer">
-                            <span class="menu-price">¢6.500</span>
-                            <a href="menu.html" class="btn btn-outline">Ver</a>
-                        </div>
-                    </div>
-                </article>
-                <article class="menu-card">
-                    <div class="menu-card-image" style="background-image:url('images/dish-placeholder.svg')"></div>
-                    <div class="menu-card-body">
-                        <h3>Combo Familiar</h3>
-                        <p>Pollo entero, 4 tortillas, arroz, frijoles y ensalada de repollo. Ideal para 4 personas.</p>
-                        <div class="menu-card-footer">
-                            <span class="menu-price">¢18.900</span>
-                            <a href="menu.html" class="btn btn-outline">Ver</a>
-                        </div>
-                    </div>
-                </article>
-            </div>
-            <div style="text-align:center; margin-top:40px;">
-                <a href="menu.html" class="btn btn-primary" style="background:var(--rosti-red); color:#fff;">Ver el menú completo <i class="fas fa-arrow-right"></i></a>
+            <div class="categories-grid">
+                <a href="menu.html" class="cat-card" style="background-image:url('images/banner_2.webp')"><span>Promociones</span></a>
+                <a href="menu.html" class="cat-card" style="background-image:url('images/banner_3.webp')"><span>Aquí empieza tu chineo</span></a>
+                <a href="menu.html" class="cat-card" style="background-image:url('images/banner_4.webp')"><span>Boquitas</span></a>
+                <a href="menu.html" class="cat-card" style="background-image:url('images/banner_5.webp')"><span>Clásicos de Rosti</span></a>
+                <a href="menu.html" class="cat-card cat-text"><span>Rosti día a día</span></a>
+                <a href="menu.html" class="cat-card cat-text"><span>RostiKids</span></a>
+                <a href="menu.html" class="cat-card cat-text"><span>Rosters</span></a>
+                <a href="menu.html" class="cat-card cat-text"><span>Rústicos</span></a>
+                <a href="menu.html" class="cat-card cat-text"><span>Seguí siendo feliz</span></a>
+                <a href="menu.html" class="cat-card cat-text"><span>Rosti Balance</span></a>
+                <a href="menu.html" class="cat-card cat-text"><span>Pura birria</span></a>
+                <a href="menu.html" class="cat-card cat-text"><span>Ensaladas</span></a>
+                <a href="menu.html" class="cat-card cat-text"><span>Sopas</span></a>
+                <a href="menu.html" class="cat-card cat-text"><span>Para picar y no parar</span></a>
+                <a href="menu.html" class="cat-card cat-text"><span>Rosti familiares</span></a>
+                <a href="menu.html" class="cat-card cat-text"><span>Pedacitos de cielo</span></a>
+                <a href="menu.html" class="cat-card cat-text"><span>Tortillería</span></a>
+                <a href="menu.html" class="cat-card cat-text"><span>Desayunados</span></a>
             </div>
         </div>
     </section>
 
-    <!-- PROMOCIONES -->
-    <section class="promo-section">
+    <section class="sustain">
+        <div class="container">
+            <div class="sustain-grid">
+                <div class="image-block" role="img" aria-label="Rosti, líder en sostenibilidad"></div>
+                <div>
+                    <div class="section-rule" style="margin:0 0 18px"></div>
+                    <h2>Líderes en sostenibilidad</h2>
+                    <p>En Rosti, estamos profundamente comprometidos con la sostenibilidad: cuidamos cada recurso, optimizamos energía y agua, y manejamos los residuos de forma responsable.</p>
+                    <p>23 de nuestros restaurantes ostentan el galardón <strong>Bandera Azul Ecológica</strong>, un reconocimiento al esfuerzo continuo de cada equipo por hacer las cosas bien.</p>
+                    <div class="sustain-quote">"Somos pioneros en este esfuerzo continuo por dejar una huella positiva en Costa Rica."</div>
+                    <div class="badges">
+                        <span class="badge"><i class="fas fa-flag"></i> Bandera Azul Ecológica</span>
+                        <span class="badge"><i class="fas fa-leaf"></i> Esencial Costa Rica</span>
+                        <span class="badge"><i class="fas fa-recycle"></i> Manejo de residuos</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="dino">
+        <div class="container">
+            <h2>DinoGira Rosti &amp; Jurassic Rosti</h2>
+            <p>Vení a vivir la experiencia con Dino Tony: actividades para toda la familia, fiestas de cumpleaños y mucha diversión jurásica en tu Rosti más cercano.</p>
+            <a href="reglamentos.html" class="btn btn-navy"><i class="fas fa-cake-candles"></i> Ver Dino Fiestas</a>
+        </div>
+    </section>
+
+    <section class="services">
         <div class="container">
             <div class="section-title">
-                <h2>Promociones del Mes</h2>
-                <div class="section-divider"></div>
-                <p>Aprovechá las mejores ofertas, solo en restaurantes Rosti.</p>
+                <div class="section-rule"></div>
+                <h2>Te recibimos como te gusta</h2>
+                <p>Rosti es el lugar para celebrar, reunirte o llegar con tu mascota.</p>
             </div>
-            <div class="promo-grid">
-                <div class="promo-card">
-                    <div class="promo-card-image">2x1</div>
-                    <div class="promo-card-body">
-                        <h3>Martes de Pollo</h3>
-                        <p>Llevate dos cuartos de pollo asado al precio de uno todos los martes.</p>
-                        <a href="promociones.html" class="btn btn-outline">Ver detalles</a>
-                    </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon"><i class="fas fa-cake-candles"></i></div>
+                    <h3>Fiestas infantiles</h3>
+                    <p>Celebrá el cumple de tus chiquitos con Dino Tony y todo nuestro show.</p>
                 </div>
-                <div class="promo-card">
-                    <div class="promo-card-image">¢2.990</div>
-                    <div class="promo-card-body">
-                        <h3>Almuerzo Express</h3>
-                        <p>Casados desde ¢2.990 de lunes a viernes hasta las 3:00 p.m.</p>
-                        <a href="promociones.html" class="btn btn-outline">Ver detalles</a>
-                    </div>
+                <div class="service-card">
+                    <div class="service-icon"><i class="fas fa-paw"></i></div>
+                    <h3>Pet Friendly</h3>
+                    <p>Tu mascota también es parte de la familia. Conocé los locales habilitados.</p>
                 </div>
-                <div class="promo-card">
-                    <div class="promo-card-image">FAMILY</div>
-                    <div class="promo-card-body">
-                        <h3>Combo Familiar 4x4</h3>
-                        <p>Pollo entero + 4 sides + 4 bebidas a un precio especial los fines de semana.</p>
-                        <a href="promociones.html" class="btn btn-outline">Ver detalles</a>
-                    </div>
+                <div class="service-card">
+                    <div class="service-icon"><i class="fas fa-people-group"></i></div>
+                    <h3>Reuniones</h3>
+                    <p>Espacios cómodos para reuniones de trabajo, amigos o familia.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- LOCALES DESTACADOS -->
-    <section class="locales-section">
+    <section class="pura-vida">
         <div class="container">
-            <div class="section-title">
-                <h2>Encontrá tu Rosti</h2>
-                <div class="section-divider"></div>
-                <p>Tenemos restaurantes y Ventanitas en San José, Heredia, Alajuela y Cartago.</p>
-            </div>
-            <div class="locales-grid">
-                <div class="local-card">
-                    <h3>Rosti Sabana</h3>
-                    <div class="local-info"><i class="fas fa-map-marker-alt"></i> Sabana Sur, San José</div>
-                    <div class="local-info"><i class="fas fa-phone"></i> 2217-8787</div>
-                    <div class="local-info"><i class="fas fa-clock"></i> Lun-Dom 11:00 a.m. - 9:00 p.m.</div>
-                </div>
-                <div class="local-card">
-                    <h3>Rosti Heredia</h3>
-                    <div class="local-info"><i class="fas fa-map-marker-alt"></i> Heredia centro</div>
-                    <div class="local-info"><i class="fas fa-phone"></i> 2217-8787</div>
-                    <div class="local-info"><i class="fas fa-clock"></i> Lun-Dom 11:00 a.m. - 8:00 p.m.</div>
-                </div>
-                <div class="local-card">
-                    <h3>Rosti Cartago</h3>
-                    <div class="local-info"><i class="fas fa-map-marker-alt"></i> Cartago centro</div>
-                    <div class="local-info"><i class="fas fa-phone"></i> 2217-8787</div>
-                    <div class="local-info"><i class="fas fa-clock"></i> Lun-Dom 11:00 a.m. - 8:30 p.m.</div>
-                </div>
-            </div>
-            <div style="text-align:center; margin-top:40px;">
-                <a href="locales.html" class="btn btn-primary" style="background:var(--rosti-red); color:#fff;">Ver todos los locales <i class="fas fa-arrow-right"></i></a>
-            </div>
+            <h2>Somos Pura Vida</h2>
+            <p>Más de 40 años llevando el sabor del mejor pollo asado, hechos a mano y con productos costarricenses.</p>
+            <a href="locales.html" class="btn btn-orange">Leer más acá</a>
         </div>
     </section>
 
-    <!-- FOOTER -->
     <footer class="site-footer">
         <div class="container">
             <div class="footer-grid">
-                <div class="footer-col">
-                    <div class="logo" style="margin-bottom:18px;">
-                        <span class="logo-mark">R</span>
-                        <span style="color:#fff;">ROSTI<br><span class="logo-tagline" style="color:#bbb;">Costa Rica</span></span>
-                    </div>
-                    <p>Más de 40 años llevando el mejor pollo asado a las mesas costarricenses. Recetas hechas a mano con ingredientes frescos y locales.</p>
+                <div class="footer-col footer-logo">
+                    <img src="images/logo.webp" alt="Rosti">
+                    <p class="footer-tag">Descubrí el menú de Rosti. Hecho con productos costarricenses, recetas a mano y todo el cariño.</p>
                     <div class="footer-social">
+                        <a href="tel:+50622178787" aria-label="Teléfono"><i class="fas fa-phone"></i></a>
+                        <a href="https://wa.me/50622178787" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
                         <a href="https://www.facebook.com/Rosticr/" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
                         <a href="https://www.instagram.com/rosti_cr/" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                        <a href="#" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
-                        <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                        <a href="https://www.tiktok.com/@rosti_cr" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+                        <a href="https://www.linkedin.com/company/rosti-cr/" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
                     </div>
                 </div>
                 <div class="footer-col">
-                    <h4>Explorar</h4>
+                    <h4>Conócenos</h4>
                     <ul>
-                        <li><a href="index.html">Inicio</a></li>
-                        <li><a href="menu.html">Menú</a></li>
-                        <li><a href="promociones.html">Promociones</a></li>
-                        <li><a href="locales.html">Locales</a></li>
-                        <li><a href="nosotros.html">Nosotros</a></li>
+                        <li><a href="#">Rosti te escucha</a></li>
+                        <li><a href="#">Servicio al cliente</a></li>
+                        <li><a href="#">Rosti Empleos</a></li>
+                        <li><a href="#">Términos y condiciones</a></li>
+                        <li><a href="#">Política de privacidad</a></li>
                     </ul>
                 </div>
                 <div class="footer-col">
-                    <h4>Información</h4>
+                    <h4>Mi cuenta</h4>
                     <ul>
-                        <li><a href="empleos.html">Empleos</a></li>
-                        <li><a href="reglamentos.html">Reglamentos</a></li>
-                        <li><a href="contacto.html">Contacto</a></li>
-                        <li><a href="reglamentos.html">Política de privacidad</a></li>
+                        <li><a href="https://www.rosti.cr/pedir">Pedir</a></li>
+                        <li><a href="https://www.rosti.cr/pedir">Iniciar sesión</a></li>
                     </ul>
                 </div>
                 <div class="footer-col">
                     <h4>Contacto</h4>
                     <ul>
                         <li><i class="fas fa-phone"></i> +506 2217-8787</li>
-                        <li><i class="fas fa-mobile-alt"></i> +506 7051-8405</li>
                         <li><i class="fas fa-envelope"></i> servicioalcliente@rosti.cr</li>
-                        <li><i class="fas fa-map-marker-alt"></i> San José, Costa Rica</li>
+                        <li><i class="fas fa-mobile-screen-button"></i> App Rosti — descargá ya</li>
                     </ul>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; <span id="current-year">2026</span> Corporación Rosti, Costa Rica. Todos los derechos reservados.</p>
+                <p>&copy; <span id="current-year">2026</span> Rosti Costa Rica. Todos los derechos reservados.</p>
             </div>
         </div>
     </footer>

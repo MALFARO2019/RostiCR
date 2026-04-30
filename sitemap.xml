@@ -11,9 +11,14 @@
         <priority>0.9</priority>
     </url>
     <url>
-        <loc>https://rosti.cr/promociones.html</loc>
+        <loc>https://rosti.cr/menu-restaurante.html</loc>
         <changefreq>weekly</changefreq>
-        <priority>0.9</priority>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://rosti.cr/reglamentos.html</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
     </url>
     <url>
         <loc>https://rosti.cr/locales.html</loc>
@@ -21,23 +26,8 @@
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://rosti.cr/nosotros.html</loc>
-        <changefreq>monthly</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>https://rosti.cr/empleos.html</loc>
+        <loc>https://rosti.cr/promoviajera.html</loc>
         <changefreq>weekly</changefreq>
         <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>https://rosti.cr/contacto.html</loc>
-        <changefreq>monthly</changefreq>
-        <priority>0.6</priority>
-    </url>
-    <url>
-        <loc>https://rosti.cr/reglamentos.html</loc>
-        <changefreq>monthly</changefreq>
-        <priority>0.4</priority>
     </url>
 </urlset>
