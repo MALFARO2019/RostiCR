@@ -3,12 +3,69 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prueba de Paternidad - Rosti Costa Rica</title>
-    <meta name="description" content="La Prueba de Paternidad Chayanne - Rosti Costa Rica. Conocé los detalles y el reglamento.">
+    <title>Rosti Empleos - Rosti Costa Rica | Descubrí el Menú de Rosti</title>
+    <meta name="description" content="Rosti Empleos: inscribite y formá parte de la cadena de restaurantes con más de 40 años de tradición en Costa Rica.">
     <link rel="icon" type="image/png" href="images/llamita.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/styles.css?v=5">
+    <style>
+        .empleos-hero {
+            background-color: #34526C;
+            background-image: url('images/empleos-hero.png');
+            background-size: cover;
+            background-position: center;
+            padding: 4rem 0;
+            color: #fff;
+        }
+        .empleos-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+        @media (max-width: 768px) {
+            .empleos-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+            .empleos-hero { padding: 2rem 0; }
+        }
+        .empleos-title {
+            font-family: var(--font-display);
+            font-weight: 900;
+            font-size: clamp(2.5rem, 7vw, 5.5rem);
+            color: #fff;
+            text-transform: uppercase;
+            line-height: 0.95;
+            letter-spacing: 1px;
+            text-shadow: 0 4px 12px rgba(0,0,0,0.25);
+        }
+        .empleos-body p {
+            color: #fff;
+            font-size: 1rem;
+            line-height: 1.7;
+            margin-bottom: 1rem;
+        }
+        .empleos-body h2 {
+            color: #fff;
+            font-family: var(--font-display);
+            margin-bottom: 1rem;
+            font-size: 1.4rem;
+        }
+        .btn-solicitar {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--orange);
+            color: #fff;
+            padding: 0.85rem 1.6rem;
+            border-radius: 9999px;
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 1rem;
+            margin-top: 1rem;
+            transition: var(--t);
+        }
+        .btn-solicitar:hover { background: #fff; color: var(--orange); transform: translateY(-2px); }
+    </style>
 </head>
 <body>
 
@@ -23,7 +80,7 @@
                     <li><a href="https://www.rosti.cr/pedir">MENÚ</a></li>
                     <li><a href="reglamentos.html">REGLAMENTOS</a></li>
                     <li><a href="locales.html">ENCONTRÁ TU ROSTI</a></li>
-                    <li><a href="prueba-paternidad.html" class="active">PRUEBA DE PATERNIDAD</a></li>
+                    <li><a href="prueba-paternidad.html">PRUEBA DE PATERNIDAD</a></li>
                 </ul>
                 <div class="nav-cta">
                     <button class="menu-toggle" aria-label="Abrir menu de navegación" aria-expanded="false">
@@ -40,30 +97,26 @@
             <a href="https://www.rosti.cr/pedir">MENÚ</a>
             <a href="reglamentos.html">REGLAMENTOS</a>
             <a href="locales.html">ENCONTRÁ TU ROSTI</a>
-            <a href="prueba-paternidad.html" class="active">PRUEBA DE PATERNIDAD</a>
+            <a href="prueba-paternidad.html">PRUEBA DE PATERNIDAD</a>
         </div>
     </header>
 
     <main>
-        <section class="page-header">
+        <section class="empleos-hero">
             <div class="container">
-                <h1>LA PRUEBA DE PATERNIDAD</h1>
-                <p>Una experiencia única de Rosti.</p>
-            </div>
-        </section>
-
-        <section class="momentos">
-            <div class="container">
-                <p class="titulo2">CHAYANNE EN COSTA RICA</p>
-                <p class="bajada2">VIVÍ LA EXPERIENCIA CON ROSTI</p>
-                <p style="margin-top:1.25rem">Conocé los detalles, mecánicas, requisitos y condiciones en el reglamento oficial. Si querés ver toda la promoción y las reglas exactas, podés visitar el sitio dedicado.</p>
-                <div style="margin-top:2rem; display:flex; gap:1rem; flex-wrap:wrap; justify-content:center">
-                    <a class="emblem" style="background:var(--orange); color:#fff; padding:0.75rem 1.5rem; font-size:1rem" href="https://pruebapaternidadchayane.rosti.cr/" target="_blank" rel="noopener">
-                        <i class="fas fa-arrow-up-right-from-square"></i> Ir al sitio oficial
-                    </a>
-                    <a class="emblem" style="background:#fff; padding:0.75rem 1.5rem; font-size:1rem" href="https://tofuu.getjusto.com/buckets-prod%2FG5a7XcfBZ4j2Yzb6P-Reglamento%20Prueba%20de%20Paternidad%20Chayanne%20(1).pdf" target="_blank" rel="noopener">
-                        <i class="fas fa-file-pdf"></i> Ver reglamento
-                    </a>
+                <div class="empleos-grid">
+                    <div>
+                        <h1 class="empleos-title">Inscribite a Rosti Empleos</h1>
+                    </div>
+                    <div class="empleos-body">
+                        <h2>¡Bienvenido a Rosti!</h2>
+                        <p>Estamos encantados de que considerés unirte a nuestra cadena de restaurantes con más de 40 años de tradición en Costa Rica.</p>
+                        <p>Nos enorgullece nuestro compromiso con la autenticidad, innovación y prácticas sostenibles, ofreciendo un menú que combina el icónico pollo asado a fuego lento con opciones saludables y balanceadas, brindando un ambiente acogedor con amplias terrazas y áreas recreativas.</p>
+                        <p>Valoramos profundamente a nuestro equipo, reconociendo que son el corazón de nuestra empresa, con más del 70% de nuestros empleados siendo mujeres, muchas de ellas cabezas de hogar.</p>
+                        <p>Al unirte a Rosti, formarás parte de una empresa que busca no solo ofrecer una excelente experiencia culinaria, sino también crear un impacto positivo en la sociedad y el medio ambiente.</p>
+                        <p>¡Esperamos verte pronto y crecer juntos llevando el sabor de Rosti a más personas!</p>
+                        <a class="btn-solicitar" href="https://rosticr.com/" target="_blank" rel="noopener">¡Solicitar Ahora! <i class="fas fa-arrow-right"></i></a>
+                    </div>
                 </div>
             </div>
         </section>
