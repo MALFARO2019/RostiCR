@@ -1,10 +1,10 @@
 document.addEventListener('DOMContentLoaded', function () {
     const toggle = document.querySelector('.menu-toggle');
-    const navMenu = document.querySelector('.nav-menu');
-    if (toggle && navMenu) {
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (toggle && mobileMenu) {
         toggle.addEventListener('click', () => {
-            navMenu.classList.toggle('open');
-            toggle.setAttribute('aria-expanded', navMenu.classList.contains('open'));
+            const isOpen = mobileMenu.classList.toggle('open');
+            toggle.setAttribute('aria-expanded', isOpen);
         });
     }
 

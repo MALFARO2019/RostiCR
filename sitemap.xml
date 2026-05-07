@@ -6,16 +6,6 @@
         <priority>1.0</priority>
     </url>
     <url>
-        <loc>https://rosti.cr/menu.html</loc>
-        <changefreq>weekly</changefreq>
-        <priority>0.9</priority>
-    </url>
-    <url>
-        <loc>https://rosti.cr/menu-restaurante.html</loc>
-        <changefreq>weekly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    <url>
         <loc>https://rosti.cr/reglamentos.html</loc>
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
@@ -26,8 +16,8 @@
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://rosti.cr/promoviajera.html</loc>
+        <loc>https://rosti.cr/prueba-paternidad.html</loc>
         <changefreq>weekly</changefreq>
-        <priority>0.7</priority>
+        <priority>0.6</priority>
     </url>
 </urlset>

@@ -4,157 +4,176 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rosti Costa Rica | Descubrí el Menú de Rosti</title>
-    <meta name="description" content="Rosti Costa Rica - ¡Comé como te gusta! Descubrí el menú, promociones y locales del mejor pollo asado de Costa Rica.">
-    <link rel="icon" type="image/webp" href="images/favicon.webp?v=2">
+    <meta name="description" content="Rosti Costa Rica - ¡Comé como te gusta! Descubrí el menú, promociones, locales y experiencias del mejor pollo asado de Costa Rica.">
+    <link rel="icon" type="image/png" href="images/llamita.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/styles.css?v=2">
+    <link rel="stylesheet" href="css/styles.css?v=4">
 </head>
 <body>
 
     <header class="site-header">
         <div class="container">
             <nav class="navbar" aria-label="Navegación principal">
-                <a href="index.html" class="logo" aria-label="Rosti Costa Rica">
-                    <img src="images/banner_1.webp?v=3" alt="Rosti">
+                <a href="index.html" class="navbar-logo" aria-label="Rosti Costa Rica">
+                    <img src="images/rosti-logo.webp" alt="Logo de Rosti">
                 </a>
-                <button class="menu-toggle" aria-label="Abrir menú" aria-expanded="false">
-                    <i class="fas fa-bars"></i>
-                </button>
-                <ul class="nav-menu">
-                    <li><a href="index.html" class="active">Inicio</a></li>
-                    <li><a href="menu.html">Menú</a></li>
-                    <li><a href="reglamentos.html">Reglamentos</a></li>
-                    <li><a href="menu-restaurante.html">Menú Restaurante</a></li>
-                    <li><a href="locales.html">Encontrá tu Rosti</a></li>
-                    <li><a href="promoviajera.html">Promo Viajera</a></li>
+                <ul class="nav-links">
+                    <li><a href="index.html" class="active">INICIO</a></li>
+                    <li><a href="https://www.rosti.cr/pedir">MENÚ</a></li>
+                    <li><a href="reglamentos.html">REGLAMENTOS</a></li>
+                    <li><a href="locales.html">ENCONTRÁ TU ROSTI</a></li>
+                    <li><a href="prueba-paternidad.html">PRUEBA DE PATERNIDAD</a></li>
                 </ul>
-                <a href="https://www.rosti.cr/pedir" class="nav-account" aria-label="Iniciar sesión / Pedir">
-                    <i class="fas fa-arrow-right-to-bracket"></i>
-                </a>
+                <div class="nav-cta">
+                    <button class="menu-toggle" aria-label="Abrir menu de navegación" aria-expanded="false">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16"/><path d="M4 12h16"/><path d="M4 19h16"/></svg>
+                    </button>
+                    <a href="https://www.rosti.cr/pedir" class="btn-bag" aria-label="Ir al menú">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 10a4 4 0 0 1-8 0"/><path d="M3.103 6.034h17.794"/><path d="M3.4 5.467a2 2 0 0 0-.4 1.2V20a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6.667a2 2 0 0 0-.4-1.2l-2-2.667A2 2 0 0 0 17 2H7a2 2 0 0 0-1.6.8z"/></svg>
+                    </a>
+                </div>
             </nav>
+        </div>
+        <div class="mobile-menu" id="mobileMenu">
+            <a href="index.html" class="active">INICIO</a>
+            <a href="https://www.rosti.cr/pedir">MENÚ</a>
+            <a href="reglamentos.html">REGLAMENTOS</a>
+            <a href="locales.html">ENCONTRÁ TU ROSTI</a>
+            <a href="prueba-paternidad.html">PRUEBA DE PATERNIDAD</a>
         </div>
     </header>
 
-    <section class="hero">
-        <div class="container">
-            <h1>¡COMÉ COMO TE GUSTA!</h1>
-            <p>Descubrí el menú de Rosti: pollo asado, casados, boquitas y combos hechos como a vos te gustan.</p>
-            <div class="hero-actions">
-                <a href="menu.html" class="btn btn-orange"><i class="fas fa-utensils"></i> Ver el menú</a>
-                <a href="locales.html" class="btn btn-ghost"><i class="fas fa-map-marker-alt"></i> Encontrá tu Rosti</a>
-            </div>
-        </div>
-    </section>
+    <main>
 
-    <section class="categories">
-        <div class="container">
-            <div class="section-title">
-                <div class="section-rule"></div>
-                <h2>Explorá nuestro menú</h2>
-                <p>Todas las categorías que tenemos para vos. Tocá una para conocer los platillos.</p>
-            </div>
-            <div class="categories-grid">
-                <a href="menu.html" class="cat-card" style="background-image:url('images/banner_2.webp')"><span>Promociones</span></a>
-                <a href="menu.html" class="cat-card" style="background-image:url('images/banner_3.webp')"><span>Aquí empieza tu chineo</span></a>
-                <a href="menu.html" class="cat-card" style="background-image:url('images/banner_4.webp')"><span>Boquitas</span></a>
-                <a href="menu.html" class="cat-card" style="background-image:url('images/banner_5.webp')"><span>Clásicos de Rosti</span></a>
-                <a href="menu.html" class="cat-card cat-text"><span>Rosti día a día</span></a>
-                <a href="menu.html" class="cat-card cat-text"><span>RostiKids</span></a>
-                <a href="menu.html" class="cat-card cat-text"><span>Rosters</span></a>
-                <a href="menu.html" class="cat-card cat-text"><span>Rústicos</span></a>
-                <a href="menu.html" class="cat-card cat-text"><span>Seguí siendo feliz</span></a>
-                <a href="menu.html" class="cat-card cat-text"><span>Rosti Balance</span></a>
-                <a href="menu.html" class="cat-card cat-text"><span>Pura birria</span></a>
-                <a href="menu.html" class="cat-card cat-text"><span>Ensaladas</span></a>
-                <a href="menu.html" class="cat-card cat-text"><span>Sopas</span></a>
-                <a href="menu.html" class="cat-card cat-text"><span>Para picar y no parar</span></a>
-                <a href="menu.html" class="cat-card cat-text"><span>Rosti familiares</span></a>
-                <a href="menu.html" class="cat-card cat-text"><span>Pedacitos de cielo</span></a>
-                <a href="menu.html" class="cat-card cat-text"><span>Tortillería</span></a>
-                <a href="menu.html" class="cat-card cat-text"><span>Desayunados</span></a>
-            </div>
-        </div>
-    </section>
+        <!-- SLIDER (banner principal) -->
+        <section class="slider" aria-label="Slide principal">
+            <img src="images/cat-promociones.webp" alt="Slide Background">
+        </section>
+        <div class="white-space"></div>
 
-    <section class="sustain">
-        <div class="container">
-            <div class="sustain-grid">
-                <div class="image-block" role="img" aria-label="Rosti, líder en sostenibilidad"></div>
-                <div>
-                    <div class="section-rule" style="margin:0 0 18px"></div>
-                    <h2>Líderes en sostenibilidad</h2>
-                    <p>En Rosti, estamos profundamente comprometidos con la sostenibilidad: cuidamos cada recurso, optimizamos energía y agua, y manejamos los residuos de forma responsable.</p>
-                    <p>23 de nuestros restaurantes ostentan el galardón <strong>Bandera Azul Ecológica</strong>, un reconocimiento al esfuerzo continuo de cada equipo por hacer las cosas bien.</p>
-                    <div class="sustain-quote">"Somos pioneros en este esfuerzo continuo por dejar una huella positiva en Costa Rica."</div>
-                    <div class="badges">
-                        <span class="badge"><i class="fas fa-flag"></i> Bandera Azul Ecológica</span>
-                        <span class="badge"><i class="fas fa-leaf"></i> Esencial Costa Rica</span>
-                        <span class="badge"><i class="fas fa-recycle"></i> Manejo de residuos</span>
+        <!-- GALLERY: ¡COMÉ COMO TE GUSTA! + 19 categorías -->
+        <section class="gallery">
+            <div class="container">
+                <h2 class="app-title">¡COMÉ COMO TE GUSTA!</h2>
+                <div class="gallery-grid">
+                    <a class="gallery-item" href="https://www.rosti.cr/pedir?categoria=promociones"><div class="gallery-item-image"><img src="images/cat-promociones.webp" alt="Promociones" loading="lazy"></div></a>
+                    <a class="gallery-item" href="https://www.rosti.cr/pedir?categoria=aqui-empieza-tu-chineo"><div class="gallery-item-image"><img src="images/cat-chineo.webp" alt="Aquí empieza tu chineo" loading="lazy"></div></a>
+                    <a class="gallery-item" href="https://www.rosti.cr/pedir?categoria=boquitas"><div class="gallery-item-image"><img src="images/cat-boquitas.webp" alt="Boquitas" loading="lazy"></div></a>
+                    <a class="gallery-item" href="https://www.rosti.cr/pedir?categoria=clasicos-de-rosti"><div class="gallery-item-image"><img src="images/cat-clasicos.webp" alt="Clásicos de Rosti" loading="lazy"></div></a>
+                    <a class="gallery-item" href="https://www.rosti.cr/pedir?categoria=rosti-dia-a-dia"><div class="gallery-item-image"><img src="images/cat-dia-a-dia.webp" alt="Rosti día a día" loading="lazy"></div></a>
+                    <a class="gallery-item" href="https://www.rosti.cr/pedir?categoria=rostikids"><div class="gallery-item-image"><img src="images/cat-rostikids.webp" alt="RostiKids" loading="lazy"></div></a>
+                    <a class="gallery-item" href="https://www.rosti.cr/pedir?categoria=rosters"><div class="gallery-item-image"><img src="images/cat-rosters.webp" alt="Rosters" loading="lazy"></div></a>
+                    <a class="gallery-item" href="https://www.rosti.cr/pedir?categoria=rusticos"><div class="gallery-item-image"><img src="images/cat-rusticos.webp" alt="Rústicos" loading="lazy"></div></a>
+                    <a class="gallery-item" href="https://www.rosti.cr/pedir?categoria=segui-siendo-feliz"><div class="gallery-item-image"><img src="images/cat-segui-feliz.webp" alt="Seguí siendo feliz" loading="lazy"></div></a>
+                    <a class="gallery-item" href="https://www.rosti.cr/pedir?categoria=rosti-balance"><div class="gallery-item-image"><img src="images/cat-balance.webp" alt="Rosti Balance" loading="lazy"></div></a>
+                    <a class="gallery-item" href="https://www.rosti.cr/pedir?categoria=pura-birria"><div class="gallery-item-image"><img src="images/cat-birria.webp" alt="Pura birria" loading="lazy"></div></a>
+                    <a class="gallery-item" href="https://www.rosti.cr/pedir?categoria=ensaladas"><div class="gallery-item-image"><img src="images/cat-ensaladas.webp" alt="Ensaladas" loading="lazy"></div></a>
+                    <a class="gallery-item" href="https://www.rosti.cr/pedir?categoria=sopas"><div class="gallery-item-image"><img src="images/cat-sopas.webp" alt="Sopas" loading="lazy"></div></a>
+                    <a class="gallery-item" href="https://www.rosti.cr/pedir?categoria=para-picar-y-no-parar"><div class="gallery-item-image"><img src="images/cat-picar.webp" alt="Para picar y no parar" loading="lazy"></div></a>
+                    <a class="gallery-item" href="https://www.rosti.cr/pedir?categoria=rosti-familiares"><div class="gallery-item-image"><img src="images/cat-familiares.webp" alt="Rosti familiares" loading="lazy"></div></a>
+                    <a class="gallery-item" href="https://www.rosti.cr/pedir?categoria=pedacitos-de-cielo"><div class="gallery-item-image"><img src="images/cat-pedacitos.webp" alt="Pedacitos de cielo" loading="lazy"></div></a>
+                    <a class="gallery-item" href="https://www.rosti.cr/pedir?categoria=Tortillería"><div class="gallery-item-image"><img src="images/cat-tortilleria.webp" alt="Tortillería" loading="lazy"></div></a>
+                    <a class="gallery-item" href="https://www.rosti.cr/pedir?categoria=desayunados"><div class="gallery-item-image"><img src="images/cat-desayunados.webp" alt="Desayunados" loading="lazy"></div></a>
+                    <a class="gallery-item" href="https://www.rosti.cr/pedir?categoria=bebidas-gaseosas"><div class="gallery-item-image"><img src="images/cat-bebidas.webp" alt="Bebidas gaseosas" loading="lazy"></div></a>
+                </div>
+            </div>
+        </section>
+
+        <!-- LÍDERES EN SOSTENIBILIDAD (textos verbatim del sitio real) -->
+        <section class="sustain">
+            <div class="container">
+                <p class="titulo1">LÍDERES EN SOSTENIBILIDAD</p>
+                <div class="sustain-body">
+                    <p>En Rosti, estamos profundamente comprometidos con la sostenibilidad y la lucha contra el cambio climático. Durante casi una década, hemos liderado la adopción de los más altos estándares de Responsabilidad Social Empresarial. A través de prácticas responsables, hemos logrado reducciones significativas en el consumo de energía, agua y combustibles fósiles, así como mejoras en los resultados de aguas residuales. Además, hemos implementado eficientes sistemas de gestión de residuos, tanto orgánicos como inorgánicos, y hemos dado nueva vida al aceite quemado a través de procesos de reutilización.</p>
+                    <p>Estas acciones sostenibles no solo han fortalecido nuestro compromiso ambiental, sino que también han sido reconocidas con la prestigiosa Bandera Azul Ecológica en 23 restaurantes. Este logro refleja nuestro liderazgo en la ejecución de prácticas ecológicas que van más allá de los estándares convencionales.</p>
+                    <div class="sustain-quote">
+                        “Somos pioneros en este esfuerzo continuo. Y sostenemos nuestro compromiso con la sociedad, nuestros colaboradores, invitados y las generaciones futuras. Contribuir al bienestar del medio ambiente es una parte fundamental de nuestra misión, y nos enorgullece poder aportar nuestro granito de arena en la preservación del planeta.”
+                        <div class="sustain-quote-author">— Beatriz Tomeu, Gerente general.</div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
-
-    <section class="dino">
-        <div class="container">
-            <h2>DinoGira Rosti &amp; Jurassic Rosti</h2>
-            <p>Vení a vivir la experiencia con Dino Tony: actividades para toda la familia, fiestas de cumpleaños y mucha diversión jurásica en tu Rosti más cercano.</p>
-            <a href="reglamentos.html" class="btn btn-navy"><i class="fas fa-cake-candles"></i> Ver Dino Fiestas</a>
-        </div>
-    </section>
-
-    <section class="services">
-        <div class="container">
-            <div class="section-title">
-                <div class="section-rule"></div>
-                <h2>Te recibimos como te gusta</h2>
-                <p>Rosti es el lugar para celebrar, reunirte o llegar con tu mascota.</p>
-            </div>
-            <div class="services-grid">
-                <div class="service-card">
-                    <div class="service-icon"><i class="fas fa-cake-candles"></i></div>
-                    <h3>Fiestas infantiles</h3>
-                    <p>Celebrá el cumple de tus chiquitos con Dino Tony y todo nuestro show.</p>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon"><i class="fas fa-paw"></i></div>
-                    <h3>Pet Friendly</h3>
-                    <p>Tu mascota también es parte de la familia. Conocé los locales habilitados.</p>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon"><i class="fas fa-people-group"></i></div>
-                    <h3>Reuniones</h3>
-                    <p>Espacios cómodos para reuniones de trabajo, amigos o familia.</p>
+            <div class="sustain-emblems">
+                <p>Porque nuestra lucha va más allá de servir las mejores experiencias en la mesa, trabajamos juntos para preservar la flora y fauna que nos hacen únicos en el mundo.</p>
+                <div class="emblem-row">
+                    <span class="emblem"><i class="fas fa-flag"></i> Bandera Azul Ecológica</span>
+                    <span class="emblem"><i class="fas fa-leaf"></i> Esencial Costa Rica</span>
+                    <span class="emblem"><i class="fas fa-recycle"></i> Manejo de residuos</span>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <section class="pura-vida">
-        <div class="container">
-            <h2>Somos Pura Vida</h2>
-            <p>Más de 40 años llevando el sabor del mejor pollo asado, hechos a mano y con productos costarricenses.</p>
-            <a href="locales.html" class="btn btn-orange">Leer más acá</a>
-        </div>
-    </section>
+        <!-- SOMOS PURA VIDA -->
+        <section class="pura-vida">
+            <div class="container">
+                <p class="titulo3">SOMOS<br>PURA VIDA</p>
+                <p>Más de 40 años llevando el sabor del mejor pollo asado, hechos a mano y con productos costarricenses.</p>
+            </div>
+        </section>
 
+        <!-- MOMENTOS ROSTI -->
+        <section class="momentos">
+            <div class="container">
+                <p class="titulo2">MOMENTOS ROSTI</p>
+                <p class="bajada2">UNA EXPERIENCIA PARA CADA ANTOJO</p>
+                <p>Porque al igual que vos, en Rosti somos antojados de seguir compartiendo momentos únicos. Lanzamos una variada plataforma de eventos en nuestros restaurantes, pensados para nuestros diferentes tipos de clientes, y en cumplimiento con los protocolos de seguridad establecidos por el Ministerio de Salud. Organizados en confortables espacios abiertos, desarrollamos experiencias para todos los gustos:</p>
+            </div>
+        </section>
+
+        <!-- DINOGIRA -->
+        <section class="dinogira">
+            <div class="dinogira-img">
+                <img src="images/dino-gira.png" alt="DinoGira Rosti" loading="lazy">
+            </div>
+            <p class="subtitulo2">DINOGIRA ROSTI</p>
+            <p class="dino3">Llevamos el espíritu jurásico a todos nuestros restaurantes con juegos, divertidas actividades en compañía de Dino Tony y por supuesto el sabor del mejor pollo del país para disfrutar en familia. ¡Un plan que antoja a chicos y grandes por igual! La DinoGira Rosti es una experiencia en constante evolución que llegó para quedarse.</p>
+        </section>
+
+        <!-- SERVICIOS: Fiestas, Pet Friendly, Reuniones -->
+        <section class="servicios">
+            <div class="container">
+                <div class="servicios-grid">
+                    <div class="servicio-item">
+                        <img src="images/fiestas-infantiles.png" alt="Fiestas infantiles">
+                        <h3>Fiestas Infantiles</h3>
+                        <p>Celebrá el cumple con Dino Tony y todo el show jurásico de Rosti.</p>
+                    </div>
+                    <div class="servicio-item">
+                        <img src="images/pet-friendly.png" alt="Pet Friendly">
+                        <h3>Pet Friendly</h3>
+                        <p>Tu mascota también es parte de la familia.</p>
+                        <a class="linkpdf" href="https://tofuu.getjusto.com/buckets-prod%2Fv9y2uahgs79STmHcP-DIGITAL_Reglamento%20pet%20friendly%202025.png" target="_blank" rel="noopener">Ver reglamento <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                    <div class="servicio-item">
+                        <img src="images/rosti-reuniones.png" alt="Rosti Reuniones">
+                        <h3>Reuniones</h3>
+                        <p>Reservá tu espacio de lunes a domingo.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER (estructura del sitio real) -->
     <footer class="site-footer">
         <div class="container">
             <div class="footer-grid">
-                <div class="footer-col footer-logo">
-                    <img src="images/banner_1.webp?v=3" alt="Rosti">
-                    <p class="footer-tag">Descubrí el menú de Rosti. Hecho con productos costarricenses, recetas a mano y todo el cariño.</p>
+                <div class="footer-col footer-brand">
+                    <img src="images/rosti-logo.webp" alt="Rosti">
+                    <div class="footer-contact-block">
+                        <strong>Central Telefónica</strong>
+                        2277-0800
+                    </div>
                     <div class="footer-social">
-                        <a href="tel:+50622178787" aria-label="Teléfono"><i class="fas fa-phone"></i></a>
-                        <a href="https://wa.me/50622178787" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
-                        <a href="https://www.facebook.com/Rosticr/" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-                        <a href="https://www.instagram.com/rosti_cr/" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                        <a href="https://www.tiktok.com/@rosti_cr" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
-                        <a href="https://www.linkedin.com/company/rosti-cr/" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://api.whatsapp.com/send?phone=50687070770&text=%C2%A1Hola!%20Quiero%20hacer%20un%20pedido" aria-label="WhatsApp" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i></a>
+                        <a href="https://www.facebook.com/Rosticr/" aria-label="Facebook" target="_blank" rel="noopener"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://www.instagram.com/rosti_cr/" aria-label="Instagram" target="_blank" rel="noopener"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.tiktok.com/@rosti_cr" aria-label="TikTok" target="_blank" rel="noopener"><i class="fab fa-tiktok"></i></a>
+                        <a href="https://www.linkedin.com/company/rosti-cr/" aria-label="LinkedIn" target="_blank" rel="noopener"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://rosticr.app.link/download" aria-label="Descargar App Rosti" target="_blank" rel="noopener"><i class="fas fa-mobile-screen-button"></i></a>
                     </div>
                 </div>
                 <div class="footer-col">
@@ -162,9 +181,9 @@
                     <ul>
                         <li><a href="#">Rosti te escucha</a></li>
                         <li><a href="#">Servicio al cliente</a></li>
-                        <li><a href="#">Rosti Empleos</a></li>
-                        <li><a href="#">Términos y condiciones</a></li>
-                        <li><a href="#">Política de privacidad</a></li>
+                        <li><a href="https://www.rosti.cr/rostiempleos" target="_blank" rel="noopener">Rosti Empleos</a></li>
+                        <li><a href="https://www.rosti.cr/documentos-legales/termsAndConditions" target="_blank" rel="noopener">Términos y condiciones</a></li>
+                        <li><a href="https://www.rosti.cr/documentos-legales/privacy" target="_blank" rel="noopener">Política de privacidad</a></li>
                     </ul>
                 </div>
                 <div class="footer-col">
@@ -174,14 +193,6 @@
                         <li><a href="https://www.rosti.cr/pedir">Iniciar sesión</a></li>
                     </ul>
                 </div>
-                <div class="footer-col">
-                    <h4>Contacto</h4>
-                    <ul>
-                        <li><i class="fas fa-phone"></i> +506 2217-8787</li>
-                        <li><i class="fas fa-envelope"></i> servicioalcliente@rosti.cr</li>
-                        <li><i class="fas fa-mobile-screen-button"></i> App Rosti — descargá ya</li>
-                    </ul>
-                </div>
             </div>
             <div class="footer-bottom">
                 <p>&copy; <span id="current-year">2026</span> Rosti Costa Rica. Todos los derechos reservados.</p>
@@ -189,6 +200,6 @@
         </div>
     </footer>
 
-    <script src="js/main.js?v=2"></script>
+    <script src="js/main.js?v=4"></script>
 </body>
 </html>
