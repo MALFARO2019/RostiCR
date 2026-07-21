@@ -11,22 +11,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/styles.css?v=5">
-    <style>
-        .penalesvar-embed { display: none; padding: 0; margin: 0; scroll-margin-top: 4rem; }
-        .penalesvar-embed:target { display: block; }
-        .penalesvar-frame {
-            width: 100%;
-            height: min(88vh, 920px);
-            border: 0;
-            background: #000;
-        }
-        .penalesvar-frame iframe {
-            display: block;
-            width: 100%;
-            height: 100%;
-            border: 0;
-        }
-    </style>
 </head>
 <body>
 
@@ -41,7 +25,6 @@
                     <li><a href="https://www.rosti.cr/pedir">MENÚ</a></li>
                     <li><a href="reglamentos.html">REGLAMENTOS</a></li>
                     <li><a href="locales.html">ENCONTRÁ TU ROSTI</a></li>
-                    <li><a href="#penalesvar">JUEGO PENALES V.A.R</a></li>
                 </ul>
                 <div class="nav-cta">
                     <button class="menu-toggle" aria-label="Abrir menu de navegación" aria-expanded="false">
@@ -58,22 +41,10 @@
             <a href="https://www.rosti.cr/pedir">MENÚ</a>
             <a href="reglamentos.html">REGLAMENTOS</a>
             <a href="locales.html">ENCONTRÁ TU ROSTI</a>
-            <a href="#penalesvar">JUEGO PENALES V.A.R</a>
         </div>
     </header>
 
     <main>
-
-        <!-- JUEGO PENALES V.A.R (sitio externo incrustado) -->
-        <section class="penalesvar-embed" id="penalesvar" aria-label="Juego Penales V.A.R">
-            <div class="penalesvar-frame">
-                <iframe src="https://penalesvar.rosti.cr/"
-                        title="Juego Penales V.A.R"
-                        loading="lazy"
-                        allow="fullscreen; autoplay"
-                        referrerpolicy="no-referrer-when-downgrade"></iframe>
-            </div>
-        </section>
 
         <!-- SLIDER (banner principal) -->
         <section class="slider" aria-label="Slide principal">
