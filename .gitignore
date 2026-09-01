@@ -20,3 +20,4 @@ yarn-error.log
 *.tmp
 .cache/
 dist/
+ReglamentoDocs/_eliminados/

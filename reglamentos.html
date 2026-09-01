@@ -61,43 +61,32 @@
 
         <section class="reglamentos-section">
             <div class="container">
-                <div class="reglamentos-grid">
-                    <article class="reglamento-card">
-                        <h3>Reglamento Happy Hour</h3>
-                        <p>Te contamos acá</p>
-                        <a href="ReglamentoDocs/Reglamento-Happy-Hour-2026.pdf" target="_blank" rel="noopener">Ver documento <i class="fas fa-arrow-right"></i></a>
-                    </article>
-                    <article class="reglamento-card">
-                        <h3>Horarios Desayunados</h3>
-                        <p>Te contamos acá</p>
-                        <a href="https://tofuu.getjusto.com/buckets-prod%2FnztQkMESxbKBqseJG-Horarios.pdf" target="_blank" rel="noopener">Ver documento <i class="fas fa-arrow-right"></i></a>
-                    </article>
-                    <article class="reglamento-card">
-                        <h3>Rosti día a día</h3>
-                        <p>Te contamos acá</p>
-                        <a href="https://tofuu.getjusto.com/buckets-prod%2FKw3gh3Lxqqo8dq9jt-Reglamento%20promo%20D%C3%ADa%20a%20D%C3%ADa%202025.pdf" target="_blank" rel="noopener">Ver documento <i class="fas fa-arrow-right"></i></a>
-                    </article>
-                    <article class="reglamento-card">
-                        <h3>Rosti día a día Ventanitas</h3>
-                        <p>Te contamos acá</p>
-                        <a href="https://tofuu.getjusto.com/buckets-prod%2FLPF4Tg8KqyCbQwhwR-Reglamento%20promo%20D%C3%ADa%20a%20D%C3%ADa%20-%20Ventanitas%20Nuevo.pdf" target="_blank" rel="noopener">Ver documento <i class="fas fa-arrow-right"></i></a>
-                    </article>
-                    <article class="reglamento-card">
-                        <h3>Reglamento Rosti Lunch</h3>
-                        <p>Te contamos acá</p>
-                        <a href="https://tofuu.getjusto.com/buckets-prod%2F6CWeFrpuQhowqR3pa-REGLAMENTO%20REQUISITOS%20Y%20CONDICIONES%20ROSTI%20LUNCH%20-%20Agosto%202025%20(1).pdf" target="_blank" rel="noopener">Ver documento <i class="fas fa-arrow-right"></i></a>
-                    </article>
-                    <article class="reglamento-card">
-                        <h3>Reglamento Pet Friendly</h3>
-                        <p>Te contamos acá</p>
-                        <a href="https://tofuu.getjusto.com/buckets-prod%2Fv9y2uahgs79STmHcP-DIGITAL_Reglamento%20pet%20friendly%202025.png" target="_blank" rel="noopener">Ver documento <i class="fas fa-arrow-right"></i></a>
-                    </article>
-                    <article class="reglamento-card">
-                        <h3>Reglamento Dino Fiestas</h3>
-                        <p>Te contamos acá</p>
-                        <a href="https://tofuu.getjusto.com/buckets-prod%2FzNWGqvQ8b6Ek5b3ab-T%C3%89RMINOS%20Y%20CONDICIONES%20DINO%20FIESTAS.pdf" target="_blank" rel="noopener">Ver documento <i class="fas fa-arrow-right"></i></a>
-                    </article>
-                </div>
+                <div class="reglamentos-grid" id="reglamentosGrid"></div>
+                <script>
+                (function () {
+                    function esc(s) {
+                        return String(s).replace(/[&<>"']/g, function (c) {
+                            return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+                        });
+                    }
+                    fetch('reglamentos.json?t=' + Date.now())
+                        .then(function (r) { return r.json(); })
+                        .then(function (items) {
+                            var grid = document.getElementById('reglamentosGrid');
+                            grid.innerHTML = items.map(function (it) {
+                                return '<article class="reglamento-card">' +
+                                    '<h3>' + esc(it.title) + '</h3>' +
+                                    '<p>Te contamos acá</p>' +
+                                    '<a href="' + esc(it.url) + '" target="_blank" rel="noopener">Ver documento <i class="fas fa-arrow-right"></i></a>' +
+                                    '</article>';
+                            }).join('');
+                        })
+                        .catch(function () {
+                            document.getElementById('reglamentosGrid').innerHTML =
+                                '<p>No se pudieron cargar los reglamentos. Recargá la página.</p>';
+                        });
+                })();
+                </script>
             </div>
         </section>
     </main>
