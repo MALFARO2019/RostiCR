@@ -3,3 +3,5 @@ Allow: /
 Disallow: /images/
 
 Sitemap: https://rosti.cr/sitemap.xml
+
+Disallow: /pedir-
