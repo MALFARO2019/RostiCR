@@ -1,3 +1,5 @@
+/* hidden gana siempre: .modal y las secciones definen display y lo pisarían */
+[hidden] { display: none !important; }
 /* Tienda Rosti (página oculta en pruebas). Usa los tokens de styles.css. */
 .tienda-hero { background: linear-gradient(135deg, var(--navy-deep) 0%, var(--navy) 100%); color: #fff; padding: 2.5rem 0 2rem; }
 .tienda-hero h1 { font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: clamp(1.8rem, 4vw, 2.8rem); margin: 0 0 .4rem; color: #fff; }
