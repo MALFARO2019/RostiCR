@@ -59,17 +59,17 @@
                 if (!localSel && locales.length && locales[0].km != null) elegirLocal(locales[0].codigo);
                 $('#ubic-estado').textContent = 'Locales ordenados por tu ubicación';
             });
-        }, function () { $('#ubic-estado').textContent = 'Sin permiso de ubicación: elegí el local a mano.'; }, { enableHighAccuracy: true, timeout: 8000, maximumAge: 300000 });
+        }, function () { $('#ubic-estado').textContent = 'Sin permiso de ubicación: elegí el local a mano.'; if (!localSel) abrirLocales(); }, { enableHighAccuracy: true, timeout: 8000, maximumAge: 300000 });
     }
     function ubicacionPorIp() {
         return api('/ubicacion').then(function (d) {
             if (d.ubicacion) {
                 ubic = { lat: d.ubicacion.lat, lng: d.ubicacion.lng, precision: 'ciudad', ciudad: d.ubicacion.ciudad };
                 $('#ubic-estado').textContent = 'Te ubicamos cerca de ' + (d.ubicacion.ciudad || 'tu zona') + '. Para afinar, usá «Mi ubicación».';
-                return cargarLocales(ubic.lat, ubic.lng);
+                return cargarLocales(ubic.lat, ubic.lng).then(function () { if (!localSel) abrirLocales(); });
             }
-            $('#ubic-estado').textContent = 'Elegí el local donde vas a recoger.';
-            return cargarLocales();
+            $('#ubic-estado').textContent = 'No pudimos ubicarte: elegí el local donde vas a recoger.';
+            return cargarLocales().then(function () { if (!localSel) abrirLocales(); });
         }).catch(function () { return cargarLocales(); });
     }
     function elegirLocal(codigo) {
@@ -81,6 +81,8 @@
         $('#local-nombre').textContent = l ? l.nombre : 'Elegí tu local';
         $('#local-detalle').textContent = l ? ((l.km != null ? l.km + ' km · ' : '') + (l.zona || '')) : 'Recoger en el local';
         var lista = $('#locales-lista'); lista.innerHTML = '';
+        var hayKm = locales.some(function (x) { return x.km != null; });
+        lista.appendChild(el('p', 'locales-hint', hayKm ? 'Ordenados del más cercano al más lejano. Podés elegir cualquiera.' : 'Todos los locales, en orden alfabético. Tocá «Usar mi ubicación» para ver los más cercanos.'));
         locales.forEach(function (x) {
             var it = el('button', 'local-item' + (x.codigo === localSel ? ' sel' : ''));
             it.innerHTML = '<strong>' + esc(x.nombre) + '</strong><small>' + esc([x.km != null ? x.km + ' km' : null, x.zona].filter(Boolean).join(' · ')) + '</small>';
