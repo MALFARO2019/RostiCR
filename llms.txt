@@ -1,0 +1,20 @@
+# Rosti Costa Rica
+
+> Pollo asado hecho a mano desde hace más de 40 años. «¡Comé como te gusta!». Más de 40 restaurantes en Costa Rica.
+
+Rosti (Corporación Rostipollos) es una cadena costarricense de restaurantes de pollo asado, con locales en todo el país y ventanitas para llevar.
+
+## Sitio
+- [Inicio y menú](https://rosti.cr/): categorías del menú, promociones y experiencias.
+- [Locales](https://rosti.cr/locales.html): direcciones, teléfonos y horarios de salón de cada restaurante.
+- [Reglamentos de promociones](https://rosti.cr/reglamentos.html)
+- [Política de privacidad](https://rosti.cr/privacy.html) · [Términos y condiciones](https://rosti.cr/terminos.html)
+
+## Pedidos en línea (en preparación)
+Rosti está habilitando pedidos para recoger desde la web y desde asistentes de IA. Cuando esté abierto al público:
+- Página de pedidos: https://rosti.cr/ (sección «Pedir»).
+- Servidor MCP para asistentes de IA: https://rosti.cr/mcp (Streamable HTTP, sin autenticación). Herramientas: ver_menu, locales_cercanos, buscar_cliente, crear_pedido, estado_pedido. Precios en colones con IVA incluido; el pedido queda registrado con un código RP-XXXXX.
+
+## Contacto
+- Central telefónica: 2277-0800
+- WhatsApp: +506 8707-0770
