@@ -278,7 +278,55 @@
     $('#ficha-cerrar').onclick = cerrarFicha; $('#ficha-agregar').onclick = agregarDesdeFicha;
     $('#ficha-menos').onclick = function () { if (ficha && ficha.cantidad > 1) { ficha.cantidad--; renderFicha(); } };
     $('#ficha-mas').onclick = function () { if (ficha && ficha.cantidad < 50) { ficha.cantidad++; renderFicha(); } };
-    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') { cerrarFicha(); cerrarLocales(); abrirCarrito(false); } });
+
+    // ── Asistente: la IA dentro de la tienda (POST /api/tienda/asistente) ─────
+    // La página manda la conversación entera en cada turno (sin estado en el servidor).
+    var conv = [];
+    var chat = $('#chat');
+    function burbuja(cls, html) { var b = el('div', 'burbuja ' + cls, html); chat.appendChild(b); chat.scrollTop = chat.scrollHeight; return b; }
+    function abrirAsistente() {
+        $('#asistente').hidden = false; document.body.classList.add('modal-abierto');
+        if (!conv.length) burbuja('bot', '¡Hola! Soy el asistente de Rosti. Dígame qué quiere comer y dónde lo recoge, y yo armo el pedido. Por ejemplo: «un pollo entero con papas para recoger en Heredia».');
+        setTimeout(function () { $('#chat-input').focus(); }, 50);
+    }
+    function cerrarAsistente() { $('#asistente').hidden = true; document.body.classList.remove('modal-abierto'); }
+    function enviarChat(texto) {
+        texto = String(texto || '').trim(); if (!texto) return;
+        burbuja('yo', esc(texto)); conv.push({ rol: 'usuario', texto: texto });
+        $('#chat-input').value = '';
+        var p = burbuja('bot pensando', 'Un momento…');
+        var btn = $('#chat-enviar'); btn.disabled = true;
+        api('/asistente', { method: 'POST', body: { mensajes: conv.slice(-24), lat: ubic ? ubic.lat : undefined, lng: ubic ? ubic.lng : undefined, local: localSel || undefined } })
+            .then(function (d) {
+                var t = esc(d.texto || '').replace(/\b(RP-[A-Z2-9]{5})\b/g, '<span class="codigo">$1</span>');
+                p.className = 'burbuja bot'; p.innerHTML = t;
+                conv.push({ rol: 'asistente', texto: d.texto || '' });
+                if (d.pedido && d.pedido.codigo) { carrito = []; guardar(); renderCarrito(); }
+            })
+            .catch(function (e) { p.className = 'burbuja bot'; p.textContent = e.message || 'No pude responder. Pruebe de nuevo.'; })
+            .then(function () { btn.disabled = false; chat.scrollTop = chat.scrollHeight; $('#chat-input').focus(); });
+    }
+    $('#btn-asistente').onclick = abrirAsistente;
+    $('#asistente-cerrar').onclick = cerrarAsistente;
+    $('#chat-form').addEventListener('submit', function (ev) { ev.preventDefault(); enviarChat($('#chat-input').value); });
+    // Dictado por voz (Chrome, Android, Edge). En iPhone el teclado trae su propio micrófono.
+    var SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+    var mic = $('#chat-mic');
+    if (!SR) { mic.style.display = 'none'; }
+    else {
+        var rec = null;
+        mic.onclick = function () {
+            if (rec) { rec.stop(); return; }
+            rec = new SR(); rec.lang = 'es-CR'; rec.interimResults = false; rec.maxAlternatives = 1;
+            mic.classList.add('grabando');
+            rec.onresult = function (e) { var t = e.results[0][0].transcript; $('#chat-input').value = t; enviarChat(t); };
+            rec.onerror = function () { burbuja('bot', 'No le escuché bien. Pruebe de nuevo o escriba el pedido.'); };
+            rec.onend = function () { mic.classList.remove('grabando'); rec = null; };
+            rec.start();
+        };
+    }
+
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') { cerrarFicha(); cerrarLocales(); abrirCarrito(false); cerrarAsistente(); } });
 
     api('/catalogo').then(function (d) {
         catalogo = d; locales = d.locales || []; renderCatalogo(); renderCarrito(); renderLocal();
