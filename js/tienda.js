@@ -323,6 +323,19 @@
         mirar(); pollPago = setInterval(mirar, 15000);
     }
 
+
+    // ── Datos estructurados (schema.org) para Google / Gemini: el menú y los locales ──
+    function inyectarJsonLd(d) {
+        try {
+            var secciones = (d.familias || []).map(function (f) { return { '@type': 'MenuSection', name: f.nombre, hasMenuItem: f.articulos.map(function (a) { return { '@type': 'MenuItem', name: a.nombre, description: a.descripcion || undefined, image: a.imagenUrl ? (a.imagenUrl.indexOf('http') === 0 ? a.imagenUrl : location.origin + a.imagenUrl) : undefined, offers: { '@type': 'Offer', price: a.precio, priceCurrency: 'CRC', availability: 'https://schema.org/InStock' } }; }) }; });
+            var data = { '@context': 'https://schema.org', '@type': 'Restaurant', name: 'Rosti Costa Rica', url: location.origin + '/', telephone: '+506-2277-0800', servesCuisine: 'Pollo asado', priceRange: '₡₡', acceptsReservations: 'False',
+                hasMenu: { '@type': 'Menu', name: 'Menú para recoger', hasMenuSection: secciones },
+                potentialAction: { '@type': 'OrderAction', target: { '@type': 'EntryPoint', urlTemplate: location.origin + '/pedir.html', actionPlatform: ['http://schema.org/DesktopWebPlatform', 'http://schema.org/MobileWebPlatform'] }, deliveryMethod: 'http://purl.org/goodrelations/v1#DeliveryModePickUp' },
+                department: (d.locales || []).map(function (l) { return { '@type': 'Restaurant', name: 'Rosti ' + l.nombre, address: l.zona ? { '@type': 'PostalAddress', addressLocality: l.zona, addressCountry: 'CR' } : undefined, geo: l.lat != null ? { '@type': 'GeoCoordinates', latitude: l.lat, longitude: l.lng } : undefined, telephone: l.telefono || undefined, hasMap: l.mapa || undefined }; }) };
+            var s = document.createElement('script'); s.type = 'application/ld+json'; s.textContent = JSON.stringify(data); document.head.appendChild(s);
+        } catch (e) { /* los datos estructurados son un extra */ }
+    }
+
     // ── Arranque ──────────────────────────────────────────────────────────────
     function abrirCarrito(abrir) { $('#carrito').classList.toggle('abierto', abrir); document.body.classList.toggle('carrito-abierto', abrir); }
     $('#btn-carrito').onclick = function () { abrirCarrito(true); };
@@ -388,7 +401,7 @@
 
     cargarCuenta();
     api('/catalogo').then(function (d) {
-        catalogo = d; locales = d.locales || []; renderCatalogo(); renderCarrito(); renderLocal();
+        catalogo = d; locales = d.locales || []; renderCatalogo(); renderCarrito(); renderLocal(); inyectarJsonLd(d);
         $('#cargando').hidden = true;
         if (d.pagos && !d.pagos.disponible) { var av = $('#aviso-pago'); av.hidden = false; av.textContent = d.pagos.mensaje; }
         return ubicacionPorIp();
