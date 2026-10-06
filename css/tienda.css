@@ -126,3 +126,10 @@ body.modal-abierto { overflow: hidden; }
 .chat-form input { flex: 1; min-width: 0; padding: .8rem .9rem; border: 1px solid #ccc; border-radius: 12px; font: inherit; font-size: 1.08rem; }
 .chat-mic { border: 1px solid #ddd; background: #fff; border-radius: 12px; width: 3rem; font-size: 1.3rem; cursor: pointer; }
 .chat-mic.grabando { background: #E53C24; color: #fff; border-color: transparent; }
+
+/* ── Cuenta ── */
+#cuenta-modal label { display: block; font-weight: 700; color: var(--navy-deep); margin-top: .8rem; }
+#cuenta-modal input { width: 100%; margin-top: .3rem; padding: .8rem; border: 1px solid #ccc; border-radius: 10px; font: inherit; font-size: 1.1rem; }
+.cuenta-pedido { border: 1px solid #eee; border-radius: 12px; padding: .7rem .9rem; margin: .5rem 0; font-size: .95rem; }
+.cuenta-pedido strong { color: var(--navy-deep); }
+.cuenta-pedido small { color: #777; display: block; }

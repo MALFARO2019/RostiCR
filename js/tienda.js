@@ -28,9 +28,50 @@
         opts = opts || {};
         var headers = { 'Content-Type': 'application/json' };
         if (ACCESO) headers['X-Tienda-Acceso'] = ACCESO;
+        var tk = sesionToken(); if (tk) headers['Authorization'] = 'Bearer ' + tk;
         return fetch(API + path, { method: opts.method || 'GET', headers: headers, body: opts.body ? JSON.stringify(opts.body) : undefined })
             .then(function (r) { return r.json().catch(function () { return {}; }).then(function (d) { if (!r.ok) throw new Error(d.error || ('Error ' + r.status)); return d; }); });
     }
+
+    // ── Cuenta (JWT de la tienda en localStorage) ─────────────────────────────
+    function sesionToken() { try { return localStorage.getItem('rosti.sesion') || ''; } catch (e) { return ''; } }
+    var cuenta = null;
+    function renderCuenta() {
+        var b = $('#btn-cuenta'); if (b) b.textContent = cuenta && cuenta.nombre ? 'HOLA, ' + cuenta.nombre.split(' ')[0].toUpperCase() : (cuenta ? 'MI CUENTA' : 'ENTRAR');
+        var f = $('#form-pedido');
+        if (cuenta && f) { if (!f.nombre.value && cuenta.nombre) f.nombre.value = cuenta.nombre; if (!f.telefono.value && cuenta.telefono) f.telefono.value = cuenta.telefono; if (!f.email.value && cuenta.email) f.email.value = cuenta.email; if (!f.cedula.value && cuenta.cedula) f.cedula.value = cuenta.cedula; }
+    }
+    function cargarCuenta() {
+        if (!sesionToken()) { cuenta = null; renderCuenta(); return Promise.resolve(); }
+        return api('/mi').then(function (d) { cuenta = d.cliente; renderCuenta(); }).catch(function () { try { localStorage.removeItem('rosti.sesion'); } catch (e) { /* */ } cuenta = null; renderCuenta(); });
+    }
+    function abrirCuenta() {
+        $('#cuenta-modal').hidden = false; document.body.classList.add('modal-abierto'); $('#cuenta-msg').textContent = '';
+        var logueado = !!cuenta;
+        $('#cuenta-form-email').hidden = logueado; $('#cuenta-form-codigo').hidden = true; $('#cuenta-panel').hidden = !logueado;
+        $('#cuenta-titulo').textContent = logueado ? 'Mi cuenta' : 'Entrar a Rosti';
+        if (logueado) {
+            $('#cuenta-nombre').textContent = cuenta.nombre || cuenta.email;
+            $('#cuenta-datos').textContent = [cuenta.telefono, cuenta.email].filter(Boolean).join(' · ');
+            var lp = $('#cuenta-pedidos'); lp.innerHTML = (cuenta.ultimosPedidos || []).length ? '<p><strong>Tus últimos pedidos</strong></p>' : '<p>Todavía no tenés pedidos.</p>';
+            (cuenta.ultimosPedidos || []).forEach(function (p) { lp.innerHTML += '<div class="cuenta-pedido"><strong>' + esc(p.codigo) + '</strong> · ' + esc(p.local || p.codAlmacen) + ' · ' + fmt(p.total) + '<small>' + esc(p.lineas.map(function (l) { return l.cantidad + ' × ' + l.descripcion; }).join(', ')) + ' · ' + esc(p.estado) + '</small></div>'; });
+        }
+    }
+    function cerrarCuenta() { $('#cuenta-modal').hidden = true; document.body.classList.remove('modal-abierto'); }
+    $('#btn-cuenta').onclick = function (e) { e.preventDefault(); abrirCuenta(); };
+    $('#cuenta-cerrar').onclick = cerrarCuenta;
+    $('#cuenta-form-email').addEventListener('submit', function (e) {
+        e.preventDefault(); var email = e.target.email.value.trim(); var msg = $('#cuenta-msg'); msg.textContent = 'Enviando…';
+        api('/cuenta/codigo', { method: 'POST', body: { email: email } }).then(function () { msg.textContent = ''; $('#cuenta-email').textContent = email; $('#cuenta-form-email').hidden = true; $('#cuenta-form-codigo').hidden = false; $('#cuenta-form-codigo').codigo.focus(); })
+            .catch(function (err) { msg.textContent = err.message; msg.className = 'form-msg error'; });
+    });
+    $('#cuenta-form-codigo').addEventListener('submit', function (e) {
+        e.preventDefault(); var msg = $('#cuenta-msg'); msg.textContent = 'Verificando…';
+        api('/cuenta/entrar', { method: 'POST', body: { email: $('#cuenta-email').textContent, codigo: e.target.codigo.value, nombre: e.target.nombre.value.trim() || undefined } })
+            .then(function (d) { try { localStorage.setItem('rosti.sesion', d.token); } catch (x) { /* */ } return cargarCuenta(); }).then(function () { cerrarCuenta(); renderCarrito(); })
+            .catch(function (err) { msg.textContent = err.message; msg.className = 'form-msg error'; });
+    });
+    $('#cuenta-salir').onclick = function () { try { localStorage.removeItem('rosti.sesion'); } catch (e) { /* */ } cuenta = null; renderCuenta(); cerrarCuenta(); };
 
     // ── Estado ────────────────────────────────────────────────────────────────
     var catalogo = null;            // { familias, locales, pagos }
@@ -269,7 +310,7 @@
     function abrirCarrito(abrir) { $('#carrito').classList.toggle('abierto', abrir); document.body.classList.toggle('carrito-abierto', abrir); }
     $('#btn-carrito').onclick = function () { abrirCarrito(true); };
     $('#carrito-cerrar').onclick = function () { abrirCarrito(false); };
-    $('#btn-pedir').onclick = function () { abrirCarrito(false); $('#checkout').hidden = false; $('#confirmacion').hidden = true; renderLocal(); $('#checkout').scrollIntoView({ behavior: 'smooth' }); };
+    $('#btn-pedir').onclick = function () { abrirCarrito(false); $('#checkout').hidden = false; $('#confirmacion').hidden = true; renderLocal(); renderCuenta(); $('#checkout').scrollIntoView({ behavior: 'smooth' }); };
     $('#form-pedido').addEventListener('submit', enviar);
     $('#form-pedido').telefono.addEventListener('input', function () { autocompletar('telefono'); });
     $('#form-pedido').cedula.addEventListener('input', function () { autocompletar('cedula'); });
@@ -326,8 +367,9 @@
         };
     }
 
-    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') { cerrarFicha(); cerrarLocales(); abrirCarrito(false); cerrarAsistente(); } });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') { cerrarFicha(); cerrarLocales(); abrirCarrito(false); cerrarAsistente(); cerrarCuenta(); } });
 
+    cargarCuenta();
     api('/catalogo').then(function (d) {
         catalogo = d; locales = d.locales || []; renderCatalogo(); renderCarrito(); renderLocal();
         $('#cargando').hidden = true;
