@@ -301,9 +301,26 @@
             $('#conf-total').textContent = fmt(d.pedido.total);
             $('#conf-local').textContent = d.pedido.local || local;
             $('#conf-msg').textContent = (d.pago && d.pago.mensaje) || '';
+            esperarLinkPago(d.pedido.codigo);
             ok.scrollIntoView({ behavior: 'smooth' });
         }).catch(function (e) { msg.textContent = e.message || 'No se pudo enviar el pedido. Probá de nuevo.'; msg.className = 'form-msg error'; })
           .then(function () { btn.disabled = false; btn.textContent = 'Enviar pedido'; });
+    }
+
+    // ── Pago: Compra Click de BAC no tiene API; el link lo pega Rosti y acá se espera ──
+    var pollPago = null;
+    function esperarLinkPago(codigo) {
+        clearInterval(pollPago);
+        var a = $('#conf-pagar'), esp = $('#conf-espera');
+        a.style.display = 'none'; esp.style.display = '';
+        function mirar() {
+            api('/pedidos/' + encodeURIComponent(codigo)).then(function (d) {
+                var p = d.pedido;
+                if (p.pago && p.pago.link) { a.href = p.pago.link; a.style.display = 'inline-block'; esp.style.display = 'none'; $('#conf-msg').textContent = p.pago.mensaje || ''; }
+                if (p.estado !== 'pendiente_pago') { clearInterval(pollPago); a.style.display = 'none'; esp.style.display = 'none'; $('#conf-msg').textContent = p.estado === 'pagado' ? '¡Pago confirmado! El local ya está preparando tu pedido.' : (p.estadoNombre || p.estado); }
+            }).catch(function () { /* reintenta en el siguiente ciclo */ });
+        }
+        mirar(); pollPago = setInterval(mirar, 15000);
     }
 
     // ── Arranque ──────────────────────────────────────────────────────────────
