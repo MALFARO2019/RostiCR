@@ -28,7 +28,8 @@
     var $ = function (s, r) { return (r || document).querySelector(s); };
     var el = function (tag, cls, html) { var e = document.createElement(tag); if (cls) e.className = cls; if (html !== undefined) e.innerHTML = html; return e; };
     var esc = function (s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); };
-    var cssUrl = function (u) { return 'url("' + String(u).replace(/"/g, '%22') + '")'; };
+    // Foto perezosa: sólo se baja cuando está por entrar a la pantalla. Si falla, queda el fondo gris.
+    function foto(src, alt) { var i = document.createElement('img'); i.loading = 'lazy'; i.decoding = 'async'; i.alt = alt || ''; i.src = src; i.onerror = function () { i.remove(); }; return i; }
     function ls(k, v) { try { if (v === undefined) return localStorage.getItem(k); if (v === null) localStorage.removeItem(k); else localStorage.setItem(k, v); } catch (e) { return null; } }
     function sesionToken() { return ls('rosti.sesion') || ''; }
     function api(path, opts) {
@@ -42,15 +43,62 @@
     var toastT = null;
     function toast(txt) { var t = $('#toast'); t.textContent = txt; t.hidden = false; clearTimeout(toastT); toastT = setTimeout(function () { t.hidden = true; }, 2600); }
 
-    // ── Capas (modales y cajón): bloquean el scroll del fondo ─────────────────
-    var MODALES = ['#ficha-modal', '#checkout-modal', '#conf-modal', '#locales-modal', '#asistente', '#cuenta-modal'];
+    // ── Capas (modales y cajón) ───────────────────────────────────────────────
+    // En el teléfono:
+    //  · El gesto «atrás» (deslizar desde el borde en iPhone, botón atrás en Android) cierra la capa de arriba
+    //    en vez de sacar a la persona de la página: cada capa abierta empuja una entrada al historial.
+    //  · iOS Safari ignora overflow:hidden en el body y el fondo se sigue moviendo debajo del modal: se fija el
+    //    body con position:fixed y se devuelve al mismo scroll al cerrar.
+    var MODALES = ['#ficha-modal', '#checkout-modal', '#conf-modal', '#locales-modal', '#asistente', '#cuenta-modal', '#carrito'];
+    var pila = [];
+    function visible(s) { return s === '#carrito' ? $('#carrito').classList.contains('abierto') : !$(s).hidden; }
+    function mostrar(s, si) {
+        if (s === '#carrito') { $('#carrito').classList.toggle('abierto', si); $('#carrito').setAttribute('aria-hidden', si ? 'false' : 'true'); $('#carrito-velo').hidden = !si; }
+        else $(s).hidden = !si;
+        if (!si && s === '#ficha-modal') ficha = null;
+    }
+    var fijado = null;
     function refrescarBloqueo() {
-        var abierto = MODALES.some(function (s) { return !$(s).hidden; }) || $('#carrito').classList.contains('abierto');
-        document.body.classList.toggle('bloqueado', abierto);
+        var abierto = MODALES.some(visible);
+        var b = document.body;
+        if (abierto && fijado === null) {
+            fijado = window.scrollY || 0;
+            b.style.position = 'fixed'; b.style.top = -fijado + 'px'; b.style.left = '0'; b.style.right = '0'; b.style.width = '100%';
+        } else if (!abierto && fijado !== null) {
+            var y = fijado; fijado = null;
+            b.style.position = b.style.top = b.style.left = b.style.right = b.style.width = '';
+            window.scrollTo({ top: y, behavior: 'instant' });
+        }
+        b.classList.toggle('bloqueado', abierto);
         $('#barra-pedido').hidden = !(unidades() > 0) || abierto;
     }
-    function abrir(s) { $(s).hidden = false; refrescarBloqueo(); }
-    function cerrar(s) { $(s).hidden = true; refrescarBloqueo(); }
+    function abrir(s) {
+        if (visible(s)) return;
+        mostrar(s, true); pila.push(s);
+        try { history.pushState({ capa: s }, ''); } catch (e) { /* sin historial: igual funciona */ }
+        refrescarBloqueo();
+    }
+    function cerrar(s) {
+        if (!visible(s)) return;
+        if (pila[pila.length - 1] === s) { history.back(); return; }      // el popstate la cierra
+        mostrar(s, false); pila = pila.filter(function (x) { return x !== s; }); refrescarBloqueo();
+    }
+    // Cerrar una capa y abrir otra en el mismo paso (sin carrera entre history.back y pushState).
+    function cambiar(desde, hacia) {
+        if (pila[pila.length - 1] === desde && visible(desde)) {
+            mostrar(desde, false); mostrar(hacia, true); pila[pila.length - 1] = hacia;
+            try { history.replaceState({ capa: hacia }, ''); } catch (e) { /* */ }
+            refrescarBloqueo();
+        } else { if (visible(desde)) { mostrar(desde, false); pila = pila.filter(function (x) { return x !== desde; }); } abrir(hacia); }
+    }
+    window.addEventListener('popstate', function () {
+        var s = pila.pop();
+        if (s) mostrar(s, false);
+        refrescarBloqueo();
+    });
+    // Altura real de la barra superior (cambia con el notch y el tamaño de letra del iPhone): la usan las categorías pegajosas.
+    function medirBarra() { var h = $('.tb').getBoundingClientRect().height; document.documentElement.style.setProperty('--tb-h', Math.round(h) + 'px'); }
+    medirBarra(); window.addEventListener('resize', medirBarra); window.addEventListener('orientationchange', function () { setTimeout(medirBarra, 300); });
 
     // ── Estado ────────────────────────────────────────────────────────────────
     var catalogo = null;            // respuesta de /catalogo del local elegido
@@ -193,7 +241,7 @@
         txt.appendChild(el('div', 'item-precio', fmt(a.precio) + (a.destacado ? ' <span class="tag">Popular</span>' : '') + (obligatorios ? ' <span class="tag verde">Personalizable</span>' : '')));
         card.appendChild(txt);
         var img = el('div', 'item-img' + (a.imagenUrl ? '' : ' sin'), a.imagenUrl ? '' : '🍗');
-        if (a.imagenUrl) img.style.backgroundImage = cssUrl(a.imagenUrl);
+        if (a.imagenUrl) img.appendChild(foto(a.imagenUrl, a.nombre));
         var mas = el('button', 'mas'); mas.type = 'button'; mas.setAttribute('aria-label', 'Agregar ' + a.nombre); mas.dataset.mas = a.codigo;
         mas.onclick = function (ev) { ev.stopPropagation(); agregarRapido(a); };
         img.appendChild(mas); card.appendChild(img);
@@ -211,7 +259,7 @@
         var dl = $('#destacados-lista'); dl.innerHTML = '';
         dest.forEach(function (a) {
             var c = el('div', 'dest-card'); c.tabIndex = 0; c.setAttribute('role', 'button'); c.dataset.codigo = a.codigo;
-            var im = el('div', 'dest-img'); if (a.imagenUrl) im.style.backgroundImage = cssUrl(a.imagenUrl);
+            var im = el('div', 'dest-img'); if (a.imagenUrl) im.appendChild(foto(a.imagenUrl, a.nombre));
             var mas = el('button', 'mas'); mas.type = 'button'; mas.dataset.mas = a.codigo; mas.setAttribute('aria-label', 'Agregar ' + a.nombre);
             mas.onclick = function (ev) { ev.stopPropagation(); agregarRapido(a); };
             im.appendChild(mas); c.appendChild(im);
@@ -222,7 +270,7 @@
         $('#destacados').hidden = !dest.length;
         fams.forEach(function (f, i) {
             var b = el('button', 'cat-tab' + (i === 0 ? ' activa' : ''), esc(f.nombre)); b.type = 'button'; b.dataset.fam = f.id;
-            b.onclick = function () { var s = document.getElementById('fam-' + f.id); if (s) window.scrollTo({ top: s.getBoundingClientRect().top + window.scrollY - 118, behavior: 'smooth' }); };
+            b.onclick = function () { var s = document.getElementById('fam-' + f.id); if (s) window.scrollTo({ top: s.getBoundingClientRect().top + window.scrollY - ($('.cats').getBoundingClientRect().bottom + 8), behavior: 'smooth' }); };
             tabs.appendChild(b);
             var sec = el('section', 'familia'); sec.id = 'fam-' + f.id; sec.dataset.fam = f.id;
             var head = el('div', 'familia-head');
@@ -248,7 +296,7 @@
                 var tabs = $('#familias');
                 document.querySelectorAll('.cat-tab').forEach(function (t) { var on = t.dataset.fam === id; t.classList.toggle('activa', on); if (on) tabs.scrollTo({ left: t.offsetLeft - tabs.clientWidth / 2 + t.clientWidth / 2, behavior: 'smooth' }); });
             });
-        }, { rootMargin: '-130px 0px -65% 0px' });
+        }, { rootMargin: '-' + Math.round($('.cats').getBoundingClientRect().bottom + 10) + 'px 0px -60% 0px' });
         document.querySelectorAll('.familia').forEach(function (s) { espia.observe(s); });
     }
     function filtrar() {
@@ -318,7 +366,7 @@
         return out;
     }
     function fichaUnit() { return ficha.art.precio + aplanar(ficha.art.modificadores, '', null, []).reduce(function (s, m) { return s + m.precio; }, 0); }
-    function abrirFicha(a, editar) {
+    function abrirFicha(a, editar, desde) {
         ficha = { art: a, sel: {}, cantidad: 1, editar: editar || null, abiertos: {} };
         if (editar) { ficha.sel = JSON.parse(JSON.stringify(editar.sel || {})); ficha.cantidad = editar.cantidad; }
         else preseleccionar(a.modificadores, '');
@@ -329,7 +377,7 @@
         if (a.imagenUrl) { im.src = a.imagenUrl; im.alt = a.nombre; w.classList.remove('sin'); } else { im.removeAttribute('src'); w.classList.add('sin'); }
         $('#ficha-nota').value = editar ? (editar.nota || '') : '';
         renderFicha();
-        abrir('#ficha-modal');
+        if (desde) cambiar(desde, '#ficha-modal'); else abrir('#ficha-modal');
         $('#ficha-scroll').scrollTop = 0;
     }
     function reglaTexto(g) {
@@ -424,7 +472,7 @@
         var nota = $('#ficha-nota').value.trim();
         if (ficha.editar) { var idx = carrito.indexOf(ficha.editar); if (idx >= 0) carrito.splice(idx, 1); }
         agregarAlCarrito(ficha.art, mods, nota, ficha.cantidad, JSON.parse(JSON.stringify(ficha.sel)));
-        cerrar('#ficha-modal'); ficha = null;
+        cerrar('#ficha-modal');
     }
     function agregarAlCarrito(a, mods, nota, cantidad, sel) {
         var key = a.codigo + '|' + mods.map(function (m) { return (m.padreGrupo ? m.padreGrupo + ':' + m.padreCodigo + '>' : '') + m.grupo + ':' + m.codigo; }).join(',') + '|' + nota;
@@ -467,9 +515,9 @@
         if (!n) lista.appendChild(el('div', 'carrito-vacio', '<b>🛍️</b>Tu pedido está vacío.<br>Agregá algo rico del menú.'));
         carrito.forEach(function (i, idx) {
             var row = el('div', 'c-item');
-            var im = el('div', 'c-img'); if (i.img) im.style.backgroundImage = cssUrl(i.img); row.appendChild(im);
+            var im = el('div', 'c-img'); if (i.img) im.appendChild(foto(i.img, '')); row.appendChild(im);
             var info = el('div', '', '<div class="c-nombre">' + esc(i.nombre) + '</div><div class="c-det">' + (detalleMods(i) || fmt(i.precio) + ' c/u') + '</div>');
-            if (i.mods.length && porCodigo[i.codigo]) { var ed = el('button', 'btn-link', 'Editar'); ed.type = 'button'; ed.style.cssText = 'border:0;background:none;padding:.3rem 0 0;color:#D47A22;font-weight:700;cursor:pointer;font:inherit;font-size:.82rem'; ed.onclick = function () { abrirCarrito(false); abrirFicha(porCodigo[i.codigo], i); }; info.appendChild(ed); }
+            if (i.mods.length && porCodigo[i.codigo]) { var ed = el('button', 'btn-link', 'Editar'); ed.type = 'button'; ed.style.cssText = 'border:0;background:none;padding:.3rem 0 0;color:#D47A22;font-weight:700;cursor:pointer;font:inherit;font-size:.82rem'; ed.onclick = function () { abrirFicha(porCodigo[i.codigo], i, '#carrito'); }; info.appendChild(ed); }
             row.appendChild(info);
             var acc = el('div', 'c-acc');
             acc.appendChild(el('div', 'c-importe', fmt(unit(i) * i.cantidad)));
@@ -486,7 +534,7 @@
         $('#resumen-lineas').innerHTML = carrito.map(function (i) { var d = detalleMods(i); return '<div><span>' + i.cantidad + ' × ' + esc(i.nombre) + (d ? '<small>' + d + '</small>' : '') + '</span><span>' + fmt(unit(i) * i.cantidad) + '</span></div>'; }).join('');
         marcarEnCarrito(); refrescarBloqueo();
     }
-    function abrirCarrito(si) { $('#carrito').classList.toggle('abierto', si); $('#carrito').setAttribute('aria-hidden', si ? 'false' : 'true'); $('#carrito-velo').hidden = !si; refrescarBloqueo(); }
+    function abrirCarrito(si) { if (si) abrir('#carrito'); else cerrar('#carrito'); }
     $('#btn-carrito').onclick = function () { abrirCarrito(true); };
     $('#barra-pedido').onclick = function () { abrirCarrito(true); };
     $('#carrito-cerrar').onclick = function () { abrirCarrito(false); };
@@ -510,7 +558,7 @@
             }).catch(function () { /* sin autocompletar */ });
         }, 400);
     }
-    $('#btn-pedir').onclick = function () { abrirCarrito(false); renderLocal(); renderCuenta(); $('#form-msg').textContent = ''; abrir('#checkout-modal'); };
+    $('#btn-pedir').onclick = function () { renderLocal(); renderCuenta(); $('#form-msg').textContent = ''; cambiar('#carrito', '#checkout-modal'); };
     $('#checkout-cerrar').onclick = function () { cerrar('#checkout-modal'); };
     $('#form-pedido').telefono.addEventListener('input', function () { autocompletar('telefono'); });
     $('#form-pedido').cedula.addEventListener('input', function () { autocompletar('cedula'); });
@@ -529,13 +577,12 @@
             lineas: carrito.map(function (i) { return { codigo: i.codigo, cantidad: i.cantidad, notas: i.nota || undefined, modificadores: i.mods.map(function (m) { return { grupo: m.grupo, codigo: m.codigo, padreGrupo: m.padreGrupo, padreCodigo: m.padreCodigo }; }) }; })
         } }).then(function (d) {
             carrito = []; guardar(); renderCarrito();
-            cerrar('#checkout-modal');
             $('#conf-codigo').textContent = d.pedido.codigo;
             $('#conf-total').textContent = fmt(d.pedido.total);
             $('#conf-local').textContent = 'Rosti ' + (d.pedido.local || localSel);
             $('#conf-msg').textContent = (d.pago && d.pago.mensaje) || '';
             pasos('pendiente_pago');
-            abrir('#conf-modal');
+            cambiar('#checkout-modal', '#conf-modal');
             seguirPedido(d.pedido.codigo);
         }).catch(function (e) { msg.textContent = e.message || 'No se pudo enviar el pedido. Probá de nuevo.'; msg.className = 'form-msg error'; })
           .then(function () { btn.disabled = !unidades(); btn.textContent = 'Enviar pedido'; });
@@ -627,15 +674,20 @@
     }
 
     // ── Ficha: controles ──────────────────────────────────────────────────────
-    $('#ficha-cerrar').onclick = function () { cerrar('#ficha-modal'); ficha = null; };
+    $('#ficha-cerrar').onclick = function () { cerrar('#ficha-modal'); };
     $('#ficha-agregar').onclick = agregarDesdeFicha;
     $('#ficha-menos').onclick = function () { if (ficha && ficha.cantidad > 1) { ficha.cantidad--; renderFicha(); } };
     $('#ficha-mas').onclick = function () { if (ficha && ficha.cantidad < 50) { ficha.cantidad++; renderFicha(); } };
-    MODALES.forEach(function (s) { $(s).addEventListener('click', function (e) { if (e.target === $(s) && s !== '#conf-modal') { cerrar(s); if (s === '#ficha-modal') ficha = null; } }); });
+    MODALES.forEach(function (s) { if (s === '#carrito') return; $(s).addEventListener('click', function (e) { if (e.target === $(s) && s !== '#conf-modal') cerrar(s); }); });
     document.addEventListener('keydown', function (e) {
         if (e.key !== 'Escape') return;
-        if ($('#carrito').classList.contains('abierto')) { abrirCarrito(false); return; }
-        for (var i = MODALES.length - 1; i >= 0; i--) if (!$(MODALES[i]).hidden) { cerrar(MODALES[i]); if (MODALES[i] === '#ficha-modal') ficha = null; return; }
+        if (pila.length) cerrar(pila[pila.length - 1]);
+    });
+
+    // En el teléfono el teclado tapa el campo enfocado del checkout: se centra cuando el teclado terminó de subir.
+    document.addEventListener('focusin', function (e) {
+        if (!e.target.matches || !e.target.matches('.form input, .form textarea')) return;
+        setTimeout(function () { try { e.target.scrollIntoView({ block: 'center', behavior: 'smooth' }); } catch (x) { /* */ } }, 350);
     });
 
     // ── Arranque ──────────────────────────────────────────────────────────────

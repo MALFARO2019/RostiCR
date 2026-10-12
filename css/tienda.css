@@ -302,3 +302,64 @@ body.bloqueado { overflow: hidden; }
     .hero-info { padding-top: 0; }
     .chip { font-size: .78rem; }
 }
+
+/* ══ Teléfonos (iPhone primero) ═════════════════════════════════════════════════════════════════ */
+html { -webkit-text-size-adjust: 100%; }
+body.tienda { -webkit-tap-highlight-color: transparent; overscroll-behavior-y: none; }
+.tienda button, .tienda a, .tienda label, .tienda .item, .tienda .opcion { touch-action: manipulation; }
+/* iOS hace zoom al enfocar un campo con letra < 16 px: todos los campos a 16 px. */
+.tienda input, .tienda textarea, .tienda select { font-size: 16px !important; }
+/* Barra superior bajo el notch / Dynamic Island cuando se abre desde la pantalla de inicio. */
+.tb { padding-top: max(.55rem, env(safe-area-inset-top)); }
+.cats { top: var(--tb-h, 51px); }
+/* Scroll interno que no arrastra la página de atrás ni rebota hasta el fondo. */
+.modal-caja, .ficha-scroll, .cajon-cuerpo, .chat, #locales-lista { -webkit-overflow-scrolling: touch; overscroll-behavior: contain; }
+/* Altura real de la pantalla en Safari (la barra de direcciones aparece y desaparece). */
+.modal-caja { max-height: 94dvh; }
+@media (max-width: 679px) { .ficha { height: 100dvh; max-height: 100dvh; } }
+.asistente-caja { height: 92dvh; max-height: 92dvh; }
+@media (min-width: 680px) { .asistente-caja { height: 80dvh; } }
+.cajon { height: 100dvh; }
+/* Fotos como <img> perezosas, recortadas igual que antes. */
+.item-img img, .dest-img img, .c-img img { width: 100%; height: 100%; object-fit: cover; display: block; border-radius: inherit; }
+.item-img, .dest-img, .c-img { overflow: hidden; }
+.item-img .mas, .dest-img .mas { z-index: 1; }
+/* Toques: respuesta inmediata al dedo; los :hover del ratón no se quedan «pegados» en la pantalla táctil. */
+.item:active { background: #fafafa; }
+.mas:active, .stepper button:active, .btn-grande:active, .cat-tab:active { transform: scale(.94); }
+.opcion:active { background: #f5f5f5; }
+@media (hover: none) {
+    .item:hover { box-shadow: none; border-color: var(--gris2); }
+    .mas:hover { transform: none; background: #fff; color: #111; }
+    .mas.en-carrito:hover { background: #111; color: #fff; }
+    .cat-tab:hover:not(.activa), .tb-btn:hover, .tb-local:hover, .opcion:hover { background: transparent; }
+    .tb-local:hover { background: var(--gris); }
+    .asist-cta:hover { transform: none; }
+}
+@media (max-width: 640px) {
+    /* Blancos de toque de 44 px (guía de Apple). */
+    .cat-tab { padding: .6rem 1rem; font-size: .95rem; }
+    .stepper button { width: 2.75rem; height: 2.75rem; }
+    .stepper.chico button { width: 2.4rem; height: 2.4rem; }
+    .mas { width: 38px; height: 38px; }
+    .x { width: 42px; height: 42px; }
+    .opcion { min-height: 56px; padding: .8rem 1rem; }
+    .grupo-head { padding: 1rem 1rem .6rem; }
+    .ficha-cab, .ficha-nota-wrap { padding-left: 1rem; padding-right: 1rem; }
+    .sub-grupos { margin: 0 .8rem .8rem 1.4rem; }
+    .item-img { width: 112px; height: 104px; }
+    .item { min-height: 120px; }
+    .menu { padding-left: 1rem; padding-right: 1rem; }
+    /* Hoja inferior con «agarradera», como las apps nativas. */
+    .modal-caja:not(.ficha)::before { content: ''; display: block; width: 40px; height: 5px; border-radius: 3px; background: #d4d4d4; margin: .5rem auto 0; }
+    .modal-head { padding-top: .6rem; }
+    .modal-cuerpo { padding-bottom: max(1.4rem, env(safe-area-inset-bottom)); }
+    .chat-form { padding-bottom: max(.7rem, env(safe-area-inset-bottom)); }
+    .toast { bottom: calc(5.5rem + env(safe-area-inset-bottom)); }
+    .dest-lista { grid-auto-columns: 74%; margin: 0 -1rem; padding: 0 1rem .5rem; scroll-padding: 0 1rem; scrollbar-width: none; }
+    .dest-lista::-webkit-scrollbar { display: none; }
+    .hero { padding-left: 1rem; padding-right: 1rem; }
+    .x-flota { top: max(.8rem, env(safe-area-inset-top)); }
+}
+/* En el teléfono, la portada liviana (62 KB en vez de 330 KB). */
+@media (max-width: 900px) { .hero-img { background-image: url('../images/tienda/banner-900.webp'); } }
