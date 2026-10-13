@@ -363,3 +363,7 @@ body.tienda { -webkit-tap-highlight-color: transparent; overscroll-behavior-y: n
 }
 /* En el teléfono, la portada liviana (62 KB en vez de 330 KB). */
 @media (max-width: 900px) { .hero-img { background-image: url('../images/tienda/banner-900.webp'); } }
+
+/* Miniatura de la opción del modificador */
+.op-foto { width: 52px; height: 52px; border-radius: 10px; object-fit: cover; flex: none; background: var(--gris); }
+.sub-grupos .op-foto { width: 44px; height: 44px; }

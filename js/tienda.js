@@ -408,7 +408,8 @@
                 var primerIdx = sel.indexOf(o.codigo);
                 var gratis = o.precio > 0 && g.gratis > 0 && (n ? primerIdx < g.gratis : sel.length < g.gratis);
                 var precio = o.precio > 0 ? (gratis ? '<span class="op-precio"><s>+' + fmt(o.precio) + '</s><span class="gratis">Gratis</span></span>' : '<span class="op-precio">+' + fmt(o.precio) + '</span>') : '';
-                var txt = '<div class="op-txt"><span class="op-nombre">' + esc(o.nombre) + '</span>' + precio + '</div>';
+                // Miniatura de la opción (artículo con foto en ICG o en UberEats), como en las apps de delivery.
+                var txt = (o.imagenUrl ? '<img class="op-foto" loading="lazy" decoding="async" alt="" src="' + esc(o.imagenUrl) + '" onerror="this.remove()">' : '') + '<div class="op-txt"><span class="op-nombre">' + esc(o.nombre) + '</span>' + precio + '</div>';
                 if (repetible) {
                     row.innerHTML = txt;
                     var st = el('div', 'stepper chico');
