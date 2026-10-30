@@ -17,7 +17,7 @@
     <link rel="icon" type="image/png" href="images/llamita.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/styles.css?v=8">
+    <link rel="stylesheet" href="css/styles.css?v=9">
 </head>
 <body>
 
@@ -55,7 +55,7 @@
         <section class="page-header">
             <div class="container">
                 <h1>¡BUSCÁ TU ROSTI MÁS CERCANO!</h1>
-                <p>Ingresa tu dirección para mostrarte los locales más cercanos</p>
+                <p>Escribí tu zona o el nombre del local y te mostramos los que calzan</p>
                 <p class="page-header-note">Horarios de salón</p>
             </div>
         </section>
@@ -63,178 +63,263 @@
         <section class="locales-section">
             <div class="container">
                 <div class="locales-search">
-                    <label for="addr">Tu dirección</label>
-                    <input id="addr" type="text" placeholder="Ingresa tu dirección" autocomplete="off">
+                    <label for="addr">Tu zona o el local</label>
+                    <input id="addr" type="search" placeholder="Escazú, Heredia, Multiplaza…" autocomplete="off">
                 </div>
+                <p class="locales-resultado" id="localesResultado" role="status" aria-live="polite"></p>
 
                 <div class="locales-grid">
-                    <article class="local-card">
-                        <h3>Rosti Alajuela</h3>
-                        <div class="local-info"><i class="fas fa-map-marker-alt"></i> Diagonal Aeropuerto Juan Santamar&iacute;a, R&iacute;os Segundo, Alajuela.</div>
-                        <div class="local-info"><i class="fas fa-phone"></i> <a href="tel:+50622770902">2277-0902</a></div>
-                        <div class="local-info"><i class="fas fa-clock"></i> Lun-Dom 7 a.m. a 10 p.m.</div>
+                    <article class="local-card" data-busqueda="rosti alajuela diagonal aeropuerto juan santamaria, rios segundo, alajuela.">
+                        <img class="local-foto" src="images/locales/alajuela.webp" alt="Restaurante Rosti Alajuela" width="600" height="400" loading="lazy" decoding="async">
+                        <div class="local-cuerpo">
+                            <h3>Rosti Alajuela</h3>
+                            <div class="local-info"><i class="fas fa-map-marker-alt"></i> Diagonal Aeropuerto Juan Santamar&iacute;a, R&iacute;os Segundo, Alajuela.</div>
+                            <div class="local-info"><i class="fas fa-phone"></i> <a href="tel:+50622770902">2277-0902</a></div>
+                            <div class="local-info"><i class="fas fa-clock"></i> Lun-Dom 7 a.m. a 10 p.m.</div>
+                        </div>
                     </article>
-                    <article class="local-card">
-                        <h3>Rosti Plaza Real</h3>
-                        <div class="local-info"><i class="fas fa-map-marker-alt"></i> C.C. Plaza Real, Alajuela.</div>
-                        <div class="local-info"><i class="fas fa-phone"></i> <a href="tel:+50622770936">2277-0936</a></div>
-                        <div class="local-info"><i class="fas fa-clock"></i> Lun-Jue 8 a.m. a 9 p.m. &middot; Vie-S&aacute;b 8 a.m. a 10 p.m. &middot; Dom 8 a.m. a 9 p.m.</div>
+                    <article class="local-card" data-busqueda="rosti plaza real c.c. plaza real, alajuela.">
+                        <img class="local-foto" src="images/locales/plaza-real.webp" alt="Restaurante Rosti Plaza Real" width="600" height="400" loading="lazy" decoding="async">
+                        <div class="local-cuerpo">
+                            <h3>Rosti Plaza Real</h3>
+                            <div class="local-info"><i class="fas fa-map-marker-alt"></i> C.C. Plaza Real, Alajuela.</div>
+                            <div class="local-info"><i class="fas fa-phone"></i> <a href="tel:+50622770936">2277-0936</a></div>
+                            <div class="local-info"><i class="fas fa-clock"></i> Lun-Jue 8 a.m. a 9 p.m. &middot; Vie-S&aacute;b 8 a.m. a 10 p.m. &middot; Dom 8 a.m. a 9 p.m.</div>
+                        </div>
                     </article>
-                    <article class="local-card">
-                        <h3>Rosti San Jos&eacute;</h3>
-                        <div class="local-info"><i class="fas fa-map-marker-alt"></i> Calle 5, Av. Primera, frente al Cine Variedades, San Jos&eacute;.</div>
-                        <div class="local-info"><i class="fas fa-phone"></i> <a href="tel:+50622770911">2277-0911</a></div>
-                        <div class="local-info"><i class="fas fa-clock"></i> Lun-S&aacute;b 7 a.m. a 8 p.m. &middot; Dom 7 a.m. a 5 p.m.</div>
+                    <article class="local-card" data-busqueda="rosti san jose calle 5, av. primera, frente al cine variedades, san jose.">
+                        <img class="local-foto" src="images/locales/san-jose.webp" alt="Restaurante Rosti San José" width="600" height="400" loading="lazy" decoding="async">
+                        <div class="local-cuerpo">
+                            <h3>Rosti San Jos&eacute;</h3>
+                            <div class="local-info"><i class="fas fa-map-marker-alt"></i> Calle 5, Av. Primera, frente al Cine Variedades, San Jos&eacute;.</div>
+                            <div class="local-info"><i class="fas fa-phone"></i> <a href="tel:+50622770911">2277-0911</a></div>
+                            <div class="local-info"><i class="fas fa-clock"></i> Lun-S&aacute;b 7 a.m. a 8 p.m. &middot; Dom 7 a.m. a 5 p.m.</div>
+                        </div>
                     </article>
-                    <article class="local-card">
-                        <h3>Rosti Guachipel&iacute;n</h3>
-                        <div class="local-info"><i class="fas fa-map-marker-alt"></i> Guachipelin, Escaz&uacute;.</div>
-                        <div class="local-info"><i class="fas fa-phone"></i> <a href="tel:+50622770901">2277-0901</a></div>
-                        <div class="local-info"><i class="fas fa-clock"></i> Lun-Dom 8 a.m. a 9 p.m.</div>
+                    <article class="local-card" data-busqueda="rosti guachipelin guachipelin, escazu.">
+                        <img class="local-foto" src="images/locales/guachipelin.webp" alt="Restaurante Rosti Guachipelín" width="600" height="400" loading="lazy" decoding="async">
+                        <div class="local-cuerpo">
+                            <h3>Rosti Guachipel&iacute;n</h3>
+                            <div class="local-info"><i class="fas fa-map-marker-alt"></i> Guachipelin, Escaz&uacute;.</div>
+                            <div class="local-info"><i class="fas fa-phone"></i> <a href="tel:+50622770901">2277-0901</a></div>
+                            <div class="local-info"><i class="fas fa-clock"></i> Lun-Dom 8 a.m. a 9 p.m.</div>
+                        </div>
                     </article>
-                    <article class="local-card">
-                        <h3>Rosti Desamparados</h3>
-                        <div class="local-info"><i class="fas fa-map-marker-alt"></i> Av. 82, Desamparados, San Jos&eacute;.</div>
-                        <div class="local-info"><i class="fas fa-phone"></i> <a href="tel:+50622770818">2277-0818</a></div>
-                        <div class="local-info"><i class="fas fa-clock"></i> Lun-Dom 8 a.m. a 10 p.m.</div>
+                    <article class="local-card" data-busqueda="rosti desamparados av. 82, desamparados, san jose.">
+                        <img class="local-foto" src="images/locales/desamparados.webp" alt="Restaurante Rosti Desamparados" width="600" height="400" loading="lazy" decoding="async">
+                        <div class="local-cuerpo">
+                            <h3>Rosti Desamparados</h3>
+                            <div class="local-info"><i class="fas fa-map-marker-alt"></i> Av. 82, Desamparados, San Jos&eacute;.</div>
+                            <div class="local-info"><i class="fas fa-phone"></i> <a href="tel:+50622770818">2277-0818</a></div>
+                            <div class="local-info"><i class="fas fa-clock"></i> Lun-Dom 8 a.m. a 10 p.m.</div>
+                        </div>
                     </article>
-                    <article class="local-card">
-                        <h3>Rosti Escaz&uacute;</h3>
-                        <div class="local-info"><i class="fas fa-map-marker-alt"></i> C. 118 105, San Rafael, Trejos Montealegre, Escaz&uacute;.</div>
-                        <div class="local-info"><i class="fas fa-phone"></i> <a href="tel:+50622770901">2277-0901</a></div>
-                        <div class="local-info"><i class="fas fa-clock"></i> Lun-Dom 8 a.m. a 10 p.m.</div>
+                    <article class="local-card" data-busqueda="rosti escazu c. 118 105, san rafael, trejos montealegre, escazu.">
+                        <img class="local-foto" src="images/locales/escazu.webp" alt="Restaurante Rosti Escazú" width="600" height="400" loading="lazy" decoding="async">
+                        <div class="local-cuerpo">
+                            <h3>Rosti Escaz&uacute;</h3>
+                            <div class="local-info"><i class="fas fa-map-marker-alt"></i> C. 118 105, San Rafael, Trejos Montealegre, Escaz&uacute;.</div>
+                            <div class="local-info"><i class="fas fa-phone"></i> <a href="tel:+50622770901">2277-0901</a></div>
+                            <div class="local-info"><i class="fas fa-clock"></i> Lun-Dom 8 a.m. a 10 p.m.</div>
+                        </div>
                     </article>
-                    <article class="local-card">
-                        <h3>Rosti Curridabat</h3>
-                        <div class="local-info"><i class="fas fa-map-marker-alt"></i> Contiguo a Plaza del Sol, Curridabat.</div>
-                        <div class="local-info"><i class="fas fa-phone"></i> <a href="tel:+50622770916">2277-0916</a></div>
-                        <div class="local-info"><i class="fas fa-clock"></i> Lun-Dom 8 a.m. a 10 p.m.</div>
+                    <article class="local-card" data-busqueda="rosti curridabat contiguo a plaza del sol, curridabat.">
+                        <img class="local-foto" src="images/locales/curridabat.webp" alt="Restaurante Rosti Curridabat" width="600" height="400" loading="lazy" decoding="async">
+                        <div class="local-cuerpo">
+                            <h3>Rosti Curridabat</h3>
+                            <div class="local-info"><i class="fas fa-map-marker-alt"></i> Contiguo a Plaza del Sol, Curridabat.</div>
+                            <div class="local-info"><i class="fas fa-phone"></i> <a href="tel:+50622770916">2277-0916</a></div>
+                            <div class="local-info"><i class="fas fa-clock"></i> Lun-Dom 8 a.m. a 10 p.m.</div>
+                        </div>
                     </article>
-                    <article class="local-card">
-                        <h3>Rosti Multiplaza Escaz&uacute;</h3>
-                        <div class="local-info"><i class="fas fa-map-marker-alt"></i> Multiplaza Escaz&uacute;.</div>
-                        <div class="local-info"><i class="fas fa-phone"></i> <a href="tel:+50622770912">2277-0912</a></div>
-                        <div class="local-info"><i class="fas fa-clock"></i> Lun-S&aacute;b 9 a.m. a 9 p.m. &middot; Dom 9 a.m. a 8 p.m.</div>
+                    <article class="local-card" data-busqueda="rosti multiplaza escazu multiplaza escazu.">
+                        <img class="local-foto" src="images/locales/multiplaza-escazu.webp" alt="Restaurante Rosti Multiplaza Escazú" width="600" height="400" loading="lazy" decoding="async">
+                        <div class="local-cuerpo">
+                            <h3>Rosti Multiplaza Escaz&uacute;</h3>
+                            <div class="local-info"><i class="fas fa-map-marker-alt"></i> Multiplaza Escaz&uacute;.</div>
+                            <div class="local-info"><i class="fas fa-phone"></i> <a href="tel:+50622770912">2277-0912</a></div>
+                            <div class="local-info"><i class="fas fa-clock"></i> Lun-S&aacute;b 9 a.m. a 9 p.m. &middot; Dom 9 a.m. a 8 p.m.</div>
+                        </div>
                     </article>
-                    <article class="local-card">
-                        <h3>Rosti Multiplaza del Este</h3>
-                        <div class="local-info"><i class="fas fa-map-marker-alt"></i> Multiplaza Curridabat, San Rafael.</div>
-                        <div class="local-info"><i class="fas fa-phone"></i> <a href="tel:+50622770928">2277-0928</a></div>
-                        <div class="local-info"><i class="fas fa-clock"></i> Lun-S&aacute;b 9 a.m. a 9 p.m. &middot; Dom 9 a.m. a 8 p.m.</div>
+                    <article class="local-card" data-busqueda="rosti multiplaza del este multiplaza curridabat, san rafael.">
+                        <img class="local-foto" src="images/locales/multiplaza-del-este.webp" alt="Restaurante Rosti Multiplaza del Este" width="600" height="400" loading="lazy" decoding="async">
+                        <div class="local-cuerpo">
+                            <h3>Rosti Multiplaza del Este</h3>
+                            <div class="local-info"><i class="fas fa-map-marker-alt"></i> Multiplaza Curridabat, San Rafael.</div>
+                            <div class="local-info"><i class="fas fa-phone"></i> <a href="tel:+50622770928">2277-0928</a></div>
+                            <div class="local-info"><i class="fas fa-clock"></i> Lun-S&aacute;b 9 a.m. a 9 p.m. &middot; Dom 9 a.m. a 8 p.m.</div>
+                        </div>
                     </article>
-                    <article class="local-card">
-                        <h3>Rosti Cartago</h3>
-                        <div class="local-info"><i class="fas fa-map-marker-alt"></i> Contiguo a Pali Cartago Oriental, Cartago.</div>
-                        <div class="local-info"><i class="fas fa-phone"></i> <a href="tel:+50622770931">2277-0931</a></div>
-                        <div class="local-info"><i class="fas fa-clock"></i> Lun-Dom 8 a.m. a 9 p.m.</div>
+                    <article class="local-card" data-busqueda="rosti cartago contiguo a pali cartago oriental, cartago.">
+                        <img class="local-foto" src="images/locales/cartago.webp" alt="Restaurante Rosti Cartago" width="600" height="400" loading="lazy" decoding="async">
+                        <div class="local-cuerpo">
+                            <h3>Rosti Cartago</h3>
+                            <div class="local-info"><i class="fas fa-map-marker-alt"></i> Contiguo a Pali Cartago Oriental, Cartago.</div>
+                            <div class="local-info"><i class="fas fa-phone"></i> <a href="tel:+50622770931">2277-0931</a></div>
+                            <div class="local-info"><i class="fas fa-clock"></i> Lun-Dom 8 a.m. a 9 p.m.</div>
+                        </div>
                     </article>
-                    <article class="local-card">
-                        <h3>Rosti Coronado</h3>
-                        <div class="local-info"><i class="fas fa-map-marker-alt"></i> 150 m sur del Masxmenos, San Isidro de Coronado.</div>
-                        <div class="local-info"><i class="fas fa-phone"></i> <a href="tel:+50622770943">2277-0943</a></div>
-                        <div class="local-info"><i class="fas fa-clock"></i> Lun-Jue 8 a.m. a 9 p.m. &middot; Vie-S&aacute;b 8 a.m. a 10 p.m. &middot; Dom 8 a.m. a 9 p.m.</div>
+                    <article class="local-card" data-busqueda="rosti coronado 150 m sur del masxmenos, san isidro de coronado.">
+                        <img class="local-foto" src="images/locales/coronado.webp" alt="Restaurante Rosti Coronado" width="600" height="400" loading="lazy" decoding="async">
+                        <div class="local-cuerpo">
+                            <h3>Rosti Coronado</h3>
+                            <div class="local-info"><i class="fas fa-map-marker-alt"></i> 150 m sur del Masxmenos, San Isidro de Coronado.</div>
+                            <div class="local-info"><i class="fas fa-phone"></i> <a href="tel:+50622770943">2277-0943</a></div>
+                            <div class="local-info"><i class="fas fa-clock"></i> Lun-Jue 8 a.m. a 9 p.m. &middot; Vie-S&aacute;b 8 a.m. a 10 p.m. &middot; Dom 8 a.m. a 9 p.m.</div>
+                        </div>
                     </article>
-                    <article class="local-card">
-                        <h3>Rosti Terramall</h3>
-                        <div class="local-info"><i class="fas fa-map-marker-alt"></i> C.C. Terramall.</div>
-                        <div class="local-info"><i class="fas fa-phone"></i> <a href="tel:+50622770925">2277-0925</a></div>
-                        <div class="local-info"><i class="fas fa-clock"></i> Lun-S&aacute;b 9 a.m. a 9 p.m. &middot; Dom 9 a.m. a 8 p.m.</div>
+                    <article class="local-card" data-busqueda="rosti terramall c.c. terramall.">
+                        <img class="local-foto" src="images/locales/terramall.webp" alt="Restaurante Rosti Terramall" width="600" height="400" loading="lazy" decoding="async">
+                        <div class="local-cuerpo">
+                            <h3>Rosti Terramall</h3>
+                            <div class="local-info"><i class="fas fa-map-marker-alt"></i> C.C. Terramall.</div>
+                            <div class="local-info"><i class="fas fa-phone"></i> <a href="tel:+50622770925">2277-0925</a></div>
+                            <div class="local-info"><i class="fas fa-clock"></i> Lun-S&aacute;b 9 a.m. a 9 p.m. &middot; Dom 9 a.m. a 8 p.m.</div>
+                        </div>
                     </article>
-                    <article class="local-card">
-                        <h3>Rosti Pinares</h3>
-                        <div class="local-info"><i class="fas fa-map-marker-alt"></i> Frente a Plaza 1492, Pinares, Curridabat.</div>
-                        <div class="local-info"><i class="fas fa-phone"></i> <a href="tel:+50622770941">2277-0941</a></div>
-                        <div class="local-info"><i class="fas fa-clock"></i> Lun-Vie 8 a.m. a 10 p.m. &middot; S&aacute;b-Dom 7 a.m. a 10 p.m.</div>
+                    <article class="local-card" data-busqueda="rosti pinares frente a plaza 1492, pinares, curridabat.">
+                        <img class="local-foto" src="images/locales/pinares.webp" alt="Restaurante Rosti Pinares" width="600" height="400" loading="lazy" decoding="async">
+                        <div class="local-cuerpo">
+                            <h3>Rosti Pinares</h3>
+                            <div class="local-info"><i class="fas fa-map-marker-alt"></i> Frente a Plaza 1492, Pinares, Curridabat.</div>
+                            <div class="local-info"><i class="fas fa-phone"></i> <a href="tel:+50622770941">2277-0941</a></div>
+                            <div class="local-info"><i class="fas fa-clock"></i> Lun-Vie 8 a.m. a 10 p.m. &middot; S&aacute;b-Dom 7 a.m. a 10 p.m.</div>
+                        </div>
                     </article>
-                    <article class="local-card">
-                        <h3>Rosti Heredia</h3>
-                        <div class="local-info"><i class="fas fa-map-marker-alt"></i> Heredia centro, 300 norte de la Universidad Nacional.</div>
-                        <div class="local-info"><i class="fas fa-phone"></i> <a href="tel:+50622770905">2277-0905</a></div>
-                        <div class="local-info"><i class="fas fa-clock"></i> Lun-Dom 8 a.m. a 10 p.m.</div>
+                    <article class="local-card" data-busqueda="rosti heredia heredia centro, 300 norte de la universidad nacional.">
+                        <img class="local-foto" src="images/locales/heredia.webp" alt="Restaurante Rosti Heredia" width="600" height="400" loading="lazy" decoding="async">
+                        <div class="local-cuerpo">
+                            <h3>Rosti Heredia</h3>
+                            <div class="local-info"><i class="fas fa-map-marker-alt"></i> Heredia centro, 300 norte de la Universidad Nacional.</div>
+                            <div class="local-info"><i class="fas fa-phone"></i> <a href="tel:+50622770905">2277-0905</a></div>
+                            <div class="local-info"><i class="fas fa-clock"></i> Lun-Dom 8 a.m. a 10 p.m.</div>
+                        </div>
                     </article>
-                    <article class="local-card">
-                        <h3>Rosti Sabana</h3>
-                        <div class="local-info"><i class="fas fa-map-marker-alt"></i> Sabana Norte, 100 m este del ICE, Mata Redonda.</div>
-                        <div class="local-info"><i class="fas fa-phone"></i> <a href="tel:+50622770921">2277-0921</a></div>
-                        <div class="local-info"><i class="fas fa-clock"></i> Lun-Dom 8 a.m. a 10 p.m.</div>
+                    <article class="local-card" data-busqueda="rosti sabana sabana norte, 100 m este del ice, mata redonda.">
+                        <img class="local-foto" src="images/locales/sabana.webp" alt="Restaurante Rosti Sabana" width="600" height="400" loading="lazy" decoding="async">
+                        <div class="local-cuerpo">
+                            <h3>Rosti Sabana</h3>
+                            <div class="local-info"><i class="fas fa-map-marker-alt"></i> Sabana Norte, 100 m este del ICE, Mata Redonda.</div>
+                            <div class="local-info"><i class="fas fa-phone"></i> <a href="tel:+50622770921">2277-0921</a></div>
+                            <div class="local-info"><i class="fas fa-clock"></i> Lun-Dom 8 a.m. a 10 p.m.</div>
+                        </div>
                     </article>
-                    <article class="local-card">
-                        <h3>Rosti Tib&aacute;s</h3>
-                        <div class="local-info"><i class="fas fa-map-marker-alt"></i> La Florida, diagonal a la agencia del ICE, Tib&aacute;s.</div>
-                        <div class="local-info"><i class="fas fa-phone"></i> <a href="tel:+50622770923">2277-0923</a></div>
-                        <div class="local-info"><i class="fas fa-clock"></i> Lun-Dom 8 a.m. a 10 p.m.</div>
+                    <article class="local-card" data-busqueda="rosti tibas la florida, diagonal a la agencia del ice, tibas.">
+                        <img class="local-foto" src="images/locales/tibas.webp" alt="Restaurante Rosti Tibás" width="600" height="400" loading="lazy" decoding="async">
+                        <div class="local-cuerpo">
+                            <h3>Rosti Tib&aacute;s</h3>
+                            <div class="local-info"><i class="fas fa-map-marker-alt"></i> La Florida, diagonal a la agencia del ICE, Tib&aacute;s.</div>
+                            <div class="local-info"><i class="fas fa-phone"></i> <a href="tel:+50622770923">2277-0923</a></div>
+                            <div class="local-info"><i class="fas fa-clock"></i> Lun-Dom 8 a.m. a 10 p.m.</div>
+                        </div>
                     </article>
-                    <article class="local-card">
-                        <h3>Rosti Real Cariari</h3>
-                        <div class="local-info"><i class="fas fa-map-marker-alt"></i> C.C. Real Cariari.</div>
-                        <div class="local-info"><i class="fas fa-phone"></i> <a href="tel:+50622770927">2277-0927</a></div>
-                        <div class="local-info"><i class="fas fa-clock"></i> Lun-S&aacute;b 8 a.m. a 9 p.m. &middot; Dom 8 a.m. a 8 p.m.</div>
+                    <article class="local-card" data-busqueda="rosti real cariari c.c. real cariari.">
+                        <img class="local-foto" src="images/locales/real-cariari.webp" alt="Restaurante Rosti Real Cariari" width="600" height="400" loading="lazy" decoding="async">
+                        <div class="local-cuerpo">
+                            <h3>Rosti Real Cariari</h3>
+                            <div class="local-info"><i class="fas fa-map-marker-alt"></i> C.C. Real Cariari.</div>
+                            <div class="local-info"><i class="fas fa-phone"></i> <a href="tel:+50622770927">2277-0927</a></div>
+                            <div class="local-info"><i class="fas fa-clock"></i> Lun-S&aacute;b 8 a.m. a 9 p.m. &middot; Dom 8 a.m. a 8 p.m.</div>
+                        </div>
                     </article>
-                    <article class="local-card">
-                        <h3>Rosti Avenida Escaz&uacute;</h3>
-                        <div class="local-info"><i class="fas fa-map-marker-alt"></i> Av. Escaz&uacute;, San Rafael de Escaz&uacute;.</div>
-                        <div class="local-info"><i class="fas fa-phone"></i> <a href="tel:+50622770977">2277-0977</a></div>
-                        <div class="local-info"><i class="fas fa-clock"></i> Lun-Dom 8 a.m. a 9 p.m.</div>
+                    <article class="local-card" data-busqueda="rosti avenida escazu av. escazu, san rafael de escazu.">
+                        <img class="local-foto" src="images/locales/avenida-escazu.webp" alt="Restaurante Rosti Avenida Escazú" width="600" height="400" loading="lazy" decoding="async">
+                        <div class="local-cuerpo">
+                            <h3>Rosti Avenida Escaz&uacute;</h3>
+                            <div class="local-info"><i class="fas fa-map-marker-alt"></i> Av. Escaz&uacute;, San Rafael de Escaz&uacute;.</div>
+                            <div class="local-info"><i class="fas fa-phone"></i> <a href="tel:+50622770977">2277-0977</a></div>
+                            <div class="local-info"><i class="fas fa-clock"></i> Lun-Dom 8 a.m. a 9 p.m.</div>
+                        </div>
                     </article>
-                    <article class="local-card">
-                        <h3>Rosti Guadalupe</h3>
-                        <div class="local-info"><i class="fas fa-map-marker-alt"></i> Diagonal al Liceo Napole&oacute;n Quesada, Guadalupe.</div>
-                        <div class="local-info"><i class="fas fa-phone"></i> <a href="tel:+50622770907">2277-0907</a></div>
-                        <div class="local-info"><i class="fas fa-clock"></i> Lun-Jue 8 a.m. a 9 p.m. &middot; Vie-S&aacute;b 8 a.m. a 10 p.m. &middot; Dom 8 a.m. a 9 p.m.</div>
+                    <article class="local-card" data-busqueda="rosti guadalupe diagonal al liceo napoleon quesada, guadalupe.">
+                        <img class="local-foto" src="images/locales/guadalupe.webp" alt="Restaurante Rosti Guadalupe" width="600" height="400" loading="lazy" decoding="async">
+                        <div class="local-cuerpo">
+                            <h3>Rosti Guadalupe</h3>
+                            <div class="local-info"><i class="fas fa-map-marker-alt"></i> Diagonal al Liceo Napole&oacute;n Quesada, Guadalupe.</div>
+                            <div class="local-info"><i class="fas fa-phone"></i> <a href="tel:+50622770907">2277-0907</a></div>
+                            <div class="local-info"><i class="fas fa-clock"></i> Lun-Jue 8 a.m. a 9 p.m. &middot; Vie-S&aacute;b 8 a.m. a 10 p.m. &middot; Dom 8 a.m. a 9 p.m.</div>
+                        </div>
                     </article>
-                    <article class="local-card">
-                        <h3>Rosti Pr&aacute;ctiko</h3>
-                        <div class="local-info"><i class="fas fa-map-marker-alt"></i> La Trinidad, Montecillos, Alajuela.</div>
-                        <div class="local-info"><i class="fas fa-phone"></i> <a href="tel:+50622770978">2277-0978</a></div>
-                        <div class="local-info"><i class="fas fa-clock"></i> Lun-Dom 8 a.m. a 9 p.m.</div>
+                    <article class="local-card" data-busqueda="rosti practiko la trinidad, montecillos, alajuela.">
+                        <img class="local-foto" src="images/locales/practiko.webp" alt="Restaurante Rosti Práctiko" width="600" height="400" loading="lazy" decoding="async">
+                        <div class="local-cuerpo">
+                            <h3>Rosti Pr&aacute;ctiko</h3>
+                            <div class="local-info"><i class="fas fa-map-marker-alt"></i> La Trinidad, Montecillos, Alajuela.</div>
+                            <div class="local-info"><i class="fas fa-phone"></i> <a href="tel:+50622770978">2277-0978</a></div>
+                            <div class="local-info"><i class="fas fa-clock"></i> Lun-Dom 8 a.m. a 9 p.m.</div>
+                        </div>
                     </article>
-                    <article class="local-card">
-                        <h3>Rosti San Francisco</h3>
-                        <div class="local-info"><i class="fas fa-map-marker-alt"></i> San Francisco de Heredia, diagonal al Quiropr&aacute;ctico.</div>
-                        <div class="local-info"><i class="fas fa-phone"></i> <a href="tel:+50622770976">2277-0976</a></div>
-                        <div class="local-info"><i class="fas fa-clock"></i> Lun-Jue 10 a.m. a 9 p.m. &middot; Vie-S&aacute;b 10 a.m. a 10 p.m. &middot; Dom 10 a.m. a 9 p.m.</div>
+                    <article class="local-card" data-busqueda="rosti san francisco san francisco de heredia, diagonal al quiropractico.">
+                        <img class="local-foto" src="images/locales/san-francisco.webp" alt="Restaurante Rosti San Francisco" width="600" height="400" loading="lazy" decoding="async">
+                        <div class="local-cuerpo">
+                            <h3>Rosti San Francisco</h3>
+                            <div class="local-info"><i class="fas fa-map-marker-alt"></i> San Francisco de Heredia, diagonal al Quiropr&aacute;ctico.</div>
+                            <div class="local-info"><i class="fas fa-phone"></i> <a href="tel:+50622770976">2277-0976</a></div>
+                            <div class="local-info"><i class="fas fa-clock"></i> Lun-Jue 10 a.m. a 9 p.m. &middot; Vie-S&aacute;b 10 a.m. a 10 p.m. &middot; Dom 10 a.m. a 9 p.m.</div>
+                        </div>
                     </article>
-                    <article class="local-card">
-                        <h3>Rosti Ox&iacute;geno</h3>
-                        <div class="local-info"><i class="fas fa-map-marker-alt"></i> C.C. Ox&iacute;geno, Heredia.</div>
-                        <div class="local-info"><i class="fas fa-phone"></i> <a href="tel:+50622770945">2277-0945</a></div>
-                        <div class="local-info"><i class="fas fa-clock"></i> Lun-S&aacute;b 10 a.m. a 9 p.m. &middot; Dom 10 a.m. a 8 p.m.</div>
+                    <article class="local-card" data-busqueda="rosti oxigeno c.c. oxigeno, heredia.">
+                        <img class="local-foto" src="images/locales/oxigeno.webp" alt="Restaurante Rosti Oxígeno" width="600" height="400" loading="lazy" decoding="async">
+                        <div class="local-cuerpo">
+                            <h3>Rosti Ox&iacute;geno</h3>
+                            <div class="local-info"><i class="fas fa-map-marker-alt"></i> C.C. Ox&iacute;geno, Heredia.</div>
+                            <div class="local-info"><i class="fas fa-phone"></i> <a href="tel:+50622770945">2277-0945</a></div>
+                            <div class="local-info"><i class="fas fa-clock"></i> Lun-S&aacute;b 10 a.m. a 9 p.m. &middot; Dom 10 a.m. a 8 p.m.</div>
+                        </div>
                     </article>
-                    <article class="local-card">
-                        <h3>Rosti Lincoln Plaza</h3>
-                        <div class="local-info"><i class="fas fa-map-marker-alt"></i> Lincoln Plaza.</div>
-                        <div class="local-info"><i class="fas fa-phone"></i> <a href="tel:+50622770934">2277-0934</a></div>
-                        <div class="local-info"><i class="fas fa-clock"></i> Lun-Dom 10 a.m. a 9 p.m.</div>
+                    <article class="local-card" data-busqueda="rosti lincoln plaza lincoln plaza.">
+                        <img class="local-foto" src="images/locales/lincoln-plaza.webp" alt="Restaurante Rosti Lincoln Plaza" width="600" height="400" loading="lazy" decoding="async">
+                        <div class="local-cuerpo">
+                            <h3>Rosti Lincoln Plaza</h3>
+                            <div class="local-info"><i class="fas fa-map-marker-alt"></i> Lincoln Plaza.</div>
+                            <div class="local-info"><i class="fas fa-phone"></i> <a href="tel:+50622770934">2277-0934</a></div>
+                            <div class="local-info"><i class="fas fa-clock"></i> Lun-Dom 10 a.m. a 9 p.m.</div>
+                        </div>
                     </article>
-                    <article class="local-card">
-                        <h3>Rosti City Mall</h3>
-                        <div class="local-info"><i class="fas fa-map-marker-alt"></i> C.C. City Mall, Alajuela.</div>
-                        <div class="local-info"><i class="fas fa-phone"></i> <a href="tel:+50622770918">2277-0918</a></div>
-                        <div class="local-info"><i class="fas fa-clock"></i> Lun-S&aacute;b 10 a.m. a 9 p.m. &middot; Dom 10 a.m. a 8 p.m.</div>
+                    <article class="local-card" data-busqueda="rosti city mall c.c. city mall, alajuela.">
+                        <img class="local-foto" src="images/locales/city-mall.webp" alt="Restaurante Rosti City Mall" width="600" height="400" loading="lazy" decoding="async">
+                        <div class="local-cuerpo">
+                            <h3>Rosti City Mall</h3>
+                            <div class="local-info"><i class="fas fa-map-marker-alt"></i> C.C. City Mall, Alajuela.</div>
+                            <div class="local-info"><i class="fas fa-phone"></i> <a href="tel:+50622770918">2277-0918</a></div>
+                            <div class="local-info"><i class="fas fa-clock"></i> Lun-S&aacute;b 10 a.m. a 9 p.m. &middot; Dom 10 a.m. a 8 p.m.</div>
+                        </div>
                     </article>
-                    <article class="local-card">
-                        <h3>Rosti Santa Ana</h3>
-                        <div class="local-info"><i class="fas fa-map-marker-alt"></i> C.C. El Paseo, diagonal al Hotel Quality Pozos, Santa Ana.</div>
-                        <div class="local-info"><i class="fas fa-phone"></i> <a href="tel:+50622770909">2277-0909</a></div>
-                        <div class="local-info"><i class="fas fa-clock"></i> Lun-Dom 10 a.m. a 10 p.m.</div>
+                    <article class="local-card" data-busqueda="rosti santa ana c.c. el paseo, diagonal al hotel quality pozos, santa ana.">
+                        <img class="local-foto" src="images/locales/santa-ana.webp" alt="Restaurante Rosti Santa Ana" width="600" height="400" loading="lazy" decoding="async">
+                        <div class="local-cuerpo">
+                            <h3>Rosti Santa Ana</h3>
+                            <div class="local-info"><i class="fas fa-map-marker-alt"></i> C.C. El Paseo, diagonal al Hotel Quality Pozos, Santa Ana.</div>
+                            <div class="local-info"><i class="fas fa-phone"></i> <a href="tel:+50622770909">2277-0909</a></div>
+                            <div class="local-info"><i class="fas fa-clock"></i> Lun-Dom 10 a.m. a 10 p.m.</div>
+                        </div>
                     </article>
-                    <article class="local-card">
-                        <h3>Rosti Multicentro Desamparados</h3>
-                        <div class="local-info"><i class="fas fa-map-marker-alt"></i> Multicentro Desamparados.</div>
-                        <div class="local-info"><i class="fas fa-phone"></i> <a href="tel:+50622770979">2277-0979</a></div>
-                        <div class="local-info"><i class="fas fa-clock"></i> Lun-Dom 10 a.m. a 9 p.m.</div>
+                    <article class="local-card" data-busqueda="rosti multicentro desamparados multicentro desamparados.">
+                        <img class="local-foto" src="images/locales/multicentro-desamparados.webp" alt="Restaurante Rosti Multicentro Desamparados" width="600" height="400" loading="lazy" decoding="async">
+                        <div class="local-cuerpo">
+                            <h3>Rosti Multicentro Desamparados</h3>
+                            <div class="local-info"><i class="fas fa-map-marker-alt"></i> Multicentro Desamparados.</div>
+                            <div class="local-info"><i class="fas fa-phone"></i> <a href="tel:+50622770979">2277-0979</a></div>
+                            <div class="local-info"><i class="fas fa-clock"></i> Lun-Dom 10 a.m. a 9 p.m.</div>
+                        </div>
                     </article>
-                    <article class="local-card">
-                        <h3>Rosti Mall San Pedro</h3>
-                        <div class="local-info"><i class="fas fa-map-marker-alt"></i> Rotonda de la Fuente de la Hispanidad, San Pedro.</div>
-                        <div class="local-info"><i class="fas fa-phone"></i> <a href="tel:+50622770980">2277-0980</a></div>
-                        <div class="local-info"><i class="fas fa-clock"></i> Lun-Vie 10 a.m. a 9 p.m. &middot; S&aacute;b-Dom 10 a.m. a 8 p.m.</div>
+                    <article class="local-card" data-busqueda="rosti mall san pedro rotonda de la fuente de la hispanidad, san pedro.">
+                        <img class="local-foto" src="images/locales/mall-san-pedro.webp" alt="Restaurante Rosti Mall San Pedro" width="600" height="400" loading="lazy" decoding="async">
+                        <div class="local-cuerpo">
+                            <h3>Rosti Mall San Pedro</h3>
+                            <div class="local-info"><i class="fas fa-map-marker-alt"></i> Rotonda de la Fuente de la Hispanidad, San Pedro.</div>
+                            <div class="local-info"><i class="fas fa-phone"></i> <a href="tel:+50622770980">2277-0980</a></div>
+                            <div class="local-info"><i class="fas fa-clock"></i> Lun-Vie 10 a.m. a 9 p.m. &middot; S&aacute;b-Dom 10 a.m. a 8 p.m.</div>
+                        </div>
                     </article>
-                    <article class="local-card">
-                        <h3>Rosti Parque de Diversiones Restaurante</h3>
-                        <div class="local-info"><i class="fas fa-map-marker-alt"></i> Parque de Diversiones, Pueblo Antiguo.</div>
-                        <div class="local-info"><i class="fas fa-phone"></i> <a href="tel:+50622429299">2242-9299</a></div>
-                        <div class="local-info"><i class="fas fa-clock"></i> Lun-Jue Cerrado &middot; Vie-Dom 9 a.m. a 5 p.m.</div>
+                    <article class="local-card" data-busqueda="rosti parque de diversiones restaurante parque de diversiones, pueblo antiguo.">
+                        <img class="local-foto" src="images/locales/parque-de-diversiones-restaurante.webp" alt="Restaurante Rosti Parque de Diversiones Restaurante" width="600" height="400" loading="lazy" decoding="async">
+                        <div class="local-cuerpo">
+                            <h3>Rosti Parque de Diversiones Restaurante</h3>
+                            <div class="local-info"><i class="fas fa-map-marker-alt"></i> Parque de Diversiones, Pueblo Antiguo.</div>
+                            <div class="local-info"><i class="fas fa-phone"></i> <a href="tel:+50622429299">2242-9299</a></div>
+                            <div class="local-info"><i class="fas fa-clock"></i> Lun-Jue Cerrado &middot; Vie-Dom 9 a.m. a 5 p.m.</div>
+                        </div>
                     </article>
                 </div>
             </div>
@@ -254,16 +339,16 @@
                         <a href="https://api.whatsapp.com/send?phone=50687070770&text=%C2%A1Hola!%20Quiero%20hacer%20un%20pedido" aria-label="WhatsApp" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i></a>
                         <a href="https://www.facebook.com/Rosticr/" aria-label="Facebook" target="_blank" rel="noopener"><i class="fab fa-facebook-f"></i></a>
                         <a href="https://www.instagram.com/rosti_cr/" aria-label="Instagram" target="_blank" rel="noopener"><i class="fab fa-instagram"></i></a>
-                        <a href="https://www.tiktok.com/@rosti_cr" aria-label="TikTok" target="_blank" rel="noopener"><i class="fab fa-tiktok"></i></a>
-                        <a href="https://www.linkedin.com/company/rosti-cr/" aria-label="LinkedIn" target="_blank" rel="noopener"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://www.tiktok.com/@rosticr" aria-label="TikTok" target="_blank" rel="noopener"><i class="fab fa-tiktok"></i></a>
+                        <a href="https://www.linkedin.com/company/corporacion-rostipollos/" aria-label="LinkedIn" target="_blank" rel="noopener"><i class="fab fa-linkedin-in"></i></a>
                         <a href="https://rosticr.app.link/download" aria-label="Descargar App Rosti" target="_blank" rel="noopener"><i class="fas fa-mobile-screen-button"></i></a>
                     </div>
                 </div>
                 <div class="footer-col">
                     <h4>Conócenos</h4>
                     <ul>
-                        <li><a href="#">Rosti te escucha</a></li>
-                        <li><a href="#">Servicio al cliente</a></li>
+                        <li><a href="mailto:servicioalcliente@rosti.cr?subject=Rosti%20te%20escucha">Rosti te escucha</a></li>
+                        <li><a href="mailto:servicioalcliente@rosti.cr">Servicio al cliente</a></li>
                         <li><a href="rostiempleos.html">Rosti Empleos</a></li>
                         <li><a href="terminos.html">Términos y condiciones</a></li>
                         <li><a href="privacy.html">Política de privacidad</a></li>
@@ -283,6 +368,6 @@
         </div>
     </footer>
 
-    <script src="js/main.js?v=7"></script>
+    <script src="js/main.js?v=8"></script>
 </body>
 </html>

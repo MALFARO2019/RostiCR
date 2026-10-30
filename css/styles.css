@@ -69,10 +69,17 @@ h1, h2, h3, h4, h5 {
     z-index: 100;
 }
 
+/* Los enlaces se alinean con la base de la palabra "Rosti", no con el centro
+   del logo: la llamita vive arriba de la palabra y centrar contra la imagen
+   entera dejaba los textos flotando. El logo es un elemento reemplazado, así
+   que su línea base es su borde inferior, justo donde apoya la palabra. */
 .navbar {
     display: flex;
-    align-items: center;
-    height: 4rem;
+    align-items: baseline;
+    min-height: 4rem;
+    /* Abajo va menos aire porque las colas de las letras ya ocupan unos pixeles
+       por debajo de la línea base; así la barra queda del mismo alto de antes. */
+    padding: 0.5rem 0 0.25rem;
     gap: 1rem;
 }
 
@@ -110,6 +117,7 @@ h1, h2, h3, h4, h5 {
 
 .nav-cta {
     margin-left: auto;
+    align-self: center;        /* los iconos sí van al centro, no sobre la línea base */
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
@@ -398,29 +406,13 @@ h1, h2, h3, h4, h5 {
     gap: 0.5rem;
 }
 .emblem i { color: var(--orange); }
-
-/* ============== PURA VIDA ============== */
-.pura-vida {
-    background-color: var(--green);
+/* "Esencial Costa Rica" es el único emblema que lleva enlace. */
+a.emblem { color: var(--green); }
+a.emblem:hover {
     color: var(--paper);
-    padding: 3rem 0;
-    text-align: center;
+    background: var(--green);
 }
-.pura-vida .titulo3 {
-    font-family: var(--font-display);
-    font-weight: 900;
-    color: var(--paper);
-    font-size: clamp(2rem, 5vw, 3.5rem);
-    line-height: 1.05;
-    margin-bottom: 1rem;
-    letter-spacing: 1px;
-}
-.pura-vida p {
-    max-width: 48rem;
-    margin: 0 auto;
-    color: var(--paper);
-    font-size: 1rem;
-}
+a.emblem:hover i { color: var(--paper); }
 
 /* ============== MOMENTOS ROSTI ============== */
 .momentos {
@@ -465,12 +457,17 @@ h1, h2, h3, h4, h5 {
     width: 100%;
     height: auto;
 }
+/* Mismo ancho y misma alineación que el titular de MOMENTOS ROSTI, que también
+   es un párrafo de 56rem centrado con el texto a la izquierda. */
 .dinogira .subtitulo2 {
     font-family: var(--font-display);
     font-weight: 800;
     color: var(--navy-deep);
     font-size: clamp(1.5rem, 3.5vw, 2.2rem);
-    margin-bottom: 1rem;
+    max-width: 56rem;
+    margin: 0 auto 1rem;
+    padding: 0 1rem;
+    text-align: left;
     letter-spacing: 1px;
 }
 .dinogira .dino3 {
@@ -482,46 +479,25 @@ h1, h2, h3, h4, h5 {
     font-size: 1rem;
 }
 
-/* ============== SERVICIOS (Fiestas / Pet / Reuniones) ============== */
+/* ============== SERVICIOS (Fiestas / Pet / Reuniones) ==============
+   Bandas a todo el ancho, una encima de otra, sin separación: el arte ya
+   viene con sus propios fondos y encaja de corrido. El tope de 1920px es el
+   ancho real de los archivos; más allá solo se verían borrosos. */
 .servicios {
     background: var(--paper);
-    padding: 3rem 0;
 }
-.servicios-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 2rem;
+.servicio-banner {
+    max-width: 1920px;
+    margin: 0 auto;
 }
-@media (min-width: 768px) { .servicios-grid { grid-template-columns: repeat(3, 1fr); } }
-.servicio-item {
-    text-align: center;
-    padding: 0 1rem;
-}
-.servicio-item img {
+.servicio-banner img {
     width: 100%;
-    max-width: 280px;
     height: auto;
-    margin: 0 auto 1rem;
-    border-radius: var(--radius);
-    box-shadow: var(--shadow-sm);
 }
-.servicio-item h3 {
-    color: var(--navy-deep);
-    font-size: 1.25rem;
-    margin-bottom: 0.5rem;
-    text-transform: uppercase;
+.servicio-banner a {
+    display: block;
 }
-.servicio-item p {
-    color: var(--foreground);
-    font-size: 0.95rem;
-}
-.servicio-item a.linkpdf {
-    display: inline-block;
-    margin-top: 0.75rem;
-    color: var(--orange);
-    font-weight: 700;
-}
-.servicio-item a.linkpdf:hover { color: var(--green); }
+.servicio-banner a:hover img { filter: brightness(1.04); }
 
 /* ============== PAGE HEADER ============== */
 .page-header {
@@ -620,6 +596,13 @@ h1, h2, h3, h4, h5 {
     color: var(--foreground);
 }
 .locales-search input:focus { outline: none; border-color: var(--orange); }
+.locales-resultado {
+    text-align: center;
+    color: var(--muted);
+    font-size: 0.9rem;
+    margin: -1.25rem 0 1.5rem;
+    min-height: 1.4em;
+}
 
 .locales-grid {
     display: grid;
@@ -629,12 +612,23 @@ h1, h2, h3, h4, h5 {
 .local-card {
     background: var(--paper);
     border-radius: var(--radius);
-    padding: 1.25rem;
+    overflow: hidden;              /* la foto llega hasta el borde redondeado */
     box-shadow: var(--shadow-sm);
     border-top: 3px solid var(--orange);
     transition: var(--t);
 }
+.local-card[hidden] { display: none; }
 .local-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+/* La foto identifica el restaurante de un vistazo y corta el bloque de texto.
+   Mientras no haya foto real se ve el relleno de marca: basta con reemplazar
+   images/locales/<local>.webp por la fotografía. */
+.local-foto {
+    width: 100%;
+    aspect-ratio: 3 / 2;
+    object-fit: cover;
+    background: var(--turquoise);
+}
+.local-cuerpo { padding: 1.25rem; }
 .local-card h3 {
     color: var(--navy-deep);
     font-size: 1.15rem;

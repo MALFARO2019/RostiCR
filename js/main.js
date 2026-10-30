@@ -12,7 +12,50 @@ document.addEventListener('DOMContentLoaded', function () {
     if (yearEl) yearEl.textContent = new Date().getFullYear();
 
     iniciarCarrusel();
+    iniciarBuscadorLocales();
 });
+
+// Buscador de la página de locales.
+//
+// Filtra las tarjetas que ya están en el HTML; no pide nada al servidor, así
+// que responde mientras se escribe. Cada tarjeta trae en data-busqueda su
+// nombre y dirección ya sin tildes, para que "Escazu" encuentre "Escazú".
+function iniciarBuscadorLocales() {
+    const campo = document.getElementById('addr');
+    const grilla = document.querySelector('.locales-grid');
+    if (!campo || !grilla) return;
+
+    const tarjetas = Array.from(grilla.querySelectorAll('.local-card'));
+    const aviso = document.getElementById('localesResultado');
+
+    const normalizar = (texto) => texto
+        .normalize('NFD')
+        .replace(/[̀-ͯ]/g, '')
+        .toLowerCase()
+        .trim();
+
+    function filtrar() {
+        // Cada palabra tiene que aparecer: "multiplaza este" no trae Escazú.
+        const palabras = normalizar(campo.value).split(/\s+/).filter(Boolean);
+        let visibles = 0;
+
+        tarjetas.forEach((t) => {
+            const heno = t.dataset.busqueda || '';
+            const calza = palabras.every((p) => heno.includes(p));
+            t.hidden = !calza;
+            if (calza) visibles++;
+        });
+
+        if (!aviso) return;
+        if (!palabras.length) aviso.textContent = '';
+        else if (visibles === 0) aviso.textContent = 'No encontramos ningún Rosti con “' + campo.value.trim() + '”. Probá con la provincia o el centro comercial.';
+        else if (visibles === 1) aviso.textContent = '1 restaurante encontrado.';
+        else aviso.textContent = visibles + ' restaurantes encontrados.';
+    }
+
+    campo.addEventListener('input', filtrar);
+    filtrar();   // por si el navegador restauró lo escrito al volver atrás
+}
 
 // Carrusel del banner principal.
 //

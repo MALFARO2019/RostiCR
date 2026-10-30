@@ -19,7 +19,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/styles.css?v=8">
+    <link rel="stylesheet" href="css/styles.css?v=9">
 </head>
 <body>
 
@@ -107,17 +107,9 @@
                 <p>Porque nuestra lucha va más allá de servir las mejores experiencias en la mesa, trabajamos juntos para preservar la flora y fauna que nos hacen únicos en el mundo.</p>
                 <div class="emblem-row">
                     <span class="emblem"><i class="fas fa-flag"></i> Bandera Azul Ecológica</span>
-                    <span class="emblem"><i class="fas fa-leaf"></i> Esencial Costa Rica</span>
+                    <a class="emblem" href="https://www.esencialcostarica.com/micrositio/rosti/" target="_blank" rel="noopener"><i class="fas fa-leaf"></i> Esencial Costa Rica</a>
                     <span class="emblem"><i class="fas fa-recycle"></i> Manejo de residuos</span>
                 </div>
-            </div>
-        </section>
-
-        <!-- SOMOS PURA VIDA -->
-        <section class="pura-vida">
-            <div class="container">
-                <p class="titulo3">SOMOS<br>PURA VIDA</p>
-                <p>Más de 40 años llevando el sabor del mejor pollo asado, hechos a mano y con productos costarricenses.</p>
             </div>
         </section>
 
@@ -135,32 +127,29 @@
             <div class="dinogira-img">
                 <img src="images/dino-gira.png" alt="DinoGira Rosti" loading="lazy">
             </div>
-            <p class="subtitulo2">DINOGIRA ROSTI</p>
+            <p class="subtitulo2">DINO GIRA ROSTI</p>
             <p class="dino3">Llevamos el espíritu jurásico a todos nuestros restaurantes con juegos, divertidas actividades en compañía de Dino Tony y por supuesto el sabor del mejor pollo del país para disfrutar en familia. ¡Un plan que antoja a chicos y grandes por igual! La DinoGira Rosti es una experiencia en constante evolución que llegó para quedarse.</p>
         </section>
 
-        <!-- SERVICIOS: Fiestas, Pet Friendly, Reuniones -->
-        <section class="servicios">
-            <div class="container">
-                <div class="servicios-grid">
-                    <div class="servicio-item">
-                        <img src="images/fiestas-infantiles.png" alt="Fiestas infantiles">
-                        <h3>Fiestas Infantiles</h3>
-                        <p>Celebrá el cumple con Dino Tony y todo el show jurásico de Rosti.</p>
-                    </div>
-                    <div class="servicio-item">
-                        <img src="images/pet-friendly.png" alt="Pet Friendly">
-                        <h3>Pet Friendly</h3>
-                        <p>Tu mascota también es parte de la familia.</p>
-                        <a class="linkpdf" href="https://tofuu.getjusto.com/buckets-prod%2Fv9y2uahgs79STmHcP-DIGITAL_Reglamento%20pet%20friendly%202025.png" target="_blank" rel="noopener">Ver reglamento <i class="fas fa-arrow-right"></i></a>
-                    </div>
-                    <div class="servicio-item">
-                        <img src="images/rosti-reuniones.png" alt="Rosti Reuniones">
-                        <h3>Reuniones</h3>
-                        <p>Reservá tu espacio de lunes a domingo.</p>
-                    </div>
-                </div>
-            </div>
+        <!-- SERVICIOS: Fiestas, Pet Friendly, Reuniones.
+             Van uno debajo del otro y a todo el ancho: el texto está dentro del
+             arte, así que en tres columnas quedaba ilegible. El alt repite ese
+             texto porque un lector de pantalla no puede leer la imagen. -->
+        <section class="servicios" aria-label="Momentos Rosti">
+            <figure class="servicio-banner">
+                <img src="images/fiestas-infantiles.png" width="1920" height="467" loading="lazy" decoding="async"
+                     alt="Fiestas Infantiles: celebrá el cumple con Dino Tony y todo el show jurásico de Rosti. Contamos con menú Rosti Kids, accesorios de fiesta, postres enteros y un espacio ideal para hacer del cumple de tu peque un día único. Conocé más detalles en servicioalcliente@rosti.cr.">
+            </figure>
+            <figure class="servicio-banner">
+                <a href="https://tofuu.getjusto.com/buckets-prod%2Fv9y2uahgs79STmHcP-DIGITAL_Reglamento%20pet%20friendly%202025.png" target="_blank" rel="noopener">
+                    <img src="images/pet-friendly.png" width="1920" height="574" loading="lazy" decoding="async"
+                         alt="Pet Friendly: las mascotas tienen un lugar en nuestros corazones y también en nuestros restaurantes. Ver el reglamento Pet Friendly.">
+                </a>
+            </figure>
+            <figure class="servicio-banner">
+                <img src="images/rosti-reuniones.png" width="1920" height="1095" loading="lazy" decoding="async"
+                     alt="¡Ponele sabor a tus reuniones! En nuestros restaurantes de Lincoln Plaza y Real Cariari contamos con salas corporativas, diseñadas para que podás trabajar o reunirte mientras comés como te gusta. Reservá en servicioalcliente@rosti.cr. También tenemos Gift Cards Rosti: escribinos a servicioalcliente@rosti.cr.">
+            </figure>
         </section>
 
     </main>
@@ -179,16 +168,16 @@
                         <a href="https://api.whatsapp.com/send?phone=50687070770&text=%C2%A1Hola!%20Quiero%20hacer%20un%20pedido" aria-label="WhatsApp" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i></a>
                         <a href="https://www.facebook.com/Rosticr/" aria-label="Facebook" target="_blank" rel="noopener"><i class="fab fa-facebook-f"></i></a>
                         <a href="https://www.instagram.com/rosti_cr/" aria-label="Instagram" target="_blank" rel="noopener"><i class="fab fa-instagram"></i></a>
-                        <a href="https://www.tiktok.com/@rosti_cr" aria-label="TikTok" target="_blank" rel="noopener"><i class="fab fa-tiktok"></i></a>
-                        <a href="https://www.linkedin.com/company/rosti-cr/" aria-label="LinkedIn" target="_blank" rel="noopener"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://www.tiktok.com/@rosticr" aria-label="TikTok" target="_blank" rel="noopener"><i class="fab fa-tiktok"></i></a>
+                        <a href="https://www.linkedin.com/company/corporacion-rostipollos/" aria-label="LinkedIn" target="_blank" rel="noopener"><i class="fab fa-linkedin-in"></i></a>
                         <a href="https://rosticr.app.link/download" aria-label="Descargar App Rosti" target="_blank" rel="noopener"><i class="fas fa-mobile-screen-button"></i></a>
                     </div>
                 </div>
                 <div class="footer-col">
                     <h4>Conócenos</h4>
                     <ul>
-                        <li><a href="#">Rosti te escucha</a></li>
-                        <li><a href="#">Servicio al cliente</a></li>
+                        <li><a href="mailto:servicioalcliente@rosti.cr?subject=Rosti%20te%20escucha">Rosti te escucha</a></li>
+                        <li><a href="mailto:servicioalcliente@rosti.cr">Servicio al cliente</a></li>
                         <li><a href="rostiempleos.html">Rosti Empleos</a></li>
                         <li><a href="terminos.html">Términos y condiciones</a></li>
                         <li><a href="privacy.html">Política de privacidad</a></li>
@@ -208,6 +197,6 @@
         </div>
     </footer>
 
-    <script src="js/main.js?v=7"></script>
+    <script src="js/main.js?v=8"></script>
 </body>
 </html>
