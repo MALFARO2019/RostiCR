@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promo Viajera - Rosti Costa Rica</title>
+    <meta name="description" content="Rosti te lleva a Cartagena con un stopover en Panamá. Registrá tu factura de ₡15.000 o más para participar en la promoción viajera de Rosti.">
+    <link rel="canonical" href="https://rosti.cr/promoviajera">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Rosti Costa Rica">
+    <meta property="og:locale" content="es_CR">
+    <meta property="og:url" content="https://rosti.cr/promoviajera">
+    <meta property="og:title" content="Promo Viajera - Rosti Costa Rica">
+    <meta property="og:description" content="Rosti te lleva a Cartagena con un stopover en Panamá. Registrá tu factura de ₡15.000 o más para participar.">
+    <meta property="og:image" content="https://rosti.cr/images/banner-generico.webp">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="icon" type="image/png" href="images/llamita.png">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css?v=9">
+    <style>
+        /* El sitio de la promo (promoviajera.rosti.cr) ocupa todo el alto bajo el menu de Rosti. */
+        html, body { height: 100%; }
+        body.promo-embed { display: flex; flex-direction: column; min-height: 100vh; min-height: 100dvh; }
+        .promo-embed main { flex: 1; display: flex; }
+        .promo-frame { flex: 1; width: 100%; border: 0; display: block; background: #adb995; }
+    </style>
+</head>
+<body class="promo-embed">
+
+    <header class="site-header">
+        <div class="container">
+            <nav class="navbar" aria-label="Navegación principal">
+                <a href="index.html" class="navbar-logo" aria-label="Rosti Costa Rica">
+                    <img src="images/rosti-logo.webp" alt="Logo de Rosti">
+                </a>
+                <ul class="nav-links">
+                    <li><a href="index.html">INICIO</a></li>
+                    <li><a href="index.html">MENÚ</a></li>
+                    <li><a href="reglamentos.html">REGLAMENTOS</a></li>
+                    <li><a href="promoviajera" class="active">PROMO VIAJERA</a></li>
+                    <li><a href="locales.html">ENCONTRÁ TU ROSTI</a></li>
+                </ul>
+                <div class="nav-cta">
+                    <button class="menu-toggle" aria-label="Abrir menu de navegación" aria-expanded="false">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16"/><path d="M4 12h16"/><path d="M4 19h16"/></svg>
+                    </button>
+                    <a href="index.html" class="btn-bag" aria-label="Ir al menú">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 10a4 4 0 0 1-8 0"/><path d="M3.103 6.034h17.794"/><path d="M3.4 5.467a2 2 0 0 0-.4 1.2V20a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6.667a2 2 0 0 0-.4-1.2l-2-2.667A2 2 0 0 0 17 2H7a2 2 0 0 0-1.6.8z"/></svg>
+                    </a>
+                </div>
+            </nav>
+        </div>
+        <div class="mobile-menu" id="mobileMenu">
+            <a href="index.html">INICIO</a>
+            <a href="index.html">MENÚ</a>
+            <a href="reglamentos.html">REGLAMENTOS</a>
+            <a href="promoviajera" class="active">PROMO VIAJERA</a>
+            <a href="locales.html">ENCONTRÁ TU ROSTI</a>
+        </div>
+    </header>
+
+    <main>
+        <iframe class="promo-frame" src="https://promoviajera.rosti.cr/" title="Promo Viajera Rosti: registrá tu factura" allow="clipboard-write"></iframe>
+    </main>
+
+    <script src="js/main.js?v=8"></script>
+</body>
+</html>
