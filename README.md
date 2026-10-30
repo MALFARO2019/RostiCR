@@ -17,7 +17,7 @@ RostiCR/
 ├── menu.html                # Catálogo: 19 categorías reales (Promociones, Boquitas, Clásicos, Rosters, ...)
 ├── menu-restaurante.html    # Menú especial para consumo en local (Rosti Lunch, Happy Hour, ...)
 ├── reglamentos.html         # 8 reglamentos reales (Happy Hour, Rosti Lunch, Pet Friendly, Dino Fiestas, ...)
-├── locales.html             # 13 sucursales reales con plus codes y horarios
+├── locales.html             # 28 sucursales reales con direccion, telefono directo y horarios de salon
 ├── promoviajera.html        # Página de la Promo Viajera (Salinitas)
 ├── css/styles.css           # Hoja de estilos
 ├── js/main.js               # Toggle de menú móvil + año del footer

@@ -166,7 +166,7 @@ h1, h2, h3, h4, h5 {
 .mobile-menu a:last-child { border-bottom: none; }
 .mobile-menu a.active { color: var(--orange); }
 
-/* ============== SLIDER (placeholder simulando carrusel real) ============== */
+/* ============== CARRUSEL (banner principal) ============== */
 .slider {
     width: 100%;
     aspect-ratio: 1601 / 550;
@@ -175,9 +175,104 @@ h1, h2, h3, h4, h5 {
     position: relative;
 }
 .slider img {
+    position: absolute;
+    inset: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
+}
+/* Sin JS solo se ve la primera, igual que cuando el banner era una sola imagen.
+   Las reglas .con-js van después a propósito: misma especificidad, gana el orden. */
+.slider img:not(:first-child) { opacity: 0; }
+.slider.con-js img { opacity: 0; transition: opacity .7s ease; }
+.slider.con-js img.activa { opacity: 1; }
+@media (prefers-reduced-motion: reduce) {
+    .slider.con-js img { transition: none; }
+}
+
+/* Flechas y puntos: los crea el JS, solo existen si hay 2+ imágenes. */
+.slider-flecha {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 2;
+    width: 44px;
+    height: 44px;
+    border: 0;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, .35);
+    color: #fff;
+    font-size: 1.4rem;
+    line-height: 1;
+    cursor: pointer;
+    display: grid;
+    place-items: center;
+    opacity: 0;
+    transition: opacity .25s ease, background .25s ease;
+}
+.slider-flecha:hover { background: rgba(0, 0, 0, .55); }
+.slider-flecha.anterior { left: 14px; }
+.slider-flecha.siguiente { right: 14px; }
+.slider:hover .slider-flecha,
+.slider-flecha:focus-visible { opacity: 1; }
+
+.slider-pausa {
+    position: absolute;
+    right: 14px;
+    bottom: 12px;
+    z-index: 2;
+    min-width: 30px;
+    height: 30px;
+    padding: 0 8px;
+    border: 0;
+    border-radius: 999px;
+    background: rgba(0, 0, 0, .35);
+    color: #fff;
+    font-size: .62rem;
+    line-height: 1;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity .25s ease, background .25s ease;
+}
+.slider-pausa:hover { background: rgba(0, 0, 0, .55); }
+/* Si lo pausaron, el botón se queda visible: si no, no habría cómo reanudar. */
+.slider:hover .slider-pausa,
+.slider.pausado .slider-pausa,
+.slider-pausa:focus-visible { opacity: 1; }
+
+.slider-puntos {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 14px;
+    z-index: 2;
+    display: flex;
+    justify-content: center;
+    gap: 9px;
+}
+.slider-puntos button {
+    width: 10px;
+    height: 10px;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, .55);
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, .18);
+    cursor: pointer;
+    transition: background .25s ease, transform .25s ease;
+}
+.slider-puntos button.activo {
+    background: var(--orange);
+    transform: scale(1.25);
+}
+
+/* En pantallas táctiles las flechas estorban: se navega deslizando. El botón
+   de pausa queda siempre visible, porque sin mouse no hay hover que lo saque. */
+@media (hover: none), (max-width: 640px) {
+    .slider-flecha { display: none; }
+    .slider-pausa { opacity: 1; right: 10px; bottom: 8px; }
+    .slider-puntos { bottom: 9px; gap: 7px; justify-content: flex-start; padding-left: 14px; }
+    .slider-puntos button { width: 8px; height: 8px; }
 }
 .white-space {
     height: 80px;
@@ -448,6 +543,15 @@ h1, h2, h3, h4, h5 {
     font-size: 1rem;
 }
 
+.page-header .page-header-note {
+    margin-top: 0.35rem;
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    opacity: 0.75;
+}
+
 /* ============== REGLAMENTOS ============== */
 .reglamentos-section {
     background: var(--navy);
@@ -544,6 +648,8 @@ h1, h2, h3, h4, h5 {
     color: var(--foreground);
 }
 .local-info i { color: var(--orange); width: 16px; margin-top: 4px; }
+.local-info a { color: inherit; text-decoration: none; }
+.local-info a:hover { color: var(--orange); }
 
 /* ============== FOOTER ============== */
 .site-footer {
