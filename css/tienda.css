@@ -290,6 +290,9 @@ body.bloqueado { overflow: hidden; }
 .cuenta-pedido { border: 1px solid #eee; border-radius: 12px; padding: .7rem .9rem; margin: .5rem 0; font-size: .92rem; }
 .cuenta-pedido small { color: var(--txt2); display: block; }
 .tienda-pie { text-align: center; color: #999; font-size: .8rem; padding: 1.5rem 1rem 6rem; border-top: 1px solid var(--gris2); }
+.tienda-pie p { margin: .25rem 0; max-width: 720px; margin-left: auto; margin-right: auto; }
+.tienda-pie a { color: #777; }
+.tienda-pie .ptz { display: inline-block; margin-left: .4rem; padding: .1rem .5rem; border: 1px solid #ccc; border-radius: 999px; font-weight: 600; letter-spacing: .02em; }
 .grupo-plegado { width: 100%; display: flex; align-items: center; justify-content: space-between; gap: .8rem; background: none; border: 0; font: inherit; text-align: left; cursor: pointer; padding: .7rem .9rem; }
 .grupo-plegado strong { display: block; font-family: 'Montserrat', sans-serif; font-size: .9rem; }
 .grupo-plegado small { color: var(--txt2); font-size: .8rem; }
