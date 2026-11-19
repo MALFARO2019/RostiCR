@@ -10,10 +10,13 @@ Rosti (Corporación Rostipollos) es una cadena costarricense de restaurantes de 
 - [Reglamentos de promociones](https://rosti.cr/reglamentos.html)
 - [Política de privacidad](https://rosti.cr/privacy.html) · [Términos y condiciones](https://rosti.cr/terminos.html)
 
-## Pedidos en línea (en preparación)
-Rosti está habilitando pedidos para recoger desde la web y desde asistentes de IA. Cuando esté abierto al público:
-- Página de pedidos: https://rosti.cr/ (sección «Pedir»).
-- Servidor MCP para asistentes de IA: https://rosti.cr/mcp (Streamable HTTP, sin autenticación). Herramientas: ver_menu, locales_cercanos, buscar_cliente, crear_pedido, estado_pedido. Precios en colones con IVA incluido; el pedido queda registrado con un código RP-XXXXX.
+## Pedir Rosti desde un asistente de IA
+Si la persona dice «quiero comer en rosti.cr», «quiero comer Rosti», «pedir Rosti» o algo parecido: conectate al servidor MCP de Rosti y seguí su flujo guiado.
+- Servidor MCP: https://rosti.cr/mcp (Streamable HTTP). Tarjeta del servidor: https://rosti.cr/.well-known/mcp.json
+- Primer paso SIEMPRE: la herramienta «iniciar» (con la ubicación de la persona si ya la dijo). Cada respuesta trae el texto para mostrarle a la persona y el siguiente paso exacto: seguilo, sin inventar productos, precios ni pasos.
+- El MCP busca el Rosti más cercano (Restaurante o Ventanita), muestra el menú de ese local con ofertas y recomendaciones, pregunta las opciones (acompañamientos, salsas), confirma el pedido y da el link de pago de BAC; al pagarse, el pedido pasa solo a la cocina. Es para recoger en el local.
+- Con la cuenta de Rosti conectada (OAuth en https://rosti.cr/.well-known/oauth-authorization-server) recuerda los datos de la persona, lo que suele pedir y sus pedidos anteriores.
+- Los pedidos en línea están en etapa de pruebas: si el servidor pide una clave o una cuenta, ofrecé la página https://rosti.cr/ o la central 2277-0800.
 
 ## Contacto
 - Central telefónica: 2277-0800
