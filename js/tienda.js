@@ -118,6 +118,10 @@
     // «soloInforma» = el servidor avisa pero no rechaza (tienda en pruebas), entonces la página tampoco bloquea.
     var horarioSel = function () { var l = localObj(); return (l && l.horario) || null; };
     var cerradoAhora = function () { var h = horarioSel(); return !!(h && h.abierto === false && !h.soloInforma); };
+    // Entrega a domicilio: modo del pedido, punto de entrega (GPS o dirección ubicada) y la cotización que guardó el servidor.
+    var modo = 'recoger', punto = null, envio = null;
+    var entregaDisponible = function () { var l = localObj(); return !!(l && l.entrega); };
+    var envioVigente = function () { return !!(envio && envio.local === localSel && new Date(envio.expira).getTime() > Date.now() + 15000); };
     var txtCierre = function (h) { return h.cerradoHoy ? 'Cerrado hoy' : (h.abreALas ? 'Cerrado ahora · abre a las ' + h.abreALas : 'Ya cerró por hoy'); };
 
     // ── Cuenta (JWT de la tienda) ─────────────────────────────────────────────
@@ -214,7 +218,55 @@
         var b = $('#checkout-local');
         b.innerHTML = l ? '<span><strong>Rosti ' + esc(l.nombre) + '</strong><small>' + esc([l.km != null ? l.km + ' km' : null, l.zona].filter(Boolean).join(' · ')) + '</small></span><span class="cambiar">Cambiar</span>' : '<span><strong>Elegí el local</strong></span><span class="cambiar">Elegir</span>';
         $('#local').value = localSel || '';
+        pintarEntrega();
     }
+    function estadoEntrega(txt, clase) { var e = $('#entrega-estado'); e.textContent = txt || ''; e.className = 'entrega-estado' + (clase ? ' ' + clase : ''); }
+    function pintarEntrega() {
+        var hay = entregaDisponible();
+        if (!hay) modo = 'recoger';
+        if (envio && envio.local !== localSel) { envio = null; estadoEntrega(''); }     // el envío se calculó para otro local
+        $('#modo-entrega').hidden = !hay; $('#entrega-bloque').hidden = modo !== 'entrega';
+        $('#paso1-titulo').textContent = modo === 'entrega' ? '¿Adónde te lo llevamos?' : '¿Dónde lo recogés?';
+        Array.prototype.forEach.call(document.querySelectorAll('#modo-entrega button'), function (b) { b.classList.toggle('sel', b.dataset.modo === modo); });
+        pintarTotal();
+    }
+    function pintarTotal() {
+        var conEnvio = modo === 'entrega' && envioVigente();
+        $('#resumen-envio').hidden = !conEnvio;
+        if (conEnvio) $('#resumen-envio-monto').textContent = fmt(envio.costo);
+        $('#resumen-total').textContent = fmt(total() + (conEnvio ? envio.costo : 0));
+        var b = $('#btn-enviar'); if (b) b.textContent = modo === 'entrega' && !conEnvio ? 'Calculá el envío para continuar' : 'Enviar pedido';
+    }
+    Array.prototype.forEach.call(document.querySelectorAll('#modo-entrega button'), function (b) { b.onclick = function () { modo = b.dataset.modo; pintarEntrega(); }; });
+    $('#entrega-direccion').addEventListener('input', function () { if (punto && punto.fuente === 'texto') punto = null; envio = null; pintarTotal(); });
+    $('#entrega-gps').onclick = function () {
+        if (!navigator.geolocation) { estadoEntrega('Tu navegador no comparte la ubicación: escribí la dirección y tocá «Calcular envío».', 'error'); return; }
+        estadoEntrega('Buscando tu ubicación…');
+        navigator.geolocation.getCurrentPosition(function (p) {
+            punto = { lat: p.coords.latitude, lng: p.coords.longitude, fuente: 'gps' }; envio = null;
+            estadoEntrega('Listo: te lo llevamos donde estás ahora. Escribí las señas y tocá «Calcular envío».', 'ok'); pintarTotal();
+        }, function () { estadoEntrega('No pudimos leer tu ubicación. Escribí la dirección con barrio y distrito.', 'error'); }, { enableHighAccuracy: true, timeout: 10000, maximumAge: 60000 });
+    };
+    function cotizarEnvio() {
+        var dir = $('#entrega-direccion').value.trim(), senas = $('#entrega-senas').value.trim();
+        if (dir.length < 8) { estadoEntrega('Escribí la dirección con barrio, distrito y cómo llegar.', 'error'); return Promise.resolve(null); }
+        estadoEntrega('Calculando el envío…'); envio = null; pintarTotal();
+        var ubicar = punto ? Promise.resolve(punto) : api('/entrega/ubicar?q=' + encodeURIComponent(dir.slice(0, 120))).then(function (d) {
+            if (!d.ubicacion) { var e = new Error('No pudimos ubicar esa dirección. Tocá «Usar mi ubicación actual» si estás ahí, o agregá el barrio y el distrito.'); e.sinPunto = true; throw e; }
+            punto = { lat: d.ubicacion.lat, lng: d.ubicacion.lng, fuente: 'texto', lugar: d.ubicacion.lugar }; return punto;
+        });
+        return ubicar.then(function (p) {
+            return api('/entrega/cotizar', { method: 'POST', body: { codAlmacen: localSel, direccion: dir, notas: senas || undefined, lat: p.lat, lng: p.lng, subtotal: total() } });
+        }).then(function (d) {
+            envio = d.cotizacion; envio.local = localSel;
+            estadoEntrega('Envío ' + fmt(envio.costo) + (envio.minutos ? ' · llega en unos ' + envio.minutos + ' min después de pagar' : '') + (punto && punto.fuente === 'texto' && punto.lugar ? ' · ubicado cerca de ' + String(punto.lugar).split(',').slice(0, 2).join(',') : ''), 'ok');
+            pintarTotal(); return envio;
+        }).catch(function (e) {
+            if (e.datos && e.datos.codigo === 'local_cerrado') { var l = localObj(); if (l && e.datos.horario) l.horario = e.datos.horario; }
+            estadoEntrega(e.message || 'No pudimos calcular el envío.', 'error'); pintarTotal(); return null;
+        });
+    }
+    $('#entrega-cotizar').onclick = cotizarEnvio;
     function renderLocales() {
         var lista = $('#locales-lista'); lista.innerHTML = '';
         var q = ($('#locales-buscar').value || '').trim().toLowerCase();
@@ -527,7 +579,7 @@
     }
     function renderCarrito() {
         var n = unidades(), t = fmt(total());
-        $('#carrito-n').textContent = n; $('#carrito-total').textContent = t; $('#resumen-total').textContent = t;
+        $('#carrito-n').textContent = n; $('#carrito-total').textContent = t; pintarTotal();
         $('#bp-n').textContent = n; $('#bp-total').textContent = t;
         $('#btn-carrito').classList.toggle('con-items', n > 0);
         var lista = $('#carrito-lista'); lista.innerHTML = '';
@@ -592,9 +644,11 @@
         var nombre = f.nombre.value.trim(), tel = f.telefono.value.trim();
         if (!localSel) { msg.textContent = 'Elegí el local donde vas a recoger.'; msg.className = 'form-msg error'; return; }
         if (!nombre || !tel) { msg.textContent = 'Necesitamos tu nombre y un teléfono para avisarte.'; msg.className = 'form-msg error'; return; }
+        var aDomicilio = modo === 'entrega' && entregaDisponible();
+        if (aDomicilio && !envioVigente()) { msg.textContent = envio ? 'El precio del envío venció: tocá «Calcular envío» otra vez.' : 'Falta calcular el envío: escribí la dirección y tocá «Calcular envío».'; msg.className = 'form-msg error'; envio = null; pintarTotal(); return; }
         var btn = $('#btn-enviar'); btn.disabled = true; btn.textContent = 'Enviando…';
         api('/pedidos', { method: 'POST', body: {
-            codAlmacen: localSel, modalidad: 'recoger', origen: 'rosti.cr',
+            codAlmacen: localSel, modalidad: aDomicilio ? 'entrega' : 'recoger', cotizacionEntrega: aDomicilio ? envio.id : undefined, origen: 'rosti.cr',
             cliente: { nombre: nombre, telefono: tel, email: f.email.value.trim() || undefined, cedula: f.cedula.value.trim() || undefined },
             notas: f.notas.value.trim() || undefined, claveIdempotencia: 'web-' + Date.now() + '-' + Math.random().toString(36).slice(2, 8),
             lineas: carrito.map(function (i) { return { codigo: i.codigo, cantidad: i.cantidad, notas: i.nota || undefined, modificadores: i.mods.map(function (m) { return { grupo: m.grupo, codigo: m.codigo, padreGrupo: m.padreGrupo, padreCodigo: m.padreCodigo }; }) }; })
@@ -602,7 +656,8 @@
             carrito = []; guardar(); renderCarrito();
             $('#conf-codigo').textContent = d.pedido.codigo;
             $('#conf-total').textContent = fmt(d.pedido.total);
-            $('#conf-local').textContent = 'Rosti ' + (d.pedido.local || localSel);
+            $('#conf-local').textContent = (d.pedido.modalidad === 'entrega' ? 'A domicilio desde Rosti ' : 'Rosti ') + (d.pedido.local || localSel);
+            envio = null; punto = null; modo = 'recoger'; estadoEntrega(''); pintarEntrega();
             $('#conf-msg').textContent = (d.pago && d.pago.mensaje) || '';
             pasos('pendiente_pago');
             cambiar('#checkout-modal', '#conf-modal');
@@ -610,6 +665,7 @@
         }).catch(function (e) {
             msg.textContent = e.message || 'No se pudo enviar el pedido. Probá de nuevo.'; msg.className = 'form-msg error';
             // El local cerró mientras armaba el pedido: se actualiza el aviso y puede cambiar de local sin perder el carrito.
+            if (e.datos && /^entrega_/.test(e.datos.codigo || '')) { envio = null; estadoEntrega(e.message, 'error'); pintarTotal(); }
             if (e.datos && e.datos.codigo === 'local_cerrado') { var l = localObj(); if (l && e.datos.horario) l.horario = e.datos.horario; renderLocal(); msg.textContent += ' Tocá el local de arriba para elegir otro.'; }
         })
           .then(function () { btn.disabled = !unidades(); btn.textContent = 'Enviar pedido'; });
@@ -630,6 +686,10 @@
         function mirar() {
             api('/pedidos/' + encodeURIComponent(codigo)).then(function (d) {
                 var p = d.pedido; pasos(p.estado);
+                // A domicilio: en qué va el repartidor y el enlace para seguirlo en el mapa.
+                var ce = $('#conf-entrega'), en = p.modalidad === 'entrega' ? (p.entrega || {}) : null;
+                ce.hidden = !(en && en.estado && p.estado !== 'pendiente_pago');
+                if (!ce.hidden) ce.innerHTML = '🛵 ' + esc(en.estadoNombre || en.estado) + (en.repartidor ? ' · ' + esc(en.repartidor) : '') + (en.tracking ? ' · <a href="' + esc(en.tracking) + '" target="_blank" rel="noopener">Seguir en el mapa</a>' : '');
                 if (p.estado === 'pendiente_pago') {
                     if (p.pago && p.pago.link) { a.href = p.pago.link; a.style.display = 'block'; esp.hidden = true; $('#conf-msg').textContent = p.pago.mensaje || ''; }
                 } else {

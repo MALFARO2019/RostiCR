@@ -41,6 +41,18 @@ body.bloqueado { overflow: hidden; }
 .chip b { color: var(--to); }
 .hero-sub { margin: .45rem 0 0; color: var(--txt2); font-size: .85rem; }
 .aviso { background: #FFF6EC; color: #7A4A00; border: 1px solid #F6D2A8; border-radius: 12px; padding: .7rem .9rem; margin: 1rem 0 0; font-size: .9rem; }
+/* Entrega a domicilio en el checkout (sólo en los locales que entregan) */
+.modo { display: grid; grid-template-columns: 1fr 1fr; gap: .5rem; margin: 0 0 .7rem; }
+.modo button { border: 1.5px solid #ddd; background: #fff; border-radius: 12px; padding: .75rem .5rem; font: inherit; font-weight: 700; cursor: pointer; min-height: 44px; }
+.modo button.sel { border-color: #111; background: #111; color: #fff; }
+.entrega-bloque { margin: .7rem 0 0; }
+.entrega-acc { display: flex; flex-wrap: wrap; gap: .5rem; margin: .2rem 0 0; }
+.entrega-acc .btn-sec { flex: 1 1 150px; min-height: 44px; }
+.entrega-acc .btn-sec.fuerte { background: #111; color: #fff; border-color: #111; }
+.entrega-estado { margin: .6rem 0 0; font-size: .9rem; color: var(--txt2); min-height: 1.2em; }
+.entrega-estado.ok { color: #0B6B3A; font-weight: 700; } .entrega-estado.error { color: #B42318; font-weight: 600; }
+.conf-entrega { margin: .6rem 0 0; padding: .7rem .8rem; border-radius: 12px; background: #F3F4F6; font-size: .92rem; }
+.conf-entrega a { font-weight: 800; color: #D47A22; }
 /* Horario del local (lo decide Horario de Locales en KPIs): abierto / cerrado ahora */
 .aviso.cerrado { background: #FEF3F2; color: #912018; border-color: #FECDCA; font-weight: 600; }
 .aviso.cerrado button { border: 0; background: none; padding: 0; margin-left: .35rem; color: inherit; font: inherit; font-weight: 800; text-decoration: underline; cursor: pointer; }
