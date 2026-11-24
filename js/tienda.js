@@ -114,6 +114,11 @@
     var unidades = function () { return carrito.reduce(function (s, i) { return s + i.cantidad; }, 0); };
     var enCarrito = function (cod) { return carrito.reduce(function (s, i) { return s + (i.codigo === cod ? i.cantidad : 0); }, 0); };
     var localObj = function () { return locales.filter(function (x) { return x.codigo === localSel; })[0] || null; };
+    // Horario del local elegido (viene del servidor: Horario de Locales). cerradoAhora() bloquea «Ir a pagar»;
+    // «soloInforma» = el servidor avisa pero no rechaza (tienda en pruebas), entonces la página tampoco bloquea.
+    var horarioSel = function () { var l = localObj(); return (l && l.horario) || null; };
+    var cerradoAhora = function () { var h = horarioSel(); return !!(h && h.abierto === false && !h.soloInforma); };
+    var txtCierre = function (h) { return h.cerradoHoy ? 'Cerrado hoy' : (h.abreALas ? 'Cerrado ahora · abre a las ' + h.abreALas : 'Ya cerró por hoy'); };
 
     // ── Cuenta (JWT de la tienda) ─────────────────────────────────────────────
     var cuenta = null;
@@ -196,6 +201,16 @@
         $('#hero-local').textContent = l ? l.nombre : 'Costa Rica';
         var km = $('#chip-km'); km.hidden = !(l && l.km != null && l.km < 300); if (l && l.km != null) km.textContent = '📍 ' + l.km + ' km';
         $('#carrito-local').textContent = l ? 'Para recoger en ' + l.nombre : '';
+        var h = horarioSel(), ch = $('#chip-horario'), av = $('#aviso-horario'), cn = $('#carrito-horario');
+        var cerr = !!(h && h.abierto === false);
+        ch.hidden = !h || h.porConfirmar; ch.className = 'chip ' + (cerr ? 'cerrado' : 'abierto');
+        if (h) ch.textContent = cerr ? '🔒 ' + txtCierre(h) : '🟢 Abierto · ' + (h.texto || '');
+        av.hidden = !cerr; cn.hidden = !cerr;
+        if (cerr) {
+            av.innerHTML = '🔒 ' + esc(h.mensaje || 'Este local no está recibiendo pedidos en este momento.') + ' Podés ver el menú y armar tu pedido.<button type="button" id="aviso-horario-cambiar">Elegir otro local</button>';
+            $('#aviso-horario-cambiar').onclick = function () { renderLocales(); abrir('#locales-modal'); };
+            cn.textContent = (h.mensaje || 'Este local no está recibiendo pedidos en este momento.') + ' Elegí otro local o volvé más tarde.';
+        }
         var b = $('#checkout-local');
         b.innerHTML = l ? '<span><strong>Rosti ' + esc(l.nombre) + '</strong><small>' + esc([l.km != null ? l.km + ' km' : null, l.zona].filter(Boolean).join(' · ')) + '</small></span><span class="cambiar">Cambiar</span>' : '<span><strong>Elegí el local</strong></span><span class="cambiar">Elegir</span>';
         $('#local').value = localSel || '';
@@ -208,7 +223,7 @@
         locales.filter(function (x) { return !q || (x.nombre + ' ' + (x.zona || '')).toLowerCase().indexOf(q) >= 0; }).forEach(function (x) {
             var it = el('button', 'local-item' + (x.codigo === localSel ? ' sel' : ''));
             it.type = 'button';
-            it.innerHTML = '<span class="li-ico">📍</span><span class="li-txt"><strong>' + esc(x.nombre) + '</strong><small>' + esc(x.zona || '') + '</small></span>' + (x.km != null && x.km < 300 ? '<span class="li-km">' + x.km + ' km</span>' : '');
+            it.innerHTML = '<span class="li-ico">📍</span><span class="li-txt"><strong>' + esc(x.nombre) + '</strong><small>' + esc(x.zona || '') + '</small>' + (x.horario && x.horario.abierto === false ? '<small class="li-hor c">' + esc(txtCierre(x.horario)) + '</small>' : (x.horario && !x.horario.porConfirmar ? '<small class="li-hor">Abierto · ' + esc(x.horario.texto || '') + '</small>' : '')) + '</span>' + (x.km != null && x.km < 300 ? '<span class="li-km">' + x.km + ' km</span>' : '');
             it.onclick = function () { elegirLocal(x.codigo); };
             lista.appendChild(it);
         });
@@ -224,7 +239,10 @@
         return api('/catalogo' + (localSel ? '?local=' + encodeURIComponent(localSel) : '')).then(function (d) {
             catalogo = d; porCodigo = {};
             (d.familias || []).forEach(function (f) { f.articulos.forEach(function (a) { if (!porCodigo[a.codigo]) porCodigo[a.codigo] = a; }); });
-            if (!locales.length && d.locales) { locales = d.locales; renderLocal(); }
+            if (!locales.length && d.locales) { locales = d.locales; }
+            // El estado de este momento del local elegido viene con su menú.
+            var lh = localObj(); if (lh && d.horario) lh.horario = d.horario;
+            renderLocal();
             renderCatalogo(); reconciliar(); renderCarrito();
             $('#cargando').hidden = true;
             if (d.pagos && d.pagos.mensaje) { $('#pago-nota').textContent = d.pagos.mensaje; }
@@ -559,7 +577,11 @@
             }).catch(function () { /* sin autocompletar */ });
         }, 400);
     }
-    $('#btn-pedir').onclick = function () { renderLocal(); renderCuenta(); $('#form-msg').textContent = ''; cambiar('#carrito', '#checkout-modal'); };
+    $('#btn-pedir').onclick = function () {
+        // Con el local cerrado no se pasa a pagar: se ofrece elegir otro (el pedido armado se conserva).
+        if (cerradoAhora()) { toast((horarioSel().mensaje || 'Este local está cerrado ahora.') + ' Elegí otro local.'); renderLocales(); cambiar('#carrito', '#locales-modal'); return; }
+        renderLocal(); renderCuenta(); $('#form-msg').textContent = ''; cambiar('#carrito', '#checkout-modal');
+    };
     $('#checkout-cerrar').onclick = function () { cerrar('#checkout-modal'); };
     $('#form-pedido').telefono.addEventListener('input', function () { autocompletar('telefono'); });
     $('#form-pedido').cedula.addEventListener('input', function () { autocompletar('cedula'); });
@@ -585,7 +607,11 @@
             pasos('pendiente_pago');
             cambiar('#checkout-modal', '#conf-modal');
             seguirPedido(d.pedido.codigo);
-        }).catch(function (e) { msg.textContent = e.message || 'No se pudo enviar el pedido. Probá de nuevo.'; msg.className = 'form-msg error'; })
+        }).catch(function (e) {
+            msg.textContent = e.message || 'No se pudo enviar el pedido. Probá de nuevo.'; msg.className = 'form-msg error';
+            // El local cerró mientras armaba el pedido: se actualiza el aviso y puede cambiar de local sin perder el carrito.
+            if (e.datos && e.datos.codigo === 'local_cerrado') { var l = localObj(); if (l && e.datos.horario) l.horario = e.datos.horario; renderLocal(); msg.textContent += ' Tocá el local de arriba para elegir otro.'; }
+        })
           .then(function () { btn.disabled = !unidades(); btn.textContent = 'Enviar pedido'; });
     });
 
