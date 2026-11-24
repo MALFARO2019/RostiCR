@@ -644,6 +644,10 @@
         var nombre = f.nombre.value.trim(), tel = f.telefono.value.trim();
         if (!localSel) { msg.textContent = 'Elegí el local donde vas a recoger.'; msg.className = 'form-msg error'; return; }
         if (!nombre || !tel) { msg.textContent = 'Necesitamos tu nombre y un teléfono para avisarte.'; msg.className = 'form-msg error'; return; }
+        // Factura electrónica a su nombre: cédula de 9 a 12 dígitos y el correo adonde llega.
+        var ced = f.cedula.value.replace(/\D/g, '');
+        if (ced && (ced.length < 9 || ced.length > 12)) { msg.textContent = 'Para la factura electrónica, la cédula debe tener entre 9 y 12 dígitos, sin guiones.'; msg.className = 'form-msg error'; f.cedula.focus(); return; }
+        if (ced && !f.email.value.trim()) { msg.textContent = 'Para la factura electrónica necesitamos tu correo: ahí te llega.'; msg.className = 'form-msg error'; f.email.focus(); return; }
         var aDomicilio = modo === 'entrega' && entregaDisponible();
         if (aDomicilio && !envioVigente()) { msg.textContent = envio ? 'El precio del envío venció: tocá «Calcular envío» otra vez.' : 'Falta calcular el envío: escribí la dirección y tocá «Calcular envío».'; msg.className = 'form-msg error'; envio = null; pintarTotal(); return; }
         var btn = $('#btn-enviar'); btn.disabled = true; btn.textContent = 'Enviando…';
