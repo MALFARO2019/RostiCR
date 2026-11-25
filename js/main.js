@@ -13,7 +13,60 @@ document.addEventListener('DOMContentLoaded', function () {
 
     iniciarCarrusel();
     iniciarBuscadorLocales();
+    integrarTienda();
 });
+
+// ── Tienda en línea integrada al sitio ─────────────────────────────────────────
+//
+// Mientras la tienda sea privada, NADA de esto se ve ni pide nada al servidor: los enlaces «Pedir en línea» sólo aparecen
+// si TIENDA_PUBLICA es true (lo cambia server/scripts/tienda/abrir-tienda.js al abrirla) o si este navegador ya entró con
+// el enlace privado de pruebas (rosti.cr/pedir#<clave>, o cualquier página con #tienda=<clave>).
+var TIENDA_PUBLICA = false;
+function integrarTienda() {
+    var clave = '';
+    try {
+        var m = /^#tienda=(.+)$/.exec(location.hash || '');
+        if (m) { sessionStorage.setItem('rosti.tienda.acceso', decodeURIComponent(m[1])); history.replaceState(null, '', location.pathname + location.search); }
+        clave = sessionStorage.getItem('rosti.tienda.acceso') || '';
+    } catch (e) { clave = ''; }
+    if (!TIENDA_PUBLICA && !clave) return;
+
+    // Menú de arriba (escritorio y teléfono), la bolsa y el pie.
+    var nav = document.querySelector('.nav-links');
+    if (nav && !nav.querySelector('.nav-pedir')) { var li = document.createElement('li'); li.className = 'nav-pedir'; li.innerHTML = '<a href="pedir.html">PEDIR EN LÍNEA</a>'; nav.appendChild(li); }
+    var movil = document.getElementById('mobileMenu');
+    if (movil && !movil.querySelector('.nav-pedir')) { var a = document.createElement('a'); a.href = 'pedir.html'; a.className = 'nav-pedir'; a.textContent = 'PEDIR EN LÍNEA'; movil.appendChild(a); }
+    var bolsa = document.querySelector('.btn-bag');
+    if (bolsa) { bolsa.href = 'pedir.html'; bolsa.setAttribute('aria-label', 'Pedir en línea'); bolsa.classList.add('con-tienda'); }
+    Array.prototype.forEach.call(document.querySelectorAll('.footer-col a'), function (x) {
+        var t = (x.textContent || '').trim();
+        if (t === 'Pedir') x.href = 'pedir.html';
+        if (t === 'Iniciar sesión') x.href = 'pedir.html?cuenta=1';
+    });
+
+    // Página de locales: «Pedir en este Rosti» en cada tarjeta, con el local ya elegido. Los códigos salen de la tienda.
+    var tarjetas = document.querySelectorAll('.local-card');
+    if (!tarjetas.length) return;
+    var norm = function (s) { return String(s || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/\b(rosti|restaurante)\b/g, ' ').replace(/\bv\.?\s/g, 'ventanita ').replace(/[^a-z0-9]+/g, ' ').trim(); };
+    fetch('/api/tienda/locales', { headers: clave ? { 'X-Tienda-Acceso': clave } : {} })
+        .then(function (r) { return r.ok ? r.json() : { locales: [] }; })
+        .then(function (d) {
+            var porNombre = {};
+            (d.locales || []).forEach(function (l) { porNombre[norm(l.nombre)] = l; });
+            // El sitio y la tienda nombran distinto algunos locales: nombre de la tarjeta → nombre en la tienda.
+            var ALIAS = { 'multiplaza escazu': 'multi escazu', 'multiplaza del este': 'multi este', 'practiko': 'praktico', 'lincoln plaza': 'lincoln', 'city mall': 'city' };
+            Object.keys(ALIAS).forEach(function (k) { if (!porNombre[k] && porNombre[ALIAS[k]]) porNombre[k] = porNombre[ALIAS[k]]; });
+            Array.prototype.forEach.call(tarjetas, function (t) {
+                var h = t.querySelector('h3'), cuerpo = t.querySelector('.local-cuerpo');
+                var l = h && porNombre[norm(h.textContent)];
+                if (!l || !cuerpo || cuerpo.querySelector('.local-pedir')) return;
+                var b = document.createElement('a'); b.className = 'local-pedir'; b.href = 'pedir.html?local=' + encodeURIComponent(l.codigo);
+                b.textContent = l.entrega ? 'Pedir aquí · recoger o a domicilio' : 'Pedir para recoger aquí';
+                cuerpo.appendChild(b);
+            });
+        })
+        .catch(function () { /* sin tienda, la página de locales queda como siempre */ });
+}
 
 // Buscador de la página de locales.
 //

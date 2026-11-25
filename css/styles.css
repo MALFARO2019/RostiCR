@@ -717,3 +717,11 @@ a.emblem:hover i { color: var(--paper); }
     font-size: 0.78rem;
     color: rgba(255,255,255,0.7);
 }
+
+/* ── Tienda en línea integrada (sólo existe cuando main.js la muestra) ── */
+.nav-links .nav-pedir a { background: var(--orange); color: #fff; padding: .5rem 1rem; border-radius: 999px; font-weight: 800; }
+.nav-links .nav-pedir a:hover { color: #fff; filter: brightness(1.08); }
+.mobile-menu a.nav-pedir { color: var(--orange); font-weight: 800; }
+.btn-bag.con-tienda { color: var(--orange); }
+.local-pedir { display: inline-block; margin-top: .8rem; background: var(--orange); color: #fff; text-decoration: none; padding: .55rem 1rem; border-radius: 999px; font-weight: 800; font-size: .9rem; }
+.local-pedir:hover { filter: brightness(1.08); }

@@ -738,7 +738,7 @@
         var btn = $('#chat-enviar'); btn.disabled = true;
         api('/asistente', { method: 'POST', body: { mensajes: conv.slice(-24), lat: ubic ? ubic.lat : undefined, lng: ubic ? ubic.lng : undefined, local: localSel || undefined } })
             .then(function (d) {
-                p.className = 'burbuja bot'; p.innerHTML = esc(d.texto || '').replace(/\b(RP-[A-Z2-9]{5})\b/g, '<span class="codigo">$1</span>');
+                p.className = 'burbuja bot'; p.innerHTML = esc(d.texto || '').replace(/\*\*([^*\n]+)\*\*/g, '<strong>$1</strong>').replace(/\b(RP-[A-Z2-9]{5})\b/g, '<span class="codigo">$1</span>');
                 conv.push({ rol: 'asistente', texto: d.texto || '' });
                 if (d.pedido && d.pedido.codigo) { carrito = []; guardar(); renderCarrito(); }
             })
@@ -781,13 +781,40 @@
         setTimeout(function () { try { e.target.scrollIntoView({ block: 'center', behavior: 'smooth' }); } catch (x) { /* */ } }, 350);
     });
 
+    // ── Enlaces directos: los usan el sitio, las IAs y WhatsApp ───────────────
+    //   /pedir?local=S08         abre con ese local ya elegido
+    //   /pedir?producto=847      abre la ficha de ese plato
+    //   /pedir?q=<texto>         abre el asistente y le pasa lo que la persona ya dijo («2 platos surtidos para recoger en Heredia»)
+    //   /pedir?ayuda=1           abre el asistente      ·      /pedir?cuenta=1   abre «Entrar»
+    function enlaceDirecto() {
+        var P; try { P = new URLSearchParams(location.search); } catch (e) { return; }
+        var pl = String(P.get('local') || '').trim().toUpperCase(), pp = Number(P.get('producto')) || 0;
+        var q = String(P.get('q') || '').trim().slice(0, 300), ayuda = P.get('ayuda'), cta = P.get('cuenta');
+        if (!pl && !pp && !q && !ayuda && !cta) return;
+        try { history.replaceState(null, '', location.pathname); } catch (e) { /* */ }
+        var paso = Promise.resolve();
+        if (pl && pl !== localSel && locales.some(function (l) { return l.codigo === pl; })) {
+            localSel = pl; ls('rosti.local', pl); renderLocal(); renderLocales(); cerrar('#locales-modal');
+            paso = cargarCatalogo();
+        }
+        return paso.then(function () {
+            if (pp) {
+                var art = null;
+                ((catalogo && catalogo.familias) || []).forEach(function (f) { (f.articulos || []).forEach(function (x) { if (Number(x.codigo) === pp) art = x; }); });
+                if (art) abrirFicha(art);
+            } else if (q) { abrirAsistente(); enviarChat(q); }
+            else if (ayuda) abrirAsistente();
+            else if (cta && !cuenta) abrirCuenta();
+        });
+    }
+
     // ── Arranque ──────────────────────────────────────────────────────────────
     cargarCuenta();
     renderCarrito();
     cargarCatalogo().then(function () {
         if (catalogo.pagos && !catalogo.pagos.disponible) { var av = $('#aviso-pago'); av.hidden = false; av.textContent = catalogo.pagos.mensaje; }
         return ubicacionPorIp();
-    }).catch(function (e) {
+    }).then(enlaceDirecto).catch(function (e) {
         $('#cargando').innerHTML = '<p class="vacio">' + esc(e.message === 'No disponible' ? 'Esta página es privada: abrila con el enlace completo que te dieron.' : (e.message || 'No se pudo cargar el menú.')) + '</p>';
     });
 })();
