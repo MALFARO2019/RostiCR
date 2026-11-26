@@ -724,10 +724,22 @@
     // ── Asistente: la IA dentro de la tienda (POST /api/tienda/asistente) ─────
     var conv = [];
     var chat = $('#chat');
+    // Un identificador por pestaña: el servidor guarda ahí el pedido en curso de FlamIA (el MCP lleva la sesión).
+    var chatSig = '';
+    var chatSesion = ''; try { chatSesion = sessionStorage.getItem('rosti.chat.sesion') || ''; } catch (e) { chatSesion = ''; }
+    function chatId() { try { var v = sessionStorage.getItem('rosti.chat.id'); if (!v) { v = 'w' + Date.now().toString(36) + Math.random().toString(36).slice(2, 10); sessionStorage.setItem('rosti.chat.id', v); } return v; } catch (e) { return 'w' + Math.random().toString(36).slice(2, 12); } }
+    // Texto del chat → HTML seguro: se escapa todo y sólo se permiten **negrita**, el código del pedido y enlaces [texto](https://rosti.cr/…) de Rosti.
+    function formatoChat(t) {
+        t = String(t || '');
+        var fmt = function (x) { return esc(x).replace(/\*\*([^*\n]+)\*\*/g, '<strong>$1</strong>').replace(/\b(RP-[A-Z2-9]{5})\b/g, '<span class="codigo">$1</span>'); };
+        var re = /\[([^\]\n]{1,60})\]\((https:\/\/(?:rosti\.cr|kpisrosti\.com)\/[^\s)]+)\)/g, html = '', ult = 0, m;
+        while ((m = re.exec(t))) { html += fmt(t.slice(ult, m.index)) + '<a href="' + esc(m[2]) + '">' + esc(m[1]) + '</a>'; ult = m.index + m[0].length; }
+        return html + fmt(t.slice(ult));
+    }
     function burbuja(cls, html) { var b = el('div', 'burbuja ' + cls, html); chat.appendChild(b); chat.scrollTop = chat.scrollHeight; return b; }
     function abrirAsistente() {
         abrir('#asistente');
-        if (!conv.length) burbuja('bot', '¡Hola! Soy el asistente de Rosti. Dígame qué quiere comer y dónde lo recoge, y yo armo el pedido. Por ejemplo: «un medio pollo con papas para recoger en Heredia».');
+        if (!conv.length) burbuja('bot', '¡Hola! Soy FlamIA, la asistente de Rosti. Dígame qué quiere comer y dónde lo recoge, y yo armo el pedido. Por ejemplo: «un medio pollo con papas para recoger en Heredia».');
         setTimeout(function () { $('#chat-input').focus(); }, 50);
     }
     function enviarChat(texto) {
@@ -736,9 +748,10 @@
         $('#chat-input').value = '';
         var p = burbuja('bot pensando', 'Un momento…');
         var btn = $('#chat-enviar'); btn.disabled = true;
-        api('/asistente', { method: 'POST', body: { mensajes: conv.slice(-24), lat: ubic ? ubic.lat : undefined, lng: ubic ? ubic.lng : undefined, local: localSel || undefined } })
+        api('/asistente', { method: 'POST', body: { mensajes: conv.slice(-24), chatId: chatId(), sesion: chatSesion || undefined, sig: chatSig || undefined, lat: ubic ? ubic.lat : undefined, lng: ubic ? ubic.lng : undefined, local: localSel || undefined } })
             .then(function (d) {
-                p.className = 'burbuja bot'; p.innerHTML = esc(d.texto || '').replace(/\*\*([^*\n]+)\*\*/g, '<strong>$1</strong>').replace(/\b(RP-[A-Z2-9]{5})\b/g, '<span class="codigo">$1</span>');
+                p.className = 'burbuja bot'; p.innerHTML = formatoChat(d.texto || ''); if (d.sig !== undefined) chatSig = d.sig || ''; if (d.sesion) { chatSesion = d.sesion; try { sessionStorage.setItem('rosti.chat.sesion', d.sesion); } catch (e) { /* */ } }
+                if (d.pedido && d.pedido.link && /^https:\/\/(rosti\.cr|kpisrosti\.com)\//.test(d.pedido.link)) { var a = el('a', 'btn-pagar'); a.href = d.pedido.link; a.textContent = 'Pagar con tarjeta'; p.appendChild(a); }
                 conv.push({ rol: 'asistente', texto: d.texto || '' });
                 if (d.pedido && d.pedido.codigo) { carrito = []; guardar(); renderCarrito(); }
             })
@@ -1036,7 +1049,7 @@
             btn.disabled = true; msg.textContent = 'Enviando…';
             ls('rosti.reporte.nombre', f.nombre.value.trim());
             api('/reporte', { method: 'POST', body: { nombre: f.nombre.value, mensaje: f.mensaje.value, capturas: caps.map(function (c) { return { dataUrl: c.dataUrl }; }), contexto: {
-                local: l ? (l.nombre + ' (' + l.codigo + ')') : (localSel || ''), carrito: resumen, url: location.origin + location.pathname, version: 'tienda.js?v=23',
+                local: l ? (l.nombre + ' (' + l.codigo + ')') : (localSel || ''), carrito: resumen, url: location.origin + location.pathname, version: 'tienda.js?v=24',
                 dispositivo: (navigator.userAgent || '').slice(0, 280), pantalla: window.innerWidth + 'x' + window.innerHeight } } })
                 .then(function (d) { f.mensaje.value = ''; caps = []; capActiva = -1; trazos = []; imgBase = null; pintarMiniaturas(); f.hidden = true; msg.textContent = '✅ Listo: quedó como el caso #' + d.caso + '. Gracias.'; })
                 .catch(function (e) { msg.textContent = e.message || 'No se pudo enviar. Intente de nuevo.'; })

@@ -20,7 +20,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/styles.css?v=10">
-    <link rel="stylesheet" href="css/tienda.css?v=20">
+    <link rel="stylesheet" href="css/tienda.css?v=21">
 </head>
 <body class="tienda">
     <!-- Barra superior tipo app: logo, dónde recogés, buscar, cuenta, pedido -->
@@ -70,8 +70,8 @@
         <div id="aviso-pago" class="aviso" hidden></div>
         <div id="aviso-horario" class="aviso cerrado" hidden></div>
         <button id="btn-asistente" type="button" class="asist-cta">
-            <span class="asist-ico" aria-hidden="true">💬</span>
-            <span><strong id="asist-titulo">¿Te ayudo a pedir?</strong><small id="asist-sub">Escribí o hablá: «un medio pollo con papas para recoger en Heredia»</small></span>
+            <span class="asist-ico" aria-hidden="true"><img src="images/llamita.png" alt="" width="26" height="26"></span>
+            <span><strong id="asist-titulo">Pedí con FlamIA</strong><small id="asist-sub">Escribí o hablá: «un medio pollo con papas para recoger en Heredia»</small></span>
             <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="currentColor" d="M9 6l6 6-6 6-1.4-1.4L12.2 12 7.6 7.4z"/></svg>
         </button>
     </section>
@@ -218,7 +218,7 @@
     <!-- Asistente -->
     <div id="asistente" class="modal" hidden>
         <div class="modal-caja asistente-caja" role="dialog" aria-modal="true">
-            <div class="modal-head"><h2>Asistente Rosti</h2><button id="asistente-cerrar" class="x" type="button" aria-label="Cerrar">×</button></div>
+            <div class="modal-head"><h2 class="flamia-cab"><img src="images/llamita.png" alt="" class="flamia-av"> FlamIA <small>asistente de Rosti</small></h2><button id="asistente-cerrar" class="x" type="button" aria-label="Cerrar">×</button></div>
             <div id="chat" class="chat" aria-live="polite"></div>
             <form id="chat-form" class="chat-form" autocomplete="off">
                 <button type="button" id="chat-mic" class="chat-mic" aria-label="Hablar" title="Hablar">🎤</button>
@@ -299,6 +299,6 @@
         <p>Servicio al cliente: <a href="mailto:servicioalcliente@rosti.cr">servicioalcliente@rosti.cr</a> · <a href="tel:+50687070770">8707-0770</a> · <a href="terminos.html">Términos, entregas y cancelaciones</a> · <a href="privacy.html">Privacidad</a></p>
         <p>Pago seguro con tarjeta Visa y Mastercard mediante BAC Credomatic con autenticación 3-D Secure: los datos de tu tarjeta se digitan únicamente en la página de pago del banco y Rosti nunca los recibe ni los guarda. <span class="ptz">Powered by Powertranz</span></p>
     </footer>
-    <script src="js/tienda.js?v=23"></script>
+    <script src="js/tienda.js?v=26"></script>
 </body>
 </html>

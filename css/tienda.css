@@ -429,3 +429,12 @@ body.tienda { -webkit-tap-highlight-color: transparent; overscroll-behavior-y: n
 .rep-acciones .btn-sec { flex: 1; min-width: 150px; text-align: center; cursor: pointer; }
 .rep-acciones .btn-sec:disabled, .rep-acciones .apagado { opacity: .45; pointer-events: none; }
 .rep-ayuda { margin: 0 0 .6rem; font-size: .8rem; color: var(--txt2, #666); }
+
+/* FlamIA: el chat de la tienda conversa por el mismo MCP que Claude y ChatGPT */
+.flamia-cab { display: flex; align-items: center; gap: .5rem; margin: 0; }
+.flamia-cab small { font-weight: 500; color: var(--txt2, #666); font-size: .75rem; }
+.flamia-av { width: 28px; height: 28px; border-radius: 50%; background: #fff; border: 1px solid #eee; padding: 3px; object-fit: contain; }
+.asist-ico img { display: block; object-fit: contain; }
+.burbuja a { color: var(--to-d, #c2410c); font-weight: 700; text-decoration: underline; }
+.burbuja .btn-pagar { display: block; margin-top: .6rem; text-align: center; text-decoration: none; background: #111; color: #fff; font-weight: 800; border-radius: 999px; padding: .65rem 1rem; }
+.burbuja .btn-pagar:hover { background: #333; color: #fff; }
