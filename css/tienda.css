@@ -29,7 +29,7 @@ body.bloqueado { overflow: hidden; }
 
 /* ── Portada ── */
 .hero { max-width: 1180px; margin: 0 auto; padding: 0 1rem; }
-.hero-img { height: clamp(150px, 26vw, 280px); border-radius: 0 0 var(--radio) var(--radio); background: #203A54 url('../images/banner-generico.webp') center/cover no-repeat; margin: 0 -1rem; }
+.hero-img { aspect-ratio: 1920 / 660; height: auto; min-height: 120px; border-radius: 0 0 var(--radio) var(--radio); background: #203A54 url('../images/banner-generico.webp') center/cover no-repeat; margin: 0 -1rem; }
 @media (min-width: 900px) { .hero-img { margin: 1rem 0 0; border-radius: 18px; } }
 .hero-card { display: flex; gap: 1rem; align-items: flex-end; margin-top: -38px; padding: 0 .3rem; position: relative; }
 .hero-marca { width: 84px; height: 84px; border-radius: 50%; background: #fff; box-shadow: 0 4px 16px rgba(0,0,0,.15); display: flex; align-items: center; justify-content: center; flex: none; border: 4px solid #fff; }
