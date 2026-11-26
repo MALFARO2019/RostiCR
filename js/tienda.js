@@ -49,7 +49,7 @@
     //    en vez de sacar a la persona de la página: cada capa abierta empuja una entrada al historial.
     //  · iOS Safari ignora overflow:hidden en el body y el fondo se sigue moviendo debajo del modal: se fija el
     //    body con position:fixed y se devuelve al mismo scroll al cerrar.
-    var MODALES = ['#ficha-modal', '#checkout-modal', '#conf-modal', '#locales-modal', '#asistente', '#cuenta-modal', '#carrito'];
+    var MODALES = ['#ficha-modal', '#checkout-modal', '#conf-modal', '#locales-modal', '#asistente', '#cuenta-modal', '#reporte-modal', '#carrito'];
     var pila = [];
     function visible(s) { return s === '#carrito' ? $('#carrito').classList.contains('abierto') : !$(s).hidden; }
     function mostrar(s, si) {
@@ -808,8 +808,101 @@
         });
     }
 
+    // ── Contenido editable: banner o carrusel, textos y aviso (Pedidos Externos › Contenido) ─────────────────────────────────────────
+    // Todo es OPCIONAL: sin contenido publicado la página se ve como de fábrica. Los textos entran con textContent (nunca como HTML).
+    var vistaBorrador = false;
+    try { vistaBorrador = new URLSearchParams(location.search).get('contenido') === 'borrador'; } catch (e) { vistaBorrador = false; }
+    var carruselT = null;
+    function pintarBanners(c) {
+        var host = $('#hero-img'), banners = (c.banners || []).filter(function (b) { return b && b.imagen; });
+        clearInterval(carruselT);
+        var viejo = host.querySelector('.hero-slides'); if (viejo) viejo.remove();
+        if (!banners.length) return;
+        var movil = window.matchMedia && window.matchMedia('(max-width: 640px)').matches;
+        var caja = el('div', 'hero-slides'), slides = [], puntos = el('div', 'hero-puntos'), actual = 0;
+        banners.forEach(function (b) {
+            var img = (movil && b.imagenMovil) ? b.imagenMovil : b.imagen;
+            var s = b.enlace ? el('a', 'hero-slide') : el('div', 'hero-slide');
+            if (b.enlace) s.href = b.enlace;
+            s.style.backgroundImage = 'url("' + String(img).replace(/"/g, '%22') + '")';
+            if (b.titulo || b.texto || b.boton) {
+                var t = el('div', 'hs-txt');
+                if (b.titulo) { var h = el('h2'); h.textContent = b.titulo; t.appendChild(h); }
+                if (b.texto) { var p = el('p'); p.textContent = b.texto; t.appendChild(p); }
+                if (b.boton && b.enlace) { var bt = el('span', 'hs-btn'); bt.textContent = b.boton; t.appendChild(bt); }
+                s.appendChild(t);
+            }
+            caja.appendChild(s); slides.push(s);
+            var im = new Image(); im.onerror = function () { s.remove(); slides = slides.filter(function (x) { return x !== s; }); if (!slides.length) caja.remove(); }; im.src = img;
+        });
+        host.appendChild(caja);
+        var mostrar = function (i) {
+            if (!slides.length) return;
+            actual = (i + slides.length) % slides.length;
+            slides.forEach(function (s, k) { s.classList.toggle('activa', k === actual); });
+            Array.prototype.forEach.call(puntos.children, function (d, k) { d.classList.toggle('activo', k === actual); });
+        };
+        var arrancar = function () {
+            clearInterval(carruselT);
+            if (banners.length > 1) carruselT = setInterval(function () { if (!document.hidden) mostrar(actual + 1); }, Math.max(3, Number(c.carruselSegundos) || 6) * 1000);
+        };
+        if (banners.length > 1) {
+            banners.forEach(function (_b, k) { var d = el('button'); d.type = 'button'; d.setAttribute('aria-label', 'Imagen ' + (k + 1)); d.onclick = function () { mostrar(k); arrancar(); }; puntos.appendChild(d); });
+            caja.appendChild(puntos);
+        }
+        mostrar(0); arrancar();
+    }
+    function aplicarContenido(c) {
+        if (!c) return;
+        var t = c.textos || {};
+        if (t.lema) $('#chip-lema').textContent = t.lema;
+        if (t.asistenteTitulo) $('#asist-titulo').textContent = t.asistenteTitulo;
+        if (t.asistenteSub) $('#asist-sub').textContent = t.asistenteSub;
+        var av = $('#aviso-general');
+        if (c.aviso && c.aviso.texto) {
+            var clave = 'rosti.aviso.' + c.aviso.texto.length + '.' + c.aviso.texto.slice(0, 24), cerrado = false;
+            try { cerrado = sessionStorage.getItem(clave) === '1'; } catch (e) { cerrado = false; }
+            if (!cerrado || c.borrador) {
+                $('#aviso-general-txt').textContent = c.aviso.texto; av.className = 'aviso-general ' + (c.aviso.tipo || 'info'); av.hidden = false;
+                $('#aviso-general-x').onclick = function () { av.hidden = true; try { sessionStorage.setItem(clave, '1'); } catch (e) { /* */ } };
+            }
+        } else av.hidden = true;
+        pintarBanners(c);
+        if (c.borrador && !$('.vista-previa-borrador')) { var v = el('div', 'vista-previa-borrador'); v.textContent = 'Vista previa del BORRADOR (no es lo publicado)'; document.body.appendChild(v); }
+    }
+    function cargarContenido() {
+        return api('/contenido' + (vistaBorrador ? '?borrador=1' : '')).then(aplicarContenido).catch(function () { /* sin contenido: queda como de fábrica */ });
+    }
+
+    // ── Tienda de PRUEBAS: botón de salvavidas para reportar qué modificar (crea un caso de soporte) ────────────────────────────
+    // Sólo aparece con la clave privada y mientras el servidor dice que la tienda sigue privada (GET /modo); al abrirla al público desaparece.
+    function iniciarReporte() {
+        if (!ACCESO) return;
+        api('/modo').then(function (d) { if (d && d.privada) $('#btn-reporte').hidden = false; }).catch(function () { /* */ });
+        $('#btn-reporte').onclick = function () {
+            $('#reporte-msg').textContent = ''; $('#reporte-form').hidden = false;
+            var n = ls('rosti.reporte.nombre'); if (n && !$('#reporte-form').nombre.value) $('#reporte-form').nombre.value = n;
+            abrir('#reporte-modal');
+        };
+        $('#reporte-cerrar').onclick = function () { cerrar('#reporte-modal'); };
+        $('#reporte-form').onsubmit = function (ev) {
+            ev.preventDefault();
+            var f = ev.target, btn = f.querySelector('button[type=submit]'), msg = $('#reporte-msg');
+            var l = localObj(), resumen = carrito.map(function (i) { return i.cantidad + '× ' + i.nombre; }).join(', ');
+            btn.disabled = true; msg.textContent = 'Enviando…';
+            ls('rosti.reporte.nombre', f.nombre.value.trim());
+            api('/reporte', { method: 'POST', body: { nombre: f.nombre.value, mensaje: f.mensaje.value, contexto: {
+                local: l ? (l.nombre + ' (' + l.codigo + ')') : (localSel || ''), carrito: resumen, url: location.origin + location.pathname, version: 'tienda.js?v=22',
+                dispositivo: (navigator.userAgent || '').slice(0, 280), pantalla: window.innerWidth + 'x' + window.innerHeight } } })
+                .then(function (d) { f.mensaje.value = ''; f.hidden = true; msg.textContent = '✅ Listo: quedó como el caso #' + d.caso + '. Gracias.'; })
+                .catch(function (e) { msg.textContent = e.message || 'No se pudo enviar. Intente de nuevo.'; })
+                .then(function () { btn.disabled = false; });
+        };
+    }
+
     // ── Arranque ──────────────────────────────────────────────────────────────
     cargarCuenta();
+    cargarContenido(); iniciarReporte();
     renderCarrito();
     cargarCatalogo().then(function () {
         if (catalogo.pagos && !catalogo.pagos.disponible) { var av = $('#aviso-pago'); av.hidden = false; av.textContent = catalogo.pagos.mensaje; }

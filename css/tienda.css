@@ -388,3 +388,23 @@ body.tienda { -webkit-tap-highlight-color: transparent; overscroll-behavior-y: n
 /* Miniatura de la opción del modificador */
 .op-foto { width: 52px; height: 52px; border-radius: 10px; object-fit: cover; flex: none; background: var(--gris); }
 .sub-grupos .op-foto { width: 44px; height: 44px; }
+
+/* ── Contenido editable (Pedidos Externos › Contenido): aviso general, carrusel del banner y botón de reportes de la tienda de pruebas ── */
+.aviso-general { position: relative; background: #203A54; color: #fff; text-align: center; font-weight: 700; font-size: .92rem; padding: .6rem 2.6rem .6rem 1rem; }
+.aviso-general.alerta { background: #B42318; }
+.aviso-general.promo { background: #E8590C; }
+.aviso-general button { position: absolute; right: .5rem; top: 50%; transform: translateY(-50%); width: 30px; height: 30px; border: 0; border-radius: 50%; background: rgba(255,255,255,.18); color: inherit; font-size: 1.2rem; line-height: 1; cursor: pointer; }
+.hero-img { position: relative; overflow: hidden; }
+.hero-slide { position: absolute; inset: 0; display: block; background: #203A54 center/cover no-repeat; opacity: 0; transition: opacity .7s ease; color: #fff; text-decoration: none; }
+.hero-slide.activa { opacity: 1; z-index: 1; }
+.hero-slide .hs-txt { position: absolute; left: 0; right: 0; bottom: 0; padding: 2.4rem 1.4rem 1.3rem; background: linear-gradient(transparent, rgba(0,0,0,.68)); }
+.hero-slide .hs-txt h2 { margin: 0; font-size: clamp(1.2rem, 3.2vw, 2rem); font-weight: 900; text-shadow: 0 2px 8px rgba(0,0,0,.4); }
+.hero-slide .hs-txt p { margin: .25rem 0 0; font-size: clamp(.85rem, 1.8vw, 1.05rem); text-shadow: 0 1px 6px rgba(0,0,0,.45); }
+.hero-slide .hs-btn { display: inline-block; margin-top: .6rem; background: #fff; color: #111; font-weight: 800; font-size: .85rem; border-radius: 999px; padding: .4rem .95rem; }
+.hero-puntos { position: absolute; z-index: 2; right: .9rem; bottom: .7rem; display: flex; gap: .4rem; }
+.hero-puntos button { width: 10px; height: 10px; padding: 0; border: 0; border-radius: 50%; background: rgba(255,255,255,.55); cursor: pointer; }
+.hero-puntos button.activo { background: #fff; transform: scale(1.25); }
+.vista-previa-borrador { position: fixed; z-index: 80; left: 50%; transform: translateX(-50%); bottom: .8rem; background: #6941C6; color: #fff; font-weight: 800; font-size: .8rem; border-radius: 999px; padding: .4rem .9rem; box-shadow: 0 4px 16px rgba(0,0,0,.3); }
+.tb-pruebas { color: #B54708; }
+.tb-pruebas:hover { background: #FFF4E5; }
+.form textarea { width: 100%; font: inherit; padding: .6rem .7rem; border: 1px solid var(--gris2, #ddd); border-radius: 10px; resize: vertical; box-sizing: border-box; }

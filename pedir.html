@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Pedí en línea | Rosti Costa Rica</title>
+    <!-- Página en PRUEBAS: no se indexa ni se enlaza desde el sitio. -->
+    <meta name="robots" content="noindex, nofollow, noarchive">
+    <meta name="theme-color" content="#ffffff">
+    <!-- iPhone: se puede «Agregar a pantalla de inicio» y abre como app, sin barra de Safari. -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Rosti">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="apple-touch-icon" href="images/llamita.png">
+    <link rel="preload" as="image" href="images/tienda/banner-900.webp" media="(max-width: 900px)">
+    <link rel="icon" type="image/png" href="images/llamita.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css?v=10">
+    <link rel="stylesheet" href="css/tienda.css?v=19">
+</head>
+<body class="tienda">
+    <!-- Barra superior tipo app: logo, dónde recogés, buscar, cuenta, pedido -->
+    <header class="tb">
+        <a href="index.html" class="tb-logo" aria-label="Rosti Costa Rica"><img src="images/rosti-logo.webp" alt="Rosti"></a>
+        <button id="local-btn" class="tb-local" type="button" aria-label="Elegir local">
+            <span class="tb-local-ico" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7Zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5Z"/></svg></span>
+            <span class="tb-local-txt"><small>Recoger en</small><strong id="local-nombre">Elegí tu local</strong></span>
+            <svg class="tb-chev" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M7 10l5 5 5-5z"/></svg>
+        </button>
+        <div class="tb-acciones">
+            <button id="btn-reporte" class="tb-btn tb-pruebas" type="button" aria-label="Reportar qué modificar (tienda de pruebas)" hidden>
+                <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm0 2c1.5 0 2.9.4 4.1 1.1l-2.2 2.2A4.9 4.9 0 0 0 12 7c-.7 0-1.3.1-1.9.3L7.9 5.1A8 8 0 0 1 12 4ZM5.1 7.9l2.2 2.2A4.9 4.9 0 0 0 7 12c0 .7.1 1.3.3 1.9l-2.2 2.2A8 8 0 0 1 4 12c0-1.5.4-2.9 1.1-4.1ZM12 20a8 8 0 0 1-4.1-1.1l2.2-2.2c.6.2 1.2.3 1.9.3s1.3-.1 1.9-.3l2.2 2.2A8 8 0 0 1 12 20Zm6.9-3.9-2.2-2.2c.2-.6.3-1.2.3-1.9s-.1-1.3-.3-1.9l2.2-2.2A8 8 0 0 1 20 12c0 1.5-.4 2.9-1.1 4.1ZM12 9a3 3 0 1 1 0 6 3 3 0 0 1 0-6Z"/></svg>
+                <span id="reporte-label">Reportar</span>
+            </button>
+            <button id="btn-cuenta" class="tb-btn" type="button" aria-label="Mi cuenta">
+                <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M12 12a5 5 0 1 0 0-10 5 5 0 0 0 0 10Zm0 2c-4.4 0-8 2.2-8 5v1h16v-1c0-2.8-3.6-5-8-5Z"/></svg>
+                <span id="cuenta-label">Entrar</span>
+            </button>
+            <button id="btn-carrito" class="tb-carrito" type="button" aria-label="Ver mi pedido">
+                <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M7 18a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm10 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4ZM6.2 6l.9 2H20l-3.5 6.3a2 2 0 0 1-1.7 1H8.1l-1 1.7H19v2H7a2 2 0 0 1-1.7-3l1.4-2.4L3.4 4H1V2h3.7l1 2Z"/></svg>
+                <span class="badge" id="carrito-n">0</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Aviso general editable (Pedidos Externos › Contenido) -->
+    <div id="aviso-general" class="aviso-general" role="status" hidden><span id="aviso-general-txt"></span><button type="button" id="aviso-general-x" aria-label="Cerrar aviso">×</button></div>
+
+    <!-- Portada del local: la imagen (o el carrusel) la administra Pedidos Externos › Contenido -->
+    <section class="hero">
+        <div class="hero-img" id="hero-img" role="img" aria-label="Rosti: para picar y no parar"></div>
+        <div class="hero-card">
+            <div class="hero-marca"><img src="images/llamita.png" alt=""></div>
+            <div class="hero-info">
+                <h1>Rosti <span id="hero-local">Costa Rica</span></h1>
+                <p class="hero-chips">
+                    <span class="chip"><b>★</b> <span id="chip-lema">Pollo asado a la leña</span></span>
+                    <span class="chip" id="chip-tiempo">🕒 Listo en 20–30 min</span>
+                    <span class="chip" id="chip-km" hidden></span>
+                    <span class="chip" id="chip-horario" hidden></span>
+                    <span class="chip">🛍️ Para recoger</span>
+                </p>
+                <p class="hero-sub" id="ubic-estado">Buscando los locales cerca de vos…</p>
+            </div>
+        </div>
+        <div id="aviso-pago" class="aviso" hidden></div>
+        <div id="aviso-horario" class="aviso cerrado" hidden></div>
+        <button id="btn-asistente" type="button" class="asist-cta">
+            <span class="asist-ico" aria-hidden="true">💬</span>
+            <span><strong id="asist-titulo">¿Te ayudo a pedir?</strong><small id="asist-sub">Escribí o hablá: «un medio pollo con papas para recoger en Heredia»</small></span>
+            <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="currentColor" d="M9 6l6 6-6 6-1.4-1.4L12.2 12 7.6 7.4z"/></svg>
+        </button>
+    </section>
+
+    <!-- Categorías + búsqueda (pegajosas) -->
+    <nav class="cats" aria-label="Categorías del menú">
+        <div class="cats-in">
+            <label class="buscar">
+                <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M10 2a8 8 0 0 1 6.3 12.9l5.4 5.4-1.4 1.4-5.4-5.4A8 8 0 1 1 10 2Zm0 2a6 6 0 1 0 0 12 6 6 0 0 0 0-12Z"/></svg>
+                <input id="buscar" type="search" placeholder="Buscar en el menú" autocomplete="off" enterkeyhint="search">
+            </label>
+            <div id="familias" class="cats-tabs"></div>
+        </div>
+    </nav>
+
+    <main class="menu">
+        <div id="cargando" class="skel-wrap">
+            <div class="skel skel-tit"></div>
+            <div class="skel-grid"><div class="skel skel-card"></div><div class="skel skel-card"></div><div class="skel skel-card"></div><div class="skel skel-card"></div></div>
+        </div>
+        <section id="destacados" class="dest" hidden>
+            <h2>Los más pedidos</h2>
+            <div id="destacados-lista" class="dest-lista"></div>
+        </section>
+        <div id="articulos"></div>
+        <p id="sin-resultados" class="vacio" hidden>No encontramos nada con esa búsqueda.</p>
+        <p class="pie-menu" id="pie-menu"></p>
+    </main>
+
+    <!-- Barra inferior móvil: ver pedido -->
+    <button id="barra-pedido" class="barra-pedido" type="button" hidden>
+        <span class="bp-n" id="bp-n">0</span><span>Ver pedido</span><strong id="bp-total">₡0</strong>
+    </button>
+
+    <!-- Carrito (cajón lateral) -->
+    <div id="carrito-velo" class="velo" hidden></div>
+    <aside id="carrito" class="cajon" aria-label="Mi pedido" aria-hidden="true">
+        <div class="cajon-head">
+            <div><h2>Tu pedido</h2><small id="carrito-local"></small></div>
+            <button id="carrito-cerrar" class="x" type="button" aria-label="Cerrar">×</button>
+        </div>
+        <div id="carrito-lista" class="cajon-cuerpo"></div>
+        <div class="cajon-foot">
+            <div class="fila-total"><span>Subtotal</span><strong id="carrito-total">₡0</strong></div>
+            <small class="iva">Precios con IVA incluido</small>
+            <p id="carrito-horario" class="carrito-horario" hidden></p>
+            <button id="btn-pedir" type="button" class="btn-grande" disabled>Ir a pagar</button>
+        </div>
+    </aside>
+
+    <!-- Ficha del artículo -->
+    <div id="ficha-modal" class="modal" hidden>
+        <div class="modal-caja ficha" role="dialog" aria-modal="true" aria-labelledby="ficha-titulo">
+            <button id="ficha-cerrar" type="button" class="x x-flota" aria-label="Cerrar">×</button>
+            <div class="ficha-scroll" id="ficha-scroll">
+                <div class="ficha-img-wrap" id="ficha-img-wrap"><img id="ficha-img" alt=""></div>
+                <div class="ficha-cab">
+                    <h2 id="ficha-titulo"></h2>
+                    <div class="ficha-precio" id="ficha-precio"></div>
+                    <p id="ficha-desc"></p>
+                </div>
+                <div id="ficha-grupos"></div>
+                <div class="ficha-nota-wrap">
+                    <h4>Indicaciones para la cocina</h4>
+                    <textarea id="ficha-nota" maxlength="300" rows="2" placeholder="Ej.: sin cebolla, salsa aparte (opcional)"></textarea>
+                </div>
+            </div>
+            <div class="ficha-foot">
+                <div class="stepper"><button id="ficha-menos" type="button" aria-label="Menos">−</button><span id="ficha-cant">1</span><button id="ficha-mas" type="button" aria-label="Más">+</button></div>
+                <button id="ficha-agregar" type="button" class="btn-grande">Agregar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Checkout -->
+    <div id="checkout-modal" class="modal" hidden>
+        <div class="modal-caja" role="dialog" aria-modal="true" aria-labelledby="checkout-titulo">
+            <div class="modal-head"><h2 id="checkout-titulo">Confirmá tu pedido</h2><button id="checkout-cerrar" class="x" type="button" aria-label="Cerrar">×</button></div>
+            <form id="form-pedido" class="modal-cuerpo form" autocomplete="on">
+                <div class="paso"><span class="paso-n">1</span><h3 id="paso1-titulo">¿Dónde lo recogés?</h3></div>
+                <div id="modo-entrega" class="modo" role="group" aria-label="Cómo lo querés" hidden>
+                    <button type="button" data-modo="recoger" class="sel">🛍️ Lo recojo</button>
+                    <button type="button" data-modo="entrega">🛵 A domicilio</button>
+                </div>
+                <button type="button" id="checkout-local" class="local-elegido"></button>
+                <div id="entrega-bloque" class="entrega-bloque" hidden>
+                    <label>Dirección de entrega<textarea id="entrega-direccion" rows="2" maxlength="300" placeholder="Barrio, distrito y cómo llegar: 200 m norte de la iglesia…" autocomplete="street-address"></textarea></label>
+                    <label>Señas para el repartidor <small>(opcional)</small><input id="entrega-senas" maxlength="200" placeholder="Casa verde, portón negro, apto 3" enterkeyhint="done"></label>
+                    <div class="entrega-acc">
+                        <button type="button" id="entrega-gps" class="btn-sec">📍 Usar mi ubicación actual</button>
+                        <button type="button" id="entrega-cotizar" class="btn-sec fuerte">Calcular envío</button>
+                    </div>
+                    <p id="entrega-estado" class="entrega-estado"></p>
+                </div>
+                <input type="hidden" name="local" id="local">
+                <div class="paso"><span class="paso-n">2</span><h3>Tus datos</h3></div>
+                <label>Teléfono<input name="telefono" type="tel" required maxlength="20" placeholder="8888 8888" inputmode="tel" autocomplete="tel" enterkeyhint="next"></label>
+                <label>Nombre<input name="nombre" required maxlength="150" placeholder="¿A nombre de quién?" autocomplete="name" autocapitalize="words" enterkeyhint="next"></label>
+                <label>Correo <small>(opcional, para el comprobante)</small><input name="email" type="email" maxlength="200" autocomplete="email" autocapitalize="off" enterkeyhint="next"></label>
+                <label>Cédula <small>(sólo si querés factura electrónica a tu nombre; te llega al correo)</small><input name="cedula" maxlength="20" placeholder="sin guiones" inputmode="numeric" enterkeyhint="next"></label>
+                <label>Notas para el local <small>(opcional)</small><textarea name="notas" rows="2" maxlength="500" placeholder="Llego a las 7:30, salsa aparte…"></textarea></label>
+                <div class="paso"><span class="paso-n">3</span><h3>Resumen</h3></div>
+                <div id="resumen-lineas" class="resumen-lineas"></div>
+                <div class="fila-total" id="resumen-envio" hidden><span>🛵 Envío a domicilio</span><strong id="resumen-envio-monto">₡0</strong></div>
+                <div class="fila-total grande"><span>Total</span><strong id="resumen-total">₡0</strong></div>
+                <p class="pago-nota" id="pago-nota"></p>
+                <div id="form-msg" class="form-msg"></div>
+                <button type="submit" id="btn-enviar" class="btn-grande" disabled>Enviar pedido</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Confirmación con seguimiento -->
+    <div id="conf-modal" class="modal" hidden>
+        <div class="modal-caja conf" role="dialog" aria-modal="true">
+            <div class="conf-ok" aria-hidden="true">✓</div>
+            <h2>¡Recibimos tu pedido!</h2>
+            <p class="conf-lbl">Tu código</p>
+            <div id="conf-codigo" class="conf-codigo"></div>
+            <p class="conf-det"><span id="conf-local"></span> · <strong id="conf-total"></strong></p>
+            <ol class="pasos-pedido" id="pasos-pedido">
+                <li data-p="recibido">Recibido</li><li data-p="pago">Pago</li><li data-p="cocina">En preparación</li><li data-p="listo">Listo para recoger</li>
+            </ol>
+            <p id="conf-msg" class="conf-msg"></p>
+            <p id="conf-entrega" class="conf-entrega" hidden></p>
+            <a id="conf-pagar" class="btn-grande" style="display:none" target="_blank" rel="noopener">Pagar ahora con BAC</a>
+            <p id="conf-espera" class="conf-espera">Esperando el link de pago… esta pantalla se actualiza sola.</p>
+            <button id="conf-otro" class="btn-sec" type="button">Volver al menú</button>
+        </div>
+    </div>
+
+    <!-- Elegir local -->
+    <div id="locales-modal" class="modal" hidden>
+        <div class="modal-caja" role="dialog" aria-modal="true">
+            <div class="modal-head"><h2>¿Dónde recogés?</h2><button id="locales-cerrar" class="x" type="button" aria-label="Cerrar">×</button></div>
+            <div class="modal-cuerpo">
+                <button id="ubic-gps" type="button" class="btn-ubic">📍 Usar mi ubicación para ver los más cercanos</button>
+                <label class="buscar buscar-local"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M10 2a8 8 0 0 1 6.3 12.9l5.4 5.4-1.4 1.4-5.4-5.4A8 8 0 1 1 10 2Zm0 2a6 6 0 1 0 0 12 6 6 0 0 0 0-12Z"/></svg><input id="locales-buscar" type="search" placeholder="Buscar local, cantón o provincia"></label>
+                <div id="locales-lista"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Asistente -->
+    <div id="asistente" class="modal" hidden>
+        <div class="modal-caja asistente-caja" role="dialog" aria-modal="true">
+            <div class="modal-head"><h2>Asistente Rosti</h2><button id="asistente-cerrar" class="x" type="button" aria-label="Cerrar">×</button></div>
+            <div id="chat" class="chat" aria-live="polite"></div>
+            <form id="chat-form" class="chat-form" autocomplete="off">
+                <button type="button" id="chat-mic" class="chat-mic" aria-label="Hablar" title="Hablar">🎤</button>
+                <input id="chat-input" maxlength="500" placeholder="Ej.: quiero un pollo entero con papas" enterkeyhint="send" autocapitalize="sentences">
+                <button type="submit" id="chat-enviar" class="btn-chat">Enviar</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Cuenta -->
+    <div id="cuenta-modal" class="modal" hidden>
+        <div class="modal-caja" role="dialog" aria-modal="true">
+            <div class="modal-head"><h2 id="cuenta-titulo">Entrar a Rosti</h2><button id="cuenta-cerrar" class="x" type="button" aria-label="Cerrar">×</button></div>
+            <div class="modal-cuerpo form">
+                <form id="cuenta-form-email">
+                    <p>Sin contraseña: te mandamos un código de 6 dígitos al correo.</p>
+                    <label>Tu correo<input name="email" type="email" required autocomplete="email" placeholder="vos@correo.com"></label>
+                    <button type="submit" class="btn-grande">Mandarme el código</button>
+                </form>
+                <form id="cuenta-form-codigo" hidden>
+                    <p>Escribí el código que te llegó a <strong id="cuenta-email"></strong>.</p>
+                    <label>Código<input name="codigo" inputmode="numeric" maxlength="6" pattern="[0-9]{6}" required placeholder="000000" autocomplete="one-time-code"></label>
+                    <label>Tu nombre <small>(si es la primera vez)</small><input name="nombre" maxlength="150"></label>
+                    <button type="submit" class="btn-grande">Entrar</button>
+                </form>
+                <div id="cuenta-panel" hidden>
+                    <p>Hola, <strong id="cuenta-nombre"></strong>. <span id="cuenta-datos"></span></p>
+                    <div id="cuenta-pedidos"></div>
+                    <button id="cuenta-salir" type="button" class="btn-sec">Salir de mi cuenta</button>
+                </div>
+                <div id="cuenta-msg" class="form-msg"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Reportar qué modificar (sólo tienda de pruebas): crea un caso de soporte -->
+    <div id="reporte-modal" class="modal" hidden>
+        <div class="modal-caja" role="dialog" aria-modal="true" aria-labelledby="reporte-titulo">
+            <div class="modal-head"><h2 id="reporte-titulo">¿Qué hay que modificar?</h2><button id="reporte-cerrar" class="x" type="button" aria-label="Cerrar">×</button></div>
+            <div class="modal-cuerpo form">
+                <form id="reporte-form">
+                    <p>Esta es la <strong>tienda de pruebas</strong>. Cuéntenos qué cambiaría o qué no funciona; queda como un caso y le avisamos al equipo. Se envían también el local y el carrito que tiene abiertos.</p>
+                    <label>Su nombre<input name="nombre" maxlength="150" autocomplete="name" placeholder="Para saber a quién preguntarle"></label>
+                    <label>Qué hay que modificar<textarea name="mensaje" rows="5" maxlength="3500" required placeholder="Ej.: el botón de pagar queda tapado por la barra del carrito en el celular"></textarea></label>
+                    <button type="submit" class="btn-grande">Enviar el caso</button>
+                </form>
+                <div id="reporte-msg" class="form-msg"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+
+    <footer class="tienda-pie">
+        <p><strong>Corporación Rostipollos S.A.</strong> · San José, Costa Rica · Precios en colones (CRC), impuestos incluidos.</p>
+        <p>Servicio al cliente: <a href="mailto:servicioalcliente@rosti.cr">servicioalcliente@rosti.cr</a> · <a href="tel:+50687070770">8707-0770</a> · <a href="terminos.html">Términos, entregas y cancelaciones</a> · <a href="privacy.html">Privacidad</a></p>
+        <p>Pago seguro con tarjeta Visa y Mastercard mediante BAC Credomatic con autenticación 3-D Secure: los datos de tu tarjeta se digitan únicamente en la página de pago del banco y Rosti nunca los recibe ni los guarda. <span class="ptz">Powered by Powertranz</span></p>
+    </footer>
+    <script src="js/tienda.js?v=22"></script>
+</body>
+</html>
