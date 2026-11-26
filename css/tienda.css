@@ -408,3 +408,24 @@ body.tienda { -webkit-tap-highlight-color: transparent; overscroll-behavior-y: n
 .tb-pruebas { color: #B54708; }
 .tb-pruebas:hover { background: #FFF4E5; }
 .form textarea { width: 100%; font: inherit; padding: .6rem .7rem; border: 1px solid var(--gris2, #ddd); border-radius: 10px; resize: vertical; box-sizing: border-box; }
+
+/* Reporte con captura (tienda de pruebas) */
+#reporte-modal .modal-caja { max-width: 780px; }
+.rep-editor { margin: .4rem 0 .6rem; }
+.rep-barra { display: flex; flex-wrap: wrap; align-items: center; gap: .3rem; margin-bottom: .45rem; }
+.rep-h { border: 1px solid var(--gris2, #ddd); background: #fff; border-radius: 8px; width: 38px; height: 34px; font-size: 1rem; cursor: pointer; }
+.rep-h.activa { background: #111; border-color: #111; }
+.rep-c { width: 26px; height: 26px; border-radius: 50%; border: 3px solid #fff; box-shadow: 0 0 0 1px #bbb; cursor: pointer; padding: 0; }
+.rep-c.activa { box-shadow: 0 0 0 2px #111; }
+.rep-sep { width: 1px; height: 22px; background: #ddd; margin: 0 .2rem; }
+.rep-lienzo { background: #f3f3f3; border: 1px solid #ddd; border-radius: 10px; padding: .3rem; display: flex; justify-content: center; }
+#rep-canvas { max-width: 100%; max-height: 46vh; width: auto; height: auto; touch-action: none; cursor: crosshair; background: #fff; border-radius: 6px; }
+.rep-minis { display: flex; gap: .4rem; margin-top: .45rem; flex-wrap: wrap; }
+.rep-mini { position: relative; width: 74px; height: 52px; padding: 0; border: 2px solid transparent; border-radius: 8px; overflow: hidden; cursor: pointer; background: #eee; }
+.rep-mini.activa { border-color: #E8590C; }
+.rep-mini img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.rep-mini-x { position: absolute; top: 1px; right: 1px; width: 18px; height: 18px; border-radius: 50%; background: rgba(0,0,0,.65); color: #fff; font-size: .8rem; line-height: 18px; text-align: center; }
+.rep-acciones { display: flex; flex-wrap: wrap; gap: .5rem; margin: .4rem 0; }
+.rep-acciones .btn-sec { flex: 1; min-width: 150px; text-align: center; cursor: pointer; }
+.rep-acciones .btn-sec:disabled, .rep-acciones .apagado { opacity: .45; pointer-events: none; }
+.rep-ayuda { margin: 0 0 .6rem; font-size: .8rem; color: var(--txt2, #666); }

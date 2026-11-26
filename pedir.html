@@ -20,7 +20,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/styles.css?v=10">
-    <link rel="stylesheet" href="css/tienda.css?v=19">
+    <link rel="stylesheet" href="css/tienda.css?v=20">
 </head>
 <body class="tienda">
     <!-- Barra superior tipo app: logo, dónde recogés, buscar, cuenta, pedido -->
@@ -261,8 +261,30 @@
             <div class="modal-cuerpo form">
                 <form id="reporte-form">
                     <p>Esta es la <strong>tienda de pruebas</strong>. Cuéntenos qué cambiaría o qué no funciona; queda como un caso y le avisamos al equipo. Se envían también el local y el carrito que tiene abiertos.</p>
+                    <div id="reporte-editor" class="rep-editor" hidden>
+                        <div class="rep-barra">
+                            <button type="button" class="rep-h activa" data-herr="lapiz" title="Lápiz" aria-label="Lápiz">✏️</button>
+                            <button type="button" class="rep-h" data-herr="circulo" title="Círculo" aria-label="Círculo">⭕</button>
+                            <button type="button" class="rep-h" data-herr="flecha" title="Flecha" aria-label="Flecha">↗️</button>
+                            <span class="rep-sep"></span>
+                            <button type="button" class="rep-c activa" data-color="#ef4444" aria-label="Rojo"></button>
+                            <button type="button" class="rep-c" data-color="#facc15" aria-label="Amarillo"></button>
+                            <button type="button" class="rep-c" data-color="#2563eb" aria-label="Azul"></button>
+                            <button type="button" class="rep-c" data-color="#16a34a" aria-label="Verde"></button>
+                            <span class="rep-sep"></span>
+                            <button type="button" class="rep-h" id="rep-deshacer" title="Deshacer la última marca" aria-label="Deshacer">↩️</button>
+                            <button type="button" class="rep-h" id="rep-limpiar" title="Borrar todas las marcas" aria-label="Borrar marcas">🗑️</button>
+                        </div>
+                        <div class="rep-lienzo"><canvas id="rep-canvas" width="10" height="10"></canvas></div>
+                        <div class="rep-minis" id="rep-minis"></div>
+                    </div>
+                    <div class="rep-acciones">
+                        <button type="button" id="rep-otra" class="btn-sec">📷 Tomar otra captura</button>
+                        <label id="rep-adjuntar-lbl" class="btn-sec">🖼️ Adjuntar imagen<input type="file" id="rep-adjuntar" accept="image/*" hidden></label>
+                    </div>
+                    <p class="rep-ayuda">Marque con el dedo o el mouse lo que hay que cambiar. También puede pegar una imagen con Ctrl+V.</p>
                     <label>Su nombre<input name="nombre" maxlength="150" autocomplete="name" placeholder="Para saber a quién preguntarle"></label>
-                    <label>Qué hay que modificar<textarea name="mensaje" rows="5" maxlength="3500" required placeholder="Ej.: el botón de pagar queda tapado por la barra del carrito en el celular"></textarea></label>
+                    <label>Qué hay que modificar<textarea name="mensaje" rows="4" maxlength="3500" placeholder="Ej.: el botón de pagar queda tapado por la barra del carrito en el celular"></textarea></label>
                     <button type="submit" class="btn-grande">Enviar el caso</button>
                 </form>
                 <div id="reporte-msg" class="form-msg"></div>
@@ -277,6 +299,6 @@
         <p>Servicio al cliente: <a href="mailto:servicioalcliente@rosti.cr">servicioalcliente@rosti.cr</a> · <a href="tel:+50687070770">8707-0770</a> · <a href="terminos.html">Términos, entregas y cancelaciones</a> · <a href="privacy.html">Privacidad</a></p>
         <p>Pago seguro con tarjeta Visa y Mastercard mediante BAC Credomatic con autenticación 3-D Secure: los datos de tu tarjeta se digitan únicamente en la página de pago del banco y Rosti nunca los recibe ni los guarda. <span class="ptz">Powered by Powertranz</span></p>
     </footer>
-    <script src="js/tienda.js?v=22"></script>
+    <script src="js/tienda.js?v=23"></script>
 </body>
 </html>

@@ -875,26 +875,170 @@
     }
 
     // ── Tienda de PRUEBAS: botón de salvavidas para reportar qué modificar (crea un caso de soporte) ────────────────────────────
+    // Igual que el botón de soporte de KPIs: toma una FOTO de lo que se ve (dom-to-image-more, del DOM: no sale la barra del navegador ni los menús
+    // nativos), deja MARCARLA (lápiz, círculo, flecha), aceptar imágenes PEGADAS (Ctrl+V) o adjuntadas, y manda el texto con el local y el carrito.
     // Sólo aparece con la clave privada y mientras el servidor dice que la tienda sigue privada (GET /modo); al abrirla al público desaparece.
+    var MAX_CAPS = 3, MAX_BYTES_CAP = 2.2 * 1024 * 1024;
+    var caps = [];            // [{ dataUrl }]  PNG ya reducido; las marcas se «queman» al cambiar de captura o al enviar
+    var capActiva = -1, trazos = [], trazoEnCurso = null, herr = 'lapiz', colorMarca = '#ef4444', imgBase = null;
+    var PNG_VACIO = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=';
+
+    function cargarCapturador() {
+        if (window.domtoimage) return Promise.resolve(window.domtoimage);
+        return new Promise(function (ok, mal) {
+            var s = document.createElement('script'); s.src = 'js/vendor/dom-to-image-more.min.js?v=1';
+            s.onload = function () { window.domtoimage ? ok(window.domtoimage) : mal(new Error('sin capturador')); };
+            s.onerror = function () { mal(new Error('no se pudo cargar el capturador')); };
+            document.head.appendChild(s);
+        });
+    }
+    /** Cualquier imagen (data URL o Blob) → PNG que cabe en el servidor (lado mayor 1600 px y menos de 2,2 MB; se achica hasta que entre). */
+    function aPng(origen) {
+        return new Promise(function (ok, mal) {
+            var url = typeof origen === 'string' ? origen : URL.createObjectURL(origen), im = new Image();
+            im.onload = function () {
+                var lado = 1600;
+                for (var i = 0; i < 5; i++) {
+                    var k = Math.min(1, lado / Math.max(im.naturalWidth, im.naturalHeight)), c = document.createElement('canvas');
+                    c.width = Math.max(1, Math.round(im.naturalWidth * k)); c.height = Math.max(1, Math.round(im.naturalHeight * k));
+                    var g = c.getContext('2d'); g.fillStyle = '#fff'; g.fillRect(0, 0, c.width, c.height); g.drawImage(im, 0, 0, c.width, c.height);
+                    var d = c.toDataURL('image/png');
+                    if (d.length * 0.75 <= MAX_BYTES_CAP) { if (typeof origen !== 'string') URL.revokeObjectURL(url); return ok(d); }
+                    lado = Math.round(lado * 0.7);
+                }
+                mal(new Error('La imagen es demasiado grande'));
+            };
+            im.onerror = function () { mal(new Error('No se pudo leer la imagen')); };
+            im.src = url;
+        });
+    }
+    /** La foto de lo que se ve AHORA (se toma antes de abrir el formulario, para que el formulario no salga en ella). */
+    function capturarPantalla() {
+        return cargarCapturador().then(function (d) {
+            var vw = Math.max(1, window.innerWidth), vh = Math.max(1, window.innerHeight), sx = window.scrollX || 0, sy = window.scrollY || 0;
+            var escala = vw < 900 ? Math.min(2, Math.max(1, window.devicePixelRatio || 1)) : 1;
+            return d.toPng(document.documentElement, {
+                bgcolor: '#ffffff', width: vw, height: vh, scale: escala, imagePlaceholder: PNG_VACIO, cacheBust: false,
+                style: { transform: 'translate(' + (-sx) + 'px, ' + (-sy) + 'px)', transformOrigin: 'top left' },
+                filter: function (n) {
+                    if (!n || n.nodeType !== 1) return true;
+                    var t = n.tagName; if (t === 'SCRIPT' || t === 'NOSCRIPT' || t === 'IFRAME' || t === 'VIDEO') return false;
+                    return !(n.id === 'reporte-modal' || n.id === 'toast' || (n.classList && n.classList.contains('vista-previa-borrador')));
+                }
+            });
+        }).then(aPng);
+    }
+
+    // ── Lienzo de marcas ──
+    function pintarLienzo() {
+        var cv = $('#rep-canvas'); if (!imgBase) return;
+        if (cv.width !== imgBase.naturalWidth || cv.height !== imgBase.naturalHeight) { cv.width = imgBase.naturalWidth; cv.height = imgBase.naturalHeight; }
+        var g = cv.getContext('2d'); g.clearRect(0, 0, cv.width, cv.height); g.drawImage(imgBase, 0, 0);
+        var grosor = Math.max(3, Math.round(cv.width / 260));
+        (trazoEnCurso ? trazos.concat([trazoEnCurso]) : trazos).forEach(function (t) {
+            g.strokeStyle = t.color; g.fillStyle = t.color; g.lineWidth = grosor; g.lineCap = 'round'; g.lineJoin = 'round'; g.beginPath();
+            if (t.tipo === 'lapiz') { t.puntos.forEach(function (p, i) { i ? g.lineTo(p.x, p.y) : g.moveTo(p.x, p.y); }); if (t.puntos.length === 1) g.lineTo(t.puntos[0].x + .1, t.puntos[0].y); g.stroke(); }
+            else if (t.tipo === 'circulo') { g.ellipse((t.a.x + t.b.x) / 2, (t.a.y + t.b.y) / 2, Math.abs(t.b.x - t.a.x) / 2 || 1, Math.abs(t.b.y - t.a.y) / 2 || 1, 0, 0, Math.PI * 2); g.stroke(); }
+            else {
+                var ang = Math.atan2(t.b.y - t.a.y, t.b.x - t.a.x), L = grosor * 5;
+                g.moveTo(t.a.x, t.a.y); g.lineTo(t.b.x, t.b.y); g.stroke(); g.beginPath();
+                g.moveTo(t.b.x, t.b.y); g.lineTo(t.b.x - L * Math.cos(ang - Math.PI / 6), t.b.y - L * Math.sin(ang - Math.PI / 6));
+                g.lineTo(t.b.x - L * Math.cos(ang + Math.PI / 6), t.b.y - L * Math.sin(ang + Math.PI / 6)); g.closePath(); g.fill();
+            }
+        });
+    }
+    /** Quema las marcas en el PNG de la captura activa. */
+    function aplanar() {
+        if (capActiva < 0 || !trazos.length) return;
+        try { caps[capActiva].dataUrl = $('#rep-canvas').toDataURL('image/png'); } catch (e) { /* queda sin marcas */ }
+        trazos = [];
+    }
+    function activarCaptura(i) {
+        aplanar(); capActiva = i; trazos = []; trazoEnCurso = null; imgBase = null;
+        if (i < 0 || !caps[i]) { pintarMiniaturas(); return; }
+        var im = new Image(); im.onload = function () { imgBase = im; pintarLienzo(); }; im.src = caps[i].dataUrl; pintarMiniaturas();
+    }
+    function pintarMiniaturas() {
+        var ed = $('#reporte-editor'), box = $('#rep-minis'); box.innerHTML = '';
+        ed.hidden = !caps.length;
+        caps.forEach(function (c, i) {
+            var b = el('button', 'rep-mini' + (i === capActiva ? ' activa' : '')); b.type = 'button'; b.setAttribute('aria-label', 'Captura ' + (i + 1));
+            var im = el('img'); im.src = c.dataUrl; im.alt = ''; b.appendChild(im);
+            var x = el('span', 'rep-mini-x', '×'); x.title = 'Quitar'; x.onclick = function (e) { e.stopPropagation(); caps.splice(i, 1); trazos = []; capActiva = -1; activarCaptura(Math.min(i, caps.length - 1)); };
+            b.appendChild(x); b.onclick = function () { if (i !== capActiva) activarCaptura(i); }; box.appendChild(b);
+        });
+        $('#rep-otra').disabled = caps.length >= MAX_CAPS; $('#rep-adjuntar-lbl').classList.toggle('apagado', caps.length >= MAX_CAPS);
+    }
+    function agregarImagen(origen) {
+        if (caps.length >= MAX_CAPS) { $('#reporte-msg').textContent = 'Máximo ' + MAX_CAPS + ' imágenes por reporte.'; return Promise.resolve(); }
+        return aPng(origen).then(function (d) { aplanar(); caps.push({ dataUrl: d }); activarCaptura(caps.length - 1); $('#reporte-msg').textContent = ''; })
+            .catch(function (e) { $('#reporte-msg').textContent = e.message || 'No se pudo usar esa imagen.'; });
+    }
+    function xy(e) { var cv = $('#rep-canvas'), r = cv.getBoundingClientRect(); return { x: (e.clientX - r.left) * (cv.width / Math.max(1, r.width)), y: (e.clientY - r.top) * (cv.height / Math.max(1, r.height)) }; }
+
+    function abrirReporte() {
+        var msg = $('#reporte-msg'); msg.textContent = '📷 Tomando la foto de la pantalla…';
+        var n = ls('rosti.reporte.nombre'); if (n && !$('#reporte-form').nombre.value) $('#reporte-form').nombre.value = n;
+        $('#reporte-form').hidden = false;
+        var tomada = caps.length >= MAX_CAPS ? Promise.resolve() : capturarPantalla().then(function (d) { aplanar(); caps.push({ dataUrl: d }); }).catch(function () { return null; });
+        return tomada.then(function () {
+            abrir('#reporte-modal'); activarCaptura(caps.length ? caps.length - 1 : -1);
+            msg.textContent = caps.length ? '' : 'No se pudo tomar la foto de la pantalla: puede pegar una imagen (Ctrl+V) o adjuntarla.';
+        });
+    }
     function iniciarReporte() {
         if (!ACCESO) return;
         api('/modo').then(function (d) { if (d && d.privada) $('#btn-reporte').hidden = false; }).catch(function () { /* */ });
-        $('#btn-reporte').onclick = function () {
-            $('#reporte-msg').textContent = ''; $('#reporte-form').hidden = false;
-            var n = ls('rosti.reporte.nombre'); if (n && !$('#reporte-form').nombre.value) $('#reporte-form').nombre.value = n;
-            abrir('#reporte-modal');
-        };
+        $('#btn-reporte').onclick = function () { $('#btn-reporte').disabled = true; abrirReporte().then(function () { $('#btn-reporte').disabled = false; }); };
         $('#reporte-cerrar').onclick = function () { cerrar('#reporte-modal'); };
+        // Marcas
+        var cv = $('#rep-canvas');
+        cv.addEventListener('pointerdown', function (e) {
+            if (!imgBase) return; e.preventDefault(); try { cv.setPointerCapture(e.pointerId); } catch (x) { /* */ }
+            var p = xy(e); trazoEnCurso = herr === 'lapiz' ? { tipo: 'lapiz', color: colorMarca, puntos: [p] } : { tipo: herr, color: colorMarca, a: p, b: p }; pintarLienzo();
+        });
+        cv.addEventListener('pointermove', function (e) {
+            if (!trazoEnCurso) return; e.preventDefault(); var p = xy(e);
+            if (trazoEnCurso.tipo === 'lapiz') trazoEnCurso.puntos.push(p); else trazoEnCurso.b = p; pintarLienzo();
+        });
+        var fin = function (e) {
+            if (!trazoEnCurso) return; e.preventDefault(); var t = trazoEnCurso; trazoEnCurso = null;
+            var vale = t.tipo === 'lapiz' ? t.puntos.length >= 1 : Math.hypot(t.b.x - t.a.x, t.b.y - t.a.y) >= 6;
+            if (vale) trazos.push(t); pintarLienzo();
+        };
+        cv.addEventListener('pointerup', fin); cv.addEventListener('pointercancel', fin);
+        Array.prototype.forEach.call(document.querySelectorAll('[data-herr]'), function (b) {
+            b.onclick = function () { herr = b.getAttribute('data-herr'); Array.prototype.forEach.call(document.querySelectorAll('[data-herr]'), function (x) { x.classList.toggle('activa', x === b); }); };
+        });
+        Array.prototype.forEach.call(document.querySelectorAll('[data-color]'), function (b) {
+            b.style.background = b.getAttribute('data-color');
+            b.onclick = function () { colorMarca = b.getAttribute('data-color'); Array.prototype.forEach.call(document.querySelectorAll('[data-color]'), function (x) { x.classList.toggle('activa', x === b); }); };
+        });
+        $('#rep-deshacer').onclick = function () { trazos.pop(); pintarLienzo(); };
+        $('#rep-limpiar').onclick = function () { trazos = []; pintarLienzo(); };
+        // Otra captura / pegar / adjuntar
+        $('#rep-otra').onclick = function () {
+            aplanar(); cerrar('#reporte-modal');
+            setTimeout(function () { capturarPantalla().then(function (d) { caps.push({ dataUrl: d }); }).catch(function () { /* */ }).then(function () { abrir('#reporte-modal'); activarCaptura(caps.length - 1); }); }, 450);
+        };
+        $('#rep-adjuntar').onchange = function (e) { var f = e.target.files && e.target.files[0]; if (f) agregarImagen(f); e.target.value = ''; };
+        document.addEventListener('paste', function (e) {
+            if ($('#reporte-modal').hidden) return;
+            var items = (e.clipboardData && e.clipboardData.items) || [];
+            for (var i = 0; i < items.length; i++) if (items[i].type && items[i].type.indexOf('image/') === 0) { var f = items[i].getAsFile(); if (f) { e.preventDefault(); agregarImagen(f); } return; }
+        });
         $('#reporte-form').onsubmit = function (ev) {
             ev.preventDefault();
             var f = ev.target, btn = f.querySelector('button[type=submit]'), msg = $('#reporte-msg');
+            if (!f.mensaje.value.trim() && !caps.length) { msg.textContent = 'Cuéntenos qué hay que modificar o deje una captura.'; return; }
+            aplanar();
             var l = localObj(), resumen = carrito.map(function (i) { return i.cantidad + '× ' + i.nombre; }).join(', ');
             btn.disabled = true; msg.textContent = 'Enviando…';
             ls('rosti.reporte.nombre', f.nombre.value.trim());
-            api('/reporte', { method: 'POST', body: { nombre: f.nombre.value, mensaje: f.mensaje.value, contexto: {
-                local: l ? (l.nombre + ' (' + l.codigo + ')') : (localSel || ''), carrito: resumen, url: location.origin + location.pathname, version: 'tienda.js?v=22',
+            api('/reporte', { method: 'POST', body: { nombre: f.nombre.value, mensaje: f.mensaje.value, capturas: caps.map(function (c) { return { dataUrl: c.dataUrl }; }), contexto: {
+                local: l ? (l.nombre + ' (' + l.codigo + ')') : (localSel || ''), carrito: resumen, url: location.origin + location.pathname, version: 'tienda.js?v=23',
                 dispositivo: (navigator.userAgent || '').slice(0, 280), pantalla: window.innerWidth + 'x' + window.innerHeight } } })
-                .then(function (d) { f.mensaje.value = ''; f.hidden = true; msg.textContent = '✅ Listo: quedó como el caso #' + d.caso + '. Gracias.'; })
+                .then(function (d) { f.mensaje.value = ''; caps = []; capActiva = -1; trazos = []; imgBase = null; pintarMiniaturas(); f.hidden = true; msg.textContent = '✅ Listo: quedó como el caso #' + d.caso + '. Gracias.'; })
                 .catch(function (e) { msg.textContent = e.message || 'No se pudo enviar. Intente de nuevo.'; })
                 .then(function () { btn.disabled = false; });
         };
