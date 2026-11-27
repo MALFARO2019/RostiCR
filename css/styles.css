@@ -725,3 +725,18 @@ a.emblem:hover i { color: var(--paper); }
 .btn-bag.con-tienda { color: var(--orange); }
 .local-pedir { display: inline-block; margin-top: .8rem; background: var(--orange); color: #fff; text-decoration: none; padding: .55rem 1rem; border-radius: 999px; font-weight: 800; font-size: .9rem; }
 .local-pedir:hover { filter: brightness(1.08); }
+
+/* ============== TELÉFONO Y TABLETA: toque cómodo SIN cambiar el diseño ==============
+   No cambia ni un píxel de lo que se ve (tamaños, espacios y columnas son los aprobados por Mercadeo):
+   sólo agranda, con un ::after transparente, la zona que responde al dedo. */
+@media (pointer: coarse), (max-width: 1023px) {
+    .menu-toggle, .btn-bag, .footer-social a, .slider-puntos button,
+    .footer-col li a, .local-info a[href^="tel:"], .reglamento-card a { position: relative; }
+    .menu-toggle::after, .btn-bag::after, .footer-social a::after, .slider-pausa::after, .slider-puntos button::after,
+    .footer-col li a::after, .local-info a[href^="tel:"]::after, .reglamento-card a::after { content: ""; position: absolute; }
+    .menu-toggle::after, .btn-bag::after, .footer-social a::after { inset: -4px; }
+    .slider-pausa::after { inset: -7px; }
+    .slider-puntos button::after { inset: -18px -3.5px; }
+    .footer-col li a::after { inset: -4px 0; }
+    .local-info a[href^="tel:"]::after, .reglamento-card a::after { inset: -11px -8px; }
+}

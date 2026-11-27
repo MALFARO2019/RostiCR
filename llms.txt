@@ -1,13 +1,14 @@
 # Rosti Costa Rica
 
-> Pollo asado hecho a mano desde hace más de 40 años. «¡Comé como te gusta!». Más de 40 restaurantes en Costa Rica.
+> Pollo asado hecho a mano desde hace más de 40 años. «¡Comé como te gusta!». Restaurantes en todo Costa Rica.
 
 Rosti (Corporación Rostipollos) es una cadena costarricense de restaurantes de pollo asado, con locales en todo el país y ventanitas para llevar.
 
 ## Sitio
 - [Inicio y menú](https://rosti.cr/): categorías del menú, promociones y experiencias.
 - [Locales](https://rosti.cr/locales.html): direcciones, teléfonos y horarios de salón de cada restaurante.
-- [Reglamentos de promociones](https://rosti.cr/reglamentos.html)
+- [Reglamentos de promociones](https://rosti.cr/reglamentos.html): Happy Hour, Rosti Lunch, Día a Día, Pet Friendly, Dino Fiestas y las promociones vigentes.
+- [Rosti Empleos](https://rosti.cr/rostiempleos.html): cómo postularse para trabajar en Rosti.
 - [Política de privacidad](https://rosti.cr/privacy.html) · [Términos y condiciones](https://rosti.cr/terminos.html)
 
 ## Pedir Rosti desde un asistente de IA
@@ -18,6 +19,52 @@ Si la persona dice «quiero comer en rosti.cr», «quiero comer Rosti», «pedir
 - Con la cuenta de Rosti conectada (OAuth en https://rosti.cr/.well-known/oauth-authorization-server) recuerda los datos de la persona, lo que suele pedir y sus pedidos anteriores.
 - Los pedidos en línea están en etapa de pruebas: si el servidor pide una clave o una cuenta, ofrecé la página https://rosti.cr/ o la central 2277-0800.
 
+## Servicios
+- Categorías del menú: Promociones, Boquitas, Clásicos de Rosti, Rosti día a día, RostiKids, Rosters, Rústicos, Rosti Balance, Pura birria, Ensaladas, Sopas, Para picar y no parar, Rosti familiares, Pedacitos de cielo (postres), Tortillería, Desayunados y Bebidas. Los precios no están publicados en el sitio: se consultan con el servidor MCP, en el local o en la central.
+- Fiestas infantiles con Dino Tony: menú Rosti Kids, accesorios de fiesta y postres enteros. Se coordinan en servicioalcliente@rosti.cr.
+- Pet Friendly: se aceptan mascotas en los restaurantes, según el reglamento.
+- Salas corporativas para reuniones en Rosti Lincoln Plaza y Rosti Real Cariari. Reservas en servicioalcliente@rosti.cr.
+- Gift Cards Rosti: se piden en servicioalcliente@rosti.cr.
+- Sostenibilidad: Bandera Azul Ecológica en 23 restaurantes y marca país Esencial Costa Rica.
+
+## Locales
+
+Los 28 restaurantes, con el horario de salón. Todos están en Costa Rica (zona horaria America/Costa_Rica, moneda CRC).
+
+- [Rosti Alajuela](https://rosti.cr/locales.html#rosti-alajuela): Diagonal Aeropuerto Juan Santamaría, Ríos Segundo, Alajuela. Tel. 2277-0902. Horario de salón: Lun-Dom 7 a.m. a 10 p.m.
+- [Rosti Plaza Real](https://rosti.cr/locales.html#rosti-plaza-real): C.C. Plaza Real, Alajuela. Tel. 2277-0936. Horario de salón: Lun-Jue 8 a.m. a 9 p.m. · Vie-Sáb 8 a.m. a 10 p.m. · Dom 8 a.m. a 9 p.m.
+- [Rosti San José](https://rosti.cr/locales.html#rosti-san-jose): Calle 5, Av. Primera, frente al Cine Variedades, San José. Tel. 2277-0911. Horario de salón: Lun-Sáb 7 a.m. a 8 p.m. · Dom 7 a.m. a 5 p.m.
+- [Rosti Guachipelín](https://rosti.cr/locales.html#rosti-guachipelin): Guachipelin, Escazú. Tel. 2277-0901. Horario de salón: Lun-Dom 8 a.m. a 9 p.m.
+- [Rosti Desamparados](https://rosti.cr/locales.html#rosti-desamparados): Av. 82, Desamparados, San José. Tel. 2277-0818. Horario de salón: Lun-Dom 8 a.m. a 10 p.m.
+- [Rosti Escazú](https://rosti.cr/locales.html#rosti-escazu): C. 118 105, San Rafael, Trejos Montealegre, Escazú. Tel. 2277-0901. Horario de salón: Lun-Dom 8 a.m. a 10 p.m.
+- [Rosti Curridabat](https://rosti.cr/locales.html#rosti-curridabat): Contiguo a Plaza del Sol, Curridabat. Tel. 2277-0916. Horario de salón: Lun-Dom 8 a.m. a 10 p.m.
+- [Rosti Multiplaza Escazú](https://rosti.cr/locales.html#rosti-multiplaza-escazu): Multiplaza Escazú. Tel. 2277-0912. Horario de salón: Lun-Sáb 9 a.m. a 9 p.m. · Dom 9 a.m. a 8 p.m.
+- [Rosti Multiplaza del Este](https://rosti.cr/locales.html#rosti-multiplaza-del-este): Multiplaza Curridabat, San Rafael. Tel. 2277-0928. Horario de salón: Lun-Sáb 9 a.m. a 9 p.m. · Dom 9 a.m. a 8 p.m.
+- [Rosti Cartago](https://rosti.cr/locales.html#rosti-cartago): Contiguo a Pali Cartago Oriental, Cartago. Tel. 2277-0931. Horario de salón: Lun-Dom 8 a.m. a 9 p.m.
+- [Rosti Coronado](https://rosti.cr/locales.html#rosti-coronado): 150 m sur del Masxmenos, San Isidro de Coronado. Tel. 2277-0943. Horario de salón: Lun-Jue 8 a.m. a 9 p.m. · Vie-Sáb 8 a.m. a 10 p.m. · Dom 8 a.m. a 9 p.m.
+- [Rosti Terramall](https://rosti.cr/locales.html#rosti-terramall): C.C. Terramall. Tel. 2277-0925. Horario de salón: Lun-Sáb 9 a.m. a 9 p.m. · Dom 9 a.m. a 8 p.m.
+- [Rosti Pinares](https://rosti.cr/locales.html#rosti-pinares): Frente a Plaza 1492, Pinares, Curridabat. Tel. 2277-0941. Horario de salón: Lun-Vie 8 a.m. a 10 p.m. · Sáb-Dom 7 a.m. a 10 p.m.
+- [Rosti Heredia](https://rosti.cr/locales.html#rosti-heredia): Heredia centro, 300 norte de la Universidad Nacional. Tel. 2277-0905. Horario de salón: Lun-Dom 8 a.m. a 10 p.m.
+- [Rosti Sabana](https://rosti.cr/locales.html#rosti-sabana): Sabana Norte, 100 m este del ICE, Mata Redonda. Tel. 2277-0921. Horario de salón: Lun-Dom 8 a.m. a 10 p.m.
+- [Rosti Tibás](https://rosti.cr/locales.html#rosti-tibas): La Florida, diagonal a la agencia del ICE, Tibás. Tel. 2277-0923. Horario de salón: Lun-Dom 8 a.m. a 10 p.m.
+- [Rosti Real Cariari](https://rosti.cr/locales.html#rosti-real-cariari): C.C. Real Cariari. Tel. 2277-0927. Horario de salón: Lun-Sáb 8 a.m. a 9 p.m. · Dom 8 a.m. a 8 p.m.
+- [Rosti Avenida Escazú](https://rosti.cr/locales.html#rosti-avenida-escazu): Av. Escazú, San Rafael de Escazú. Tel. 2277-0977. Horario de salón: Lun-Dom 8 a.m. a 9 p.m.
+- [Rosti Guadalupe](https://rosti.cr/locales.html#rosti-guadalupe): Diagonal al Liceo Napoleón Quesada, Guadalupe. Tel. 2277-0907. Horario de salón: Lun-Jue 8 a.m. a 9 p.m. · Vie-Sáb 8 a.m. a 10 p.m. · Dom 8 a.m. a 9 p.m.
+- [Rosti Práctiko](https://rosti.cr/locales.html#rosti-practiko): La Trinidad, Montecillos, Alajuela. Tel. 2277-0978. Horario de salón: Lun-Dom 8 a.m. a 9 p.m.
+- [Rosti San Francisco](https://rosti.cr/locales.html#rosti-san-francisco): San Francisco de Heredia, diagonal al Quiropráctico. Tel. 2277-0976. Horario de salón: Lun-Jue 10 a.m. a 9 p.m. · Vie-Sáb 10 a.m. a 10 p.m. · Dom 10 a.m. a 9 p.m.
+- [Rosti Oxígeno](https://rosti.cr/locales.html#rosti-oxigeno): C.C. Oxígeno, Heredia. Tel. 2277-0945. Horario de salón: Lun-Sáb 10 a.m. a 9 p.m. · Dom 10 a.m. a 8 p.m.
+- [Rosti Lincoln Plaza](https://rosti.cr/locales.html#rosti-lincoln-plaza): Lincoln Plaza. Tel. 2277-0934. Horario de salón: Lun-Dom 10 a.m. a 9 p.m.
+- [Rosti City Mall](https://rosti.cr/locales.html#rosti-city-mall): C.C. City Mall, Alajuela. Tel. 2277-0918. Horario de salón: Lun-Sáb 10 a.m. a 9 p.m. · Dom 10 a.m. a 8 p.m.
+- [Rosti Santa Ana](https://rosti.cr/locales.html#rosti-santa-ana): C.C. El Paseo, diagonal al Hotel Quality Pozos, Santa Ana. Tel. 2277-0909. Horario de salón: Lun-Dom 10 a.m. a 10 p.m.
+- [Rosti Multicentro Desamparados](https://rosti.cr/locales.html#rosti-multicentro-desamparados): Multicentro Desamparados. Tel. 2277-0979. Horario de salón: Lun-Dom 10 a.m. a 9 p.m.
+- [Rosti Mall San Pedro](https://rosti.cr/locales.html#rosti-mall-san-pedro): Rotonda de la Fuente de la Hispanidad, San Pedro. Tel. 2277-0980. Horario de salón: Lun-Vie 10 a.m. a 9 p.m. · Sáb-Dom 10 a.m. a 8 p.m.
+- [Rosti Parque de Diversiones Restaurante](https://rosti.cr/locales.html#rosti-parque-de-diversiones-restaurante): Parque de Diversiones, Pueblo Antiguo. Tel. 2242-9299. Horario de salón: Lun-Jue Cerrado · Vie-Dom 9 a.m. a 5 p.m.
+
+<!-- /locales -->
+
 ## Contacto
 - Central telefónica: 2277-0800
 - WhatsApp: +506 8707-0770
+- Servicio al cliente: servicioalcliente@rosti.cr
+- Redes: [Facebook](https://www.facebook.com/Rosticr/) · [Instagram](https://www.instagram.com/rosti_cr/) · [TikTok](https://www.tiktok.com/@rosticr)
+- App: https://rosticr.app.link/download

@@ -1,7 +1,14 @@
+# rosti.cr — todos los buscadores y los rastreadores de IA (GPTBot, OAI-SearchBot, ClaudeBot,
+# PerplexityBot, Google-Extended, Bingbot, Applebot…) pueden leer el sitio, imágenes incluidas.
+# OJO: un grupo con nombre propio (User-agent: GPTBot) reemplaza a este entero; si se agrega
+# uno, hay que repetirle los Disallow.
 User-agent: *
 Allow: /
-Disallow: /images/
+Disallow: /pedir-
+Disallow: /api/
+Disallow: /oauth/
+Disallow: /reglamentos-admin
 
 Sitemap: https://rosti.cr/sitemap.xml
 
-Disallow: /pedir-
+# Para asistentes de IA: https://rosti.cr/llms.txt
