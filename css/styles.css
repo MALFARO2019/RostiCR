@@ -740,3 +740,10 @@ a.emblem:hover i { color: var(--paper); }
     .footer-col li a::after { inset: -4px 0; }
     .local-info a[href^="tel:"]::after, .reglamento-card a::after { inset: -11px -8px; }
 }
+
+/* «Cómo llegar» en las tarjetas de locales: subrayado para que se note que son enlaces (mismo color del texto). */
+.local-ruta a { text-decoration: underline; text-underline-offset: 2px; }
+@media (pointer: coarse), (max-width: 1023px) {
+    .local-ruta a { position: relative; }
+    .local-ruta a::after { content: ""; position: absolute; inset: -12px -6px; }
+}
